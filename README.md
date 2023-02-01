@@ -18,8 +18,8 @@ Flashing light mode were one person can use phones flashlight to send morse code
 ### Note
 Check the MEMO file for the current situation and future development ideas
 
-
-![alt text](https://github.com/Risto12/menu.png "Game menu")
 ___
-![alt text](https://github.com/Risto12/singeplayer.png "Flashing light single player")
+![alt text](https://github.com/Risto12/MorseCodeGame/blob/main/menu.png "Game menu")
+___
+![alt text](https://github.com/Risto12/MorseCodeGame/blob/main/singeplayer.png "Flashing light single player")
 ---
