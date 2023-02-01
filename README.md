@@ -1,4 +1,4 @@
-# Morse code game
+# Morse Code game
 Android application written with Kotlin. It includes single and multiplayer games related to morse code.
 
 ### Coding Style
