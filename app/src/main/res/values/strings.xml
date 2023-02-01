@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MorsecodeGame</string>
+    <string name="app_name">Morse Code Game</string>
     <string name="title_activity_options">OptionsActivity</string>
     <string name="title_activity_singlePlayer">SingleplayerActivity</string>
     <string name="title_activity_multiplayer">MultiplayerActivity</string>

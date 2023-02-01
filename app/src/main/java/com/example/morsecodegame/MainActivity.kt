@@ -16,6 +16,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -321,7 +322,7 @@ private fun MainMenu(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         SharedComposable.Header(
-            text = "Morse code game",
+            text = stringResource(R.string.app_name),
             fontSize = 30.sp
         )
         SharedComposable.DefaultButton(configurations = SharedComposable.DefaultButtonConfigurations(

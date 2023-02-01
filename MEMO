@@ -6,6 +6,7 @@ Now(v1.0 Alpha)
 - No memory leaks detected by canary leaks
 
 Next version:
+ - Replace text sizes that are now dp to sp
  - Check what is required for releasing this to android store ( Maybe need to ask permissions for camera ?)
  - More comprehensive tests
  - Performance testing for coroutines

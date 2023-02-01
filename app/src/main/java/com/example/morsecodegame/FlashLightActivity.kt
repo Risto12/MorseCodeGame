@@ -91,9 +91,9 @@ class FlashlightActivity : ComponentActivity() {
                         } catch (e: TorchException) {
                             finishWithExceptionMsg(e.message ?: unknownIssueText)
                         } catch (e: Exception) {
-                            Log.d(
+                            Log.e(
                                 FLASH_ACTIVITY_LOG_TAG,
-                                "Exception when accessing camera: ${e.message}"
+                                "Exception when accessing camera", e
                             )
                             finishWithExceptionMsg(unknownIssueText)
                         }

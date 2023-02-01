@@ -43,7 +43,7 @@ data class OptionsConfigurations(
                             try {
                                 property.toFloat()
                             } catch(e: NumberFormatException) {
-                                Log.d(
+                                Log.w(
                                     "Morse code configurations builder",
                                     "Can't cast value:$property to float for key: ${it.key}"
                                 )

@@ -18,7 +18,7 @@ class ExceptionActivityResult<T>(
     private val intentExtraKey: String = EXTRA_KEY_PARCEABLE,
 ) : ActivityResultContract<Parcelable?, String?>() {
 
-    private fun logMessage(text: String) = Log.d("exception activity result", text)
+    private fun logMessage(text: String) = Log.w("exception activity result", text)
 
     override fun createIntent(context: Context, input: Parcelable?): Intent {
         val intent = Intent(context, activity)

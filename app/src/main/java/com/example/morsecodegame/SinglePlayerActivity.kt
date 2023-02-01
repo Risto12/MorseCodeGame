@@ -38,6 +38,7 @@ import kotlin.time.Duration.Companion.minutes
 const val WAIT_BEFORE_NEXT_QUESTION = 500L
 const val WAIT_BEFORE_SENDING_NEXT_SIGNAL = 1500L
 const val WAIT_BEFORE_CLEARING_ANSWERS = 3500L
+const val SINGLE_PLAYER_TAG = "Single player activity"
 
 class SinglePlayerActivity : ComponentActivity() {
     private val loaderViewModel: LoaderViewModel by viewModels()
@@ -109,7 +110,7 @@ class SinglePlayerActivity : ComponentActivity() {
                     LaunchedEffect(key1 = key) {
                         if(!answerBoxOn) {
                             lockScreenOrientation()
-                            Log.d("Morse light", "launched effect launched with key $key")
+                            Log.v(SINGLE_PLAYER_TAG, "launched effect launched with key $key")
                             // Flashing light logic
                             launch {
                                 showCorrectAnswer = false

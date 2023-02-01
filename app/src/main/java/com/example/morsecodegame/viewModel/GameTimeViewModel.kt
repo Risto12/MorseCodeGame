@@ -55,7 +55,7 @@ class GameTimeViewModel : ViewModel() {
         return try {
             (_time / 60).toBigDecimal().setScale(0, RoundingMode.DOWN).toInt()
         } catch (e: ArithmeticException) {
-            Log.d("GameTimeViewModel", "Arithmetic exception when time: $_time")
+            Log.e("GameTimeViewModel", "Arithmetic exception when time: $_time", e)
             throw e
         }
     }

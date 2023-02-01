@@ -28,7 +28,6 @@ class CameraTorch(
         try {
             cameraManager.setTorchMode(cameraId, enabled)
         } catch (e: CameraAccessException) {
-            Log.d(TORCH_DEBUG_ID, "CameraTorch threw CameraAccessException: ${e.reason}")
             val reloadApplicationText =
                 "Something went wrong with the camera. Please restart application"
 
@@ -48,7 +47,7 @@ class CameraTorch(
             throw TorchException(message = message)
 
         } catch (e: java.lang.IllegalArgumentException) {
-            Log.d(TORCH_DEBUG_ID, "CameraTorch threw IllegalArgumentException: ${e.message}")
+            Log.e(TORCH_DEBUG_ID, "CameraTorch threw IllegalArgumentException", e)
             throw Exception(e.message)
         }
     }

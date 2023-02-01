@@ -66,9 +66,9 @@ class OptionsViewModel: ViewModel(), PersistData {
                 "There seemed be slight issue during configuration change. Please make sure " +
                         "That the slider is in correct place"
             )
-            Log.d(
+            Log.e(
                 "Options view model",
-                "Exception during update configuration with msg: ${e.message}\ncause: ${e.cause}"
+                "Exception during update configuration", e
             )
         }
     }

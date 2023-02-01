@@ -26,7 +26,7 @@ fun Properties.getConfigurationBuilderProperties(
 ): List<String> = keys.map { key ->
     val optionsKey = keyPrefix + "_" + key
     getProperty(optionsKey) ?: "".also {
-        Log.d(
+        Log.w(
             CONFIGURATION_LOG_TAG,
             "No property value found for key:$optionsKey. Returning empty")
     }
@@ -50,7 +50,7 @@ fun Properties.getConfigurationBuilderPropertiesAsMap(
     keys.forEach { key ->
         val optionsKey = keyPrefix + "_" + key
         map[key] = getProperty(optionsKey) ?: null.also {
-            Log.d(
+            Log.w(
                 CONFIGURATION_LOG_TAG,
                 "No property value found for key:$optionsKey. Returning null"
             )

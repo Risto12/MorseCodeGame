@@ -22,6 +22,6 @@ class MainActivityTest {
 
     @Test
     fun useAppContext() {
-        rule.onNodeWithText("Hello", ignoreCase = true, useUnmergedTree = true).assertExists()
+        rule.onNodeWithText("Overview", ignoreCase = true, useUnmergedTree = true).assertExists()
     }
 }
