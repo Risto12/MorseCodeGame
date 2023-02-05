@@ -2,8 +2,6 @@ package com.example.morsecodegame.configurations
 
 import android.content.Context
 import android.content.res.Resources
-import androidx.annotation.RawRes
-import com.example.morsecodegame.R
 import java.io.InputStream
 import java.util.*
 

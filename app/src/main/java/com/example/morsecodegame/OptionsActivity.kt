@@ -22,13 +22,11 @@ import com.example.morsecodegame.composables.DEFAULT_THEME_COLOR
 import com.example.morsecodegame.composables.SharedComposable
 import com.example.morsecodegame.composables.SharedComposable.DefaultButton
 import com.example.morsecodegame.configurations.ConfigurationsFactory
-import com.example.morsecodegame.configurations.MainInfoTextConfigurations
 import com.example.morsecodegame.configurations.OptionsConfigurations
 import com.example.morsecodegame.model.Options
-import com.example.morsecodegame.ui.theme.MorsecodegameTheme
+import com.example.morsecodegame.ui.theme.MorseCodeGameTheme
 import com.example.morsecodegame.utility.DifficultLevels
 import com.example.morsecodegame.utility.launchIOCoroutine
-import com.example.morsecodegame.viewModel.LoaderViewModel
 import com.example.morsecodegame.viewModel.OptionsViewModel
 import kotlin.math.roundToInt
 
@@ -36,7 +34,6 @@ import kotlin.math.roundToInt
 class OptionsActivity : ComponentActivity() {
 
     private val optionsViewModel: OptionsViewModel by viewModels()
-    private val loaderViewModel: LoaderViewModel by viewModels()
 
     private val optionsConfigurations: OptionsConfigurations by lazy {
         ConfigurationsFactory.configurationsFactory(
@@ -52,56 +49,43 @@ class OptionsActivity : ComponentActivity() {
         finish()
     }
 
-    private fun loadOptions() = launchIOCoroutine { 
-        optionsViewModel.load()
-        loaderViewModel.setLoadingDone()
-    }
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if(!loaderViewModel.isLoadingDone.value) loadOptions()
-
         setContent {
-            MorsecodegameTheme {
+            MorseCodeGameTheme {
                 val configurations by rememberSaveable { mutableStateOf(optionsConfigurations) }
-                val loadingDone by loaderViewModel.isLoadingDone.collectAsState()
                 val options by optionsViewModel.optionsViewModelData.collectAsState()
-                if (loadingDone) {
-                    OptionsScreen(
-                        options = options,
-                        onGameTimeSliderValueChange = { sliderValue: Float -> optionsViewModel
-                            .updateConfiguration(
-                                this,
-                                options::gameTimeInMinutes,
-                                sliderValue.roundToInt())
-                        },
-                        onWordsPerMinuteSliderValueChange = { sliderValue: Float -> optionsViewModel
-                            .updateConfiguration(
-                                this,
-                                options::wordsPerMinute,
-                                sliderValue.roundToInt()
-                            )
-                        },
-                        onNumberOfQuestionsSliderValueChange = { sliderValue: Float -> optionsViewModel
-                            .updateConfiguration(
-                                this,
-                                options::numberOfQuestions,
-                                sliderValue.roundToInt())
-                        },
-                        onDifficultLevelRadioButtonChange = { difficultLevel -> optionsViewModel
-                            .updateConfiguration(
-                                this,
-                                options::difficultLevel,
-                                difficultLevel
-                            )
-                        },
-                        onSaveButtonClicked = { saveChanges() },
-                        configurations = configurations
-                    )
-                } else {
-                    SharedComposable.DefaultText(text = "Loading....")
-                }
+                OptionsScreen(
+                    options = options,
+                    onGameTimeSliderValueChange = { sliderValue: Float -> optionsViewModel
+                        .updateConfiguration(
+                            this,
+                            options::gameTimeInMinutes,
+                            sliderValue.roundToInt())
+                    },
+                    onWordsPerMinuteSliderValueChange = { sliderValue: Float -> optionsViewModel
+                        .updateConfiguration(
+                            this,
+                            options::wordsPerMinute,
+                            sliderValue.roundToInt()
+                        )
+                    },
+                    onNumberOfQuestionsSliderValueChange = { sliderValue: Float -> optionsViewModel
+                        .updateConfiguration(
+                            this,
+                            options::numberOfQuestions,
+                            sliderValue.roundToInt())
+                    },
+                    onDifficultLevelRadioButtonChange = { difficultLevel -> optionsViewModel
+                        .updateConfiguration(
+                            this,
+                            options::difficultLevel,
+                            difficultLevel
+                        )
+                    },
+                    onSaveButtonClicked = { saveChanges() },
+                    configurations = configurations
+                )
             }
         }
     }
@@ -208,7 +192,7 @@ fun DifficultLevelRadioButtonsWithText(
     defaultDifficultLevel: String
 ) {
     val radioOptions = DifficultLevels.values()
-    val (selectedOption, onOptionSelected) = remember { mutableStateOf(defaultDifficultLevel) }
+        val (_, onOptionSelected) = remember { mutableStateOf(defaultDifficultLevel) }
         Column (
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -225,7 +209,7 @@ fun DifficultLevelRadioButtonsWithText(
                 horizontalArrangement = Arrangement.Center,
                 modifier = Modifier
                     .selectable(
-                        selected = (difficultLevel.name == selectedOption),
+                        selected = (difficultLevel.name == defaultDifficultLevel),
                         onClick = {
                             onOptionSelected(difficultLevel.name)
                             onClickRadioButton(difficultLevel)
@@ -234,7 +218,7 @@ fun DifficultLevelRadioButtonsWithText(
                     .fillMaxWidth()
             ) {
                 RadioButton(
-                    selected = (difficultLevel.name == selectedOption),
+                    selected = (difficultLevel.name == defaultDifficultLevel),
                     onClick = { // TODO get the medium button on the same vertical level as the other difficulties
                         onOptionSelected(difficultLevel.name)
                         onClickRadioButton(difficultLevel)
@@ -251,7 +235,7 @@ fun DifficultLevelRadioButtonsWithText(
 @Composable
 @Preview
 fun OptionsActivityPreview() {
-    MorsecodegameTheme {
+    MorseCodeGameTheme {
         OptionsScreen(
             options = Options(
                 gameTimeInMinutes = 3,

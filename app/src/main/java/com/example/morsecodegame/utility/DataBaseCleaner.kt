@@ -1,6 +1,7 @@
+@file:Suppress("unused")
+
 package com.example.morsecodegame.utility
 
-import android.content.Context
 import com.example.morsecodegame.db.AppDatabase
 import com.example.morsecodegame.model.Options
 

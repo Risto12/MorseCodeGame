@@ -7,16 +7,12 @@ import com.example.morsecodegame.utility.MorseCodeTimer.onOffTimer
 
 const val TORCH_DEBUG_ID = "torch"
 
-class TorchException(
-    message: String? = null, cause: Throwable? = null
-) : Exception(message, cause) {
-    /**
-     *  Indicates that the exception can be handle by app user e.g. flash is used by other
-     *  application. Torch messages should be so clear that they can be used in Toast
-     *  to indicate user what is wrong and what actions can be taken to fix it.
-     */
-    constructor(cause: Throwable) : this(null, cause)
-}
+/**
+ *  Indicates that the exception can be handle by app user e.g. flash is used by other
+ *  application. Torch messages should be so clear that they can be used in Toast
+ *  to indicate user what is wrong and what actions can be taken to fix it.
+ */
+class TorchException(message: String? = null, cause: Throwable? = null) : Exception(message, cause)
 
 class CameraTorch(
     private val cameraManager: CameraManager,

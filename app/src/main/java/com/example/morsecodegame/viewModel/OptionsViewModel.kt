@@ -3,15 +3,20 @@ package com.example.morsecodegame.viewModel
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.morsecodegame.db.AppDatabase
 import com.example.morsecodegame.db.dao.OptionsDao
 import com.example.morsecodegame.model.Options
 import com.example.morsecodegame.utility.DifficultLevels
 import com.example.morsecodegame.utility.Learning
 import com.example.morsecodegame.utility.ToastGenerator
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.reflect.KMutableProperty0
 
 
@@ -23,23 +28,24 @@ interface PersistData {
 
 class OptionsViewModel: ViewModel(), PersistData {
 
+    private val db = AppDatabase.getOptionsDao()
+
     private val _optionsViewModelData: MutableStateFlow<Options> = MutableStateFlow(Options(
         0, DifficultLevels.EASY, 10, 6
     ))
+
     val optionsViewModelData: StateFlow<Options> = _optionsViewModelData
 
-    private fun getDatabase(): OptionsDao = AppDatabase.getOptionsDao()
-
-    override suspend fun save() {
-        // Honestly not sure would this be more clear with val assignments vs these extension functions
-        getDatabase().also { optionsDao ->
-            optionsDao.updateOptions(optionsViewModelData.value.toOptionsEntity())
-        }
+    init {
+        viewModelScope.launch(Dispatchers.IO) { load() }
     }
 
+    override suspend fun save() = db.updateOptions(optionsViewModelData.value.toOptionsEntity())
+
     override suspend fun load() {
-        val updatedOptions = getDatabase().getOptions()!!.toOptions()
-        _optionsViewModelData.update { updatedOptions }
+        db.getOptions().collect { optionsEntity ->
+            _optionsViewModelData.update { optionsEntity!!.toOptions() }
+        }
     }
 
     @Deprecated("In favor of composable function to handle this")

@@ -19,7 +19,7 @@
         <activity
             android:name=".MorseCodeLettersActivity"
             android:exported="false"
-            android:label="@string/title_activity_morsecode_letters"
+            android:label="@string/title_activity_morse_code_letters"
             android:theme="@style/Theme.MorseCodeGame">
             <meta-data
                 android:name="android.app.lib_name"
@@ -48,7 +48,6 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.MorseCodeGame">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

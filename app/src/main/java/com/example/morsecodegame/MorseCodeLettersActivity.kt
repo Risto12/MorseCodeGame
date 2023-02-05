@@ -21,7 +21,7 @@ import com.example.morsecodegame.composables.SharedComposable
 import com.example.morsecodegame.configurations.ConfigurationsFactory
 import com.example.morsecodegame.configurations.MorseCodeLettersInfoTextConfiguration
 import com.example.morsecodegame.morsecode.MorseCodeLetter
-import com.example.morsecodegame.ui.theme.MorsecodegameTheme
+import com.example.morsecodegame.ui.theme.MorseCodeGameTheme
 import kotlinx.coroutines.launch
 
 
@@ -43,7 +43,7 @@ class MorseCodeLettersActivity : ComponentActivity() {
         val back = { finish() }
         setContent {
             val configurations by rememberSaveable { mutableStateOf(configurations) }
-            MorsecodegameTheme {
+            MorseCodeGameTheme {
                 MorseCodeLetters(
                     overviewText = configurations.overview,
                     wordsPerMinuteText = configurations.wordsPerMinute,
@@ -141,7 +141,7 @@ fun TextWithDividerOnBottom(
     topic: String,
     text: String,
 ) {
-    Column() {
+    Column {
         SharedComposable.DefaultText(
             text = topic,
             fontSize = 25.sp,
@@ -165,11 +165,11 @@ fun TextWithDividerOnBottom(
 @Preview(showBackground = true)
 @Composable
 fun MorseCodeLetterActivityPreview() {
-    MorsecodegameTheme {
+    MorseCodeGameTheme {
         MorseCodeLetters(
             "overview text",
             "words per minute text",
             "example text",
-            {})
+            ) { }
     }
 }

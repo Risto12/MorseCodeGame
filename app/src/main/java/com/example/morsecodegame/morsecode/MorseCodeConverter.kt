@@ -8,7 +8,7 @@ fun Float.toMilliseconds(): Float = this*1000
 
 fun Char.toMorseCodeStringConversion(): String {
     return this.toString().let {
-        if(it.contains("[0-9]")) {
+        if(it.contains("\\d".toRegex())) {
             when(it) {
                 "0" -> MorseCodeLetter.ZERO
                 "1" -> MorseCodeLetter.ONE
@@ -62,7 +62,7 @@ object MorseCodeConverter {
         return if (separatedWords.size > 1) {
             wordsToMorseCode(separatedWords)
         } else {
-            wordToMorseCode(separatedWords.first())
+            wordToMorseCode(separatedWords.first()) // TODO there is still illegal character in here when using hard difficult level
         }
     }
 

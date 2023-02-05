@@ -1,10 +1,12 @@
 package com.example.morsecodegame
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
@@ -21,21 +23,51 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
+import androidx.lifecycle.*
 import com.example.morsecodegame.composables.SharedComposable
 import com.example.morsecodegame.db.AppDatabase
-import com.example.morsecodegame.ui.theme.MorsecodegameTheme
+import com.example.morsecodegame.ui.theme.MorseCodeGameTheme
 import com.example.morsecodegame.components.ExceptionActivityResult
 import com.example.morsecodegame.configurations.ConfigurationsFactory
 import com.example.morsecodegame.configurations.MainInfoTextConfigurations
+import com.example.morsecodegame.model.Options
+import com.example.morsecodegame.utility.DifficultLevels
+import com.example.morsecodegame.utility.Learning
 import com.example.morsecodegame.utility.ToastGenerator
 import com.example.morsecodegame.utility.launchIOCoroutine
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
+import kotlin.reflect.KMutableProperty0
 
 
 private enum class GameType {
     LIGHT, SOUND, BLUETOOTH, FLASHLIGHT
 }
 
+// This can be named this way for now because migrating to dagger and will name this differently soon
+class OptionsViewModelTest: ViewModel() {
+
+    private val db = AppDatabase.getOptionsDao()
+
+    @Volatile
+    private lateinit var optionsViewModelData: Options
+
+    fun load() {
+        viewModelScope.launch(Dispatchers.IO) { // TODO test
+                db.getOptions().collect {
+                    optionsViewModelData = it!!.toOptions()
+                }
+        }
+    }
+
+    fun getOptions() = optionsViewModelData.copy()
+}
+
 class MainActivity : ComponentActivity() {
+
+    private val testViewModel: OptionsViewModelTest by viewModels()
 
     private val infoTextConfigurations: MainInfoTextConfigurations by lazy {
         ConfigurationsFactory.configurationsFactory(
@@ -98,20 +130,14 @@ class MainActivity : ComponentActivity() {
         // but wanted to test this approach
         when (activity) {
             SinglePlayerActivity::class.java -> {
-                launchIOCoroutine {
-                    val options = AppDatabase.getOptionsDao().getOptions()!!.toOptions()
                     startActivity(
                         Intent(this@MainActivity, activity).putExtra(
-                            CommonIntentExtraKeys.OPTIONS, options
+                            CommonIntentExtraKeys.OPTIONS, testViewModel.getOptions()
                         )
                     )
-                }
             }
             FlashlightActivity::class.java -> {
-                launchIOCoroutine {
-                    val options = AppDatabase.getOptionsDao().getOptions()!!.toOptions()
-                    flashLightActivityResultContract.launch(options)
-                }
+                flashLightActivityResultContract.launch(testViewModel.getOptions())
             }
             else -> startActivity(Intent(this@MainActivity, activity))
         }
@@ -120,6 +146,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         debugInfo("create")
+        testViewModel.load()
         val singlePlayer = { type: GameType ->
             if (type == GameType.LIGHT) {
                 initStartActivity(SinglePlayerActivity::class.java)
@@ -183,7 +210,7 @@ private fun SinglePlayerMenu(
     onClickSinglePlayerType: (GameType) -> Unit,
     onClickCancel: () -> Unit,
     infoTexts: MainInfoTextConfigurations
-) = MorsecodegameTheme {
+) = MorseCodeGameTheme {
     Column (
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -224,7 +251,7 @@ private fun MultiplayerMenu(
     onClickBluetooth: (type: GameType) -> Unit,
     onClickFlashLight: (type: GameType) -> Unit,
     infoTexts: MainInfoTextConfigurations
-) = MorsecodegameTheme {
+) = MorseCodeGameTheme {
     Column (
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -314,7 +341,7 @@ private fun MainMenu(
     onClickExit: () -> Unit, // aka quit app
     onClickMorseCode: () -> Unit,
     version: String,
-) = MorsecodegameTheme {
+) = MorseCodeGameTheme {
     Box {
     Column (
         modifier = Modifier.fillMaxSize(),
@@ -386,7 +413,7 @@ fun MainActivityPreview() {
             onClickOptions = { },
             onClickExit = { },
             onClickMorseCode = { },
-            "1.0b"
+            "1.0a"
         )
     }
 }

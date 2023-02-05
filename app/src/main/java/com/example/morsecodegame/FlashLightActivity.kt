@@ -5,7 +5,6 @@ import android.content.pm.PackageManager
 import android.hardware.camera2.CameraManager
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -18,8 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.morsecodegame.composables.GameScreen
-import com.example.morsecodegame.ui.theme.MorsecodegameTheme
-import com.example.morsecodegame.utility.launchIOCoroutine
+import com.example.morsecodegame.ui.theme.MorseCodeGameTheme
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.lifecycle.lifecycleScope
@@ -41,6 +39,7 @@ class FlashlightActivity : ComponentActivity() {
     private lateinit var legendaryTorch: LegendaryTorch
     private val wordsPerMinute: Int by lazy { intent.getOptions().wordsPerMinute }
 
+    @Suppress("SameParameterValue") // Suppressing false positive
     private fun finishWithExceptionMsg(text: String) {
         setResult(
             REQUEST_CODE_EXCEPTION,
@@ -61,15 +60,6 @@ class FlashlightActivity : ComponentActivity() {
         legendaryTorch = LegendaryTorch(cameraTorch)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        // Check that the camera is turned off. Example in situations if player
-        // cancel this activity while it's still sending morse.
-        // If the application is exited from main screen the flash would shutdown because the
-        // whole application shuts down and according to documentation
-        legendaryTorch.torchOff()
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initSettings()
@@ -80,8 +70,7 @@ class FlashlightActivity : ComponentActivity() {
         val sendMorse = { text: String ->
             if (!MorseCodeLetter.containsNotSupportedCharacters(text)) {
                 val unknownIssueText = "Unknown issue occurred. Returning to menu"
-                lifecycleScope.launch {
-                    withContext(Dispatchers.IO) {
+                lifecycleScope.launch(Dispatchers.Default) { // TODO test
                         try {
                             legendaryTorch.sendMorse(
                                 text,
@@ -97,7 +86,6 @@ class FlashlightActivity : ComponentActivity() {
                             )
                             finishWithExceptionMsg(unknownIssueText)
                         }
-                    }
                 }
             } else {
                 val supportedCharacters = MorseCodeLetter.supportedCharacters()
@@ -110,7 +98,7 @@ class FlashlightActivity : ComponentActivity() {
         }
 
         setContent {
-            MorsecodegameTheme {
+            MorseCodeGameTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = Color.Black
@@ -180,14 +168,14 @@ fun BoxScope.SendMorseBox(
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    MorsecodegameTheme {
+    MorseCodeGameTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = Color.Black
         ) {
             GameScreen(imageId = R.drawable.sea_red_moon) {
                 SendMorseBox(
-                    onClickSend = { _ -> },
+                    onClickSend = { },
                     onClickCancel = { }
                 )
             }

@@ -21,6 +21,10 @@ class GameViewModel(private val options: Options) : ViewModel() {
         options.numberOfQuestions, options.difficultLevel
     )
 
+    // TODO save this to savedStateHandle with syntax like:
+    // questionNumber
+    //      set(value) = savedStateHandle
+    //      get() = savedStateHandle
     private var questionNumber: Int = 1
 
     private val _gameViewModelData: MutableStateFlow<GameViewModelData> = MutableStateFlow(

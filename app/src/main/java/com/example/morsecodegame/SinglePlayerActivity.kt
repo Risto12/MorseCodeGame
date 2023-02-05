@@ -26,7 +26,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.morsecodegame.composables.GameScreen
 import com.example.morsecodegame.composables.SharedComposable
-import com.example.morsecodegame.ui.theme.MorsecodegameTheme
+import com.example.morsecodegame.ui.theme.MorseCodeGameTheme
 import com.example.morsecodegame.utility.*
 import com.example.morsecodegame.viewModel.GameTimeViewModel
 import com.example.morsecodegame.viewModel.GameViewModel
@@ -48,7 +48,6 @@ class SinglePlayerActivity : ComponentActivity() {
     init {
         // timer logic. Can be used in init because repeatOnLifeCycle -> Started
         lifecycleScope.launch {
-            withContext(Dispatchers.IO) {
                 repeatOnLifecycle(Lifecycle.State.STARTED) {
                     while(gameTimeViewModel.hasTimeLeft()) {
                         delay(1000)
@@ -56,16 +55,13 @@ class SinglePlayerActivity : ComponentActivity() {
                     }
                 }
             }
-        }
     }
 
-    private fun gameOver() = lifecycleScope.launch {
-        withContext(Dispatchers.IO) {
+    private fun gameOver() = lifecycleScope.launch(Dispatchers.Default) {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 delay(8000)
                 finish()
             }
-        }
     }
 
     private fun lockScreenOrientation() {
@@ -94,7 +90,7 @@ class SinglePlayerActivity : ComponentActivity() {
         }
 
         setContent {
-            MorsecodegameTheme {
+            MorseCodeGameTheme {
                 val isLoadingDone by loaderViewModel.isLoadingDone.collectAsState()
                 var isGameOver by rememberSaveable { mutableStateOf(false) }
                 if (isLoadingDone && !isGameOver) {
@@ -268,7 +264,7 @@ private fun BoxScope.AnswerBox(
 @Composable
 @Preview
 fun SinglePlayerActivityPreview() {
-    MorsecodegameTheme {
+    MorseCodeGameTheme {
         Column(
             modifier = Modifier.background(color = Color.Black)
         ) {

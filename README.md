@@ -2,8 +2,7 @@
 Android application written with Kotlin. It includes single and multiplayer games related to morse code.
 
 ### Coding Style
-I've used this app to practice android development. Mostly this is focused on coroutines, view models and jetpack compose composables. By choice this application doesn't include popular libraries like 
-dagger and hilt. There is still lot of cleaning and code optimization to be done
+I've used this app to practice android development. Mostly this is focused on coroutines, view models, jetpack compose composable and now dagger(Implementing in progress). There is still lot of cleaning and code optimization to be done
 
 ### Single player 
 Blinking light mode were light blinks on the screen and you need to guess from 4 options what was the message

@@ -1,12 +1,10 @@
 package com.example.morsecodegame.composables
 
-import androidx.compose.foundation.BorderStroke
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -46,8 +44,9 @@ object SharedComposable {
     @Composable
     fun DefaultHeaderText(
         text: String,
+        @SuppressLint("ModifierParameter")
+        modifier: Modifier = Modifier.padding(bottom = 40.dp),
         fontSize: TextUnit = 20.sp,
-        modifier: Modifier = Modifier.padding(bottom = 40.dp)
     ) {
         Text(
             text = text,
@@ -60,10 +59,11 @@ object SharedComposable {
     }
 
     @Composable
+    @SuppressLint("ModifierParameter")
     fun DefaultText(
         text: String,
-        fontSize: TextUnit = 15.sp,
-        modifier: Modifier = Modifier.padding(bottom = 5.dp)
+        modifier: Modifier = Modifier.padding(bottom = 5.dp),
+        fontSize: TextUnit = 15.sp
     ) {
         Text(
             text = text,
@@ -76,6 +76,7 @@ object SharedComposable {
     }
 
     @Composable
+    @SuppressLint("ModifierParameter")
     fun DefaultButton(
         configurations: DefaultButtonConfigurations,
         modifier: Modifier = Modifier.padding(bottom = 15.dp),
@@ -103,6 +104,7 @@ object SharedComposable {
     }
 
     @Composable
+    @SuppressLint("ModifierParameter")
     fun DefaultButton(
         configurations: DefaultButtonComposableConfigurations,
         modifier: Modifier = Modifier.fillMaxWidth(),

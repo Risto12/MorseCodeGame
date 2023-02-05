@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">Morse Code Game</string>
     <string name="title_activity_options">OptionsActivity</string>
-    <string name="title_activity_singlePlayer">SingleplayerActivity</string>
-    <string name="title_activity_multiplayer">MultiplayerActivity</string>
+    <string name="title_activity_singlePlayer">SinglePlayerActivity</string>
     <string name="title_activity_flashlight">FlashlightActivity</string>
-    <string name="title_activity_morsecode_letters">MorsecodeLettersActivity</string>
+    <string name="title_activity_morse_code_letters">MorseCodeLettersActivity</string>
 </resources>
