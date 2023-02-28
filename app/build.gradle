@@ -7,7 +7,7 @@ plugins {
 }
 
 def room_version = "2.4.3"
-
+def dagger_version = "2.40"
 android {
     compileSdk 32
 

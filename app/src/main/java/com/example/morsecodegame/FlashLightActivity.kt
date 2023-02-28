@@ -11,20 +11,20 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
+import androidx.compose.runtime.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.morsecodegame.composables.GameScreen
-import com.example.morsecodegame.ui.theme.MorseCodeGameTheme
-import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.lifecycle.lifecycleScope
-import com.example.morsecodegame.composables.SharedComposable
 import com.example.morsecodegame.components.ExceptionActivityResult.Companion.EXTRA_KEY_EXCEPTION_MESSAGE
 import com.example.morsecodegame.components.ExceptionActivityResult.Companion.REQUEST_CODE_EXCEPTION
+import com.example.morsecodegame.composables.GameScreen
+import com.example.morsecodegame.composables.SharedComposable
 import com.example.morsecodegame.morsecode.MorseCodeLetter
+import com.example.morsecodegame.ui.theme.MorseCodeGameTheme
 import com.example.morsecodegame.utility.ToastGenerator
 import com.example.morsecodegame.utility.getOptions
 import com.example.morsecodegame.viewModel.*
@@ -43,14 +43,15 @@ class FlashlightActivity : ComponentActivity() {
     private fun finishWithExceptionMsg(text: String) {
         setResult(
             REQUEST_CODE_EXCEPTION,
-            Intent().putExtra(EXTRA_KEY_EXCEPTION_MESSAGE, text)
+            Intent().putExtra(EXTRA_KEY_EXCEPTION_MESSAGE, text),
         )
         finish()
     }
 
     private fun initSettings() {
-        if(!this@FlashlightActivity.packageManager
-                .hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
+        if (!this@FlashlightActivity.packageManager
+                .hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)
+        ) {
             finishWithExceptionMsg("Your phone doesn't support camera")
         }
 
@@ -71,28 +72,29 @@ class FlashlightActivity : ComponentActivity() {
             if (!MorseCodeLetter.containsNotSupportedCharacters(text)) {
                 val unknownIssueText = "Unknown issue occurred. Returning to menu"
                 lifecycleScope.launch(Dispatchers.Default) { // TODO test
-                        try {
-                            legendaryTorch.sendMorse(
-                                text,
-                                wordsPerMinute
-                            )
-                            flashViewModel.flashingOff()
-                        } catch (e: TorchException) {
-                            finishWithExceptionMsg(e.message ?: unknownIssueText)
-                        } catch (e: Exception) {
-                            Log.e(
-                                FLASH_ACTIVITY_LOG_TAG,
-                                "Exception when accessing camera", e
-                            )
-                            finishWithExceptionMsg(unknownIssueText)
-                        }
+                    try {
+                        legendaryTorch.sendMorse(
+                            text,
+                            wordsPerMinute,
+                        )
+                        flashViewModel.flashingOff()
+                    } catch (e: TorchException) {
+                        finishWithExceptionMsg(e.message ?: unknownIssueText)
+                    } catch (e: Exception) {
+                        Log.e(
+                            FLASH_ACTIVITY_LOG_TAG,
+                            "Exception when accessing camera",
+                            e,
+                        )
+                        finishWithExceptionMsg(unknownIssueText)
+                    }
                 }
             } else {
                 val supportedCharacters = MorseCodeLetter.supportedCharacters()
                 ToastGenerator.showLongText(
                     this,
                     "Input contains not supported characters. " +
-                            "Supported characters are $supportedCharacters"
+                        "Supported characters are $supportedCharacters",
                 )
             }
         }
@@ -101,19 +103,19 @@ class FlashlightActivity : ComponentActivity() {
             MorseCodeGameTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = Color.Black
+                    color = Color.Black,
                 ) {
-                        val isFlashing by flashViewModel.isFlashing.collectAsState()
-                        GameScreen(imageId = R.drawable.sea_red_moon) {
-                            SendMorseBox(
-                                onClickSend = {
-                                    flashViewModel.flashingOn()
-                                    sendMorse(it)
-                                              },
-                                onClickCancel = cancel,
-                                sendingMorse = isFlashing
-                            )
-                        }
+                    val isFlashing by flashViewModel.isFlashing.collectAsState()
+                    GameScreen(imageId = R.drawable.sea_red_moon) {
+                        SendMorseBox(
+                            onClickSend = {
+                                flashViewModel.flashingOn()
+                                sendMorse(it)
+                            },
+                            onClickCancel = cancel,
+                            sendingMorse = isFlashing,
+                        )
+                    }
                 }
             }
         }
@@ -124,14 +126,14 @@ class FlashlightActivity : ComponentActivity() {
 fun BoxScope.SendMorseBox(
     onClickSend: (text: String) -> Unit,
     onClickCancel: () -> Unit,
-    sendingMorse: Boolean = false
+    sendingMorse: Boolean = false,
 ) {
     Column(
         modifier = Modifier
             .align(Alignment.BottomCenter)
             .fillMaxWidth()
             .background(Color.Black),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         var inputText by rememberSaveable { mutableStateOf("") }
         var placeHolderText by remember { mutableStateOf("Insert text") }
@@ -140,7 +142,7 @@ fun BoxScope.SendMorseBox(
             onValueChange = { text -> inputText = text },
             placeholder = @Composable { Text(text = placeHolderText, color = Color.Magenta) },
             modifier = Modifier.background(Color.White.copy(alpha = 0.1f)),
-            colors = TextFieldDefaults.textFieldColors(textColor = Color.Magenta)
+            colors = TextFieldDefaults.textFieldColors(textColor = Color.Magenta),
         )
         SharedComposable.DefaultButton(
             configurations = SharedComposable.DefaultButtonConfigurations(
@@ -151,16 +153,16 @@ fun BoxScope.SendMorseBox(
                     } else {
                         onClickSend(inputText.trim())
                     }
-                        },
+                },
                 enabled = !sendingMorse,
-                available = !sendingMorse
-            )
+                available = !sendingMorse,
+            ),
         )
         SharedComposable.DefaultButton(
             configurations = SharedComposable.DefaultButtonConfigurations(
                 text = "Cancel",
-                click = onClickCancel
-            )
+                click = onClickCancel,
+            ),
         )
     }
 }
@@ -171,12 +173,12 @@ fun DefaultPreview() {
     MorseCodeGameTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
-            color = Color.Black
+            color = Color.Black,
         ) {
             GameScreen(imageId = R.drawable.sea_red_moon) {
                 SendMorseBox(
                     onClickSend = { },
-                    onClickCancel = { }
+                    onClickCancel = { },
                 )
             }
         }

@@ -38,7 +38,8 @@ class MorseCodeUnitsToSecondsConverterTest {
             daAsMilliseconds,
             intraCharacterAsMilliseconds,
             daAsMilliseconds,
-            intraCharacterAsMilliseconds, diAsMilliseconds
+            intraCharacterAsMilliseconds,
+            diAsMilliseconds,
         )
         val morseCode = MorseCodeConverter.toMorseCode(letter)
         val converted = MorseCodeConverter
@@ -62,7 +63,7 @@ class MorseCodeUnitsToSecondsConverterTest {
             intraCharacterAsMilliseconds,
             daAsMilliseconds,
             interCharacterAsMilliseconds,
-            daAsMilliseconds
+            daAsMilliseconds,
         )
         val morseCode = MorseCodeConverter.toMorseCode(letter)
         val converted = MorseCodeConverter

@@ -13,7 +13,7 @@ class MainInfoTextConfigurations(
     val blinkingLightInfo: String,
     val soundInfo: String,
     val flashlightInfo: String,
-    val bluetoothInfo: String
+    val bluetoothInfo: String,
 ) : Parcelable {
 
     companion object {
@@ -22,19 +22,20 @@ class MainInfoTextConfigurations(
                 override val keyPrefix = "main"
                 override fun build(properties: Properties): MainInfoTextConfigurations {
                     val (appVersion, blinkingLightInfo, soundInfo, flashlightInfo, bluetoothInfo) =
-                        properties.getConfigurationBuilderProperties(keyPrefix,
+                        properties.getConfigurationBuilderProperties(
+                            keyPrefix,
                             "app_version",
                             "blinking_light_info",
                             "sound_info",
                             "flashlight_info",
-                            "bluetooth_info"
+                            "bluetooth_info",
                         )
                     return MainInfoTextConfigurations(
                         appVersion = appVersion,
                         blinkingLightInfo = blinkingLightInfo,
                         soundInfo = soundInfo,
                         flashlightInfo = flashlightInfo,
-                        bluetoothInfo = bluetoothInfo
+                        bluetoothInfo = bluetoothInfo,
                     )
                 }
             }

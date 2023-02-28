@@ -17,7 +17,6 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-
 val DEFAULT_THEME_COLOR = Color.Magenta
 
 object SharedComposable {
@@ -26,7 +25,7 @@ object SharedComposable {
         val text: String,
         val click: () -> Unit,
         val available: Boolean = true,
-        val enabled: Boolean = true
+        val enabled: Boolean = true,
     )
 
     /**
@@ -37,9 +36,8 @@ object SharedComposable {
         val content: @Composable() () -> Unit,
         val click: () -> Unit,
         val available: Boolean = true,
-        val enabled: Boolean = true
+        val enabled: Boolean = true,
     )
-
 
     @Composable
     fun DefaultHeaderText(
@@ -54,7 +52,7 @@ object SharedComposable {
             fontSize = fontSize,
             fontWeight = FontWeight.Black,
             fontStyle = FontStyle.Italic,
-            modifier = modifier
+            modifier = modifier,
         )
     }
 
@@ -63,7 +61,7 @@ object SharedComposable {
     fun DefaultText(
         text: String,
         modifier: Modifier = Modifier.padding(bottom = 5.dp),
-        fontSize: TextUnit = 15.sp
+        fontSize: TextUnit = 15.sp,
     ) {
         Text(
             text = text,
@@ -71,7 +69,7 @@ object SharedComposable {
             fontSize = fontSize,
             fontWeight = FontWeight.Black,
             fontStyle = FontStyle.Italic,
-            modifier = modifier
+            modifier = modifier,
         )
     }
 
@@ -88,17 +86,17 @@ object SharedComposable {
         }
         Button(
             colors = ButtonDefaults.textButtonColors(
-                backgroundColor = color
+                backgroundColor = color,
             ),
             modifier = modifier,
             onClick = configurations.click,
-            enabled = configurations.enabled
+            enabled = configurations.enabled,
         ) {
             Text(
                 text = configurations.text,
                 color = Color.White,
                 fontSize = 20.sp,
-                textDecoration = textDecoration
+                textDecoration = textDecoration,
             )
         }
     }
@@ -112,7 +110,7 @@ object SharedComposable {
         val color = if (configurations.available) DEFAULT_THEME_COLOR else Color.Gray
         Button(
             colors = ButtonDefaults.textButtonColors(
-                backgroundColor = color
+                backgroundColor = color,
             ),
             modifier = modifier,
             onClick = configurations.click,
@@ -125,11 +123,11 @@ object SharedComposable {
     @Composable
     fun Header(
         text: String,
-        fontSize: TextUnit = 40.sp
+        fontSize: TextUnit = 40.sp,
     ) {
         DefaultHeaderText(
             text = text,
-            fontSize = fontSize
+            fontSize = fontSize,
         )
     }
 }
@@ -141,13 +139,13 @@ fun GameScreen(
 ) {
     Box(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxSize(),
     ) {
         Image(
             painterResource(imageId),
             contentDescription = "Stormy sea",
-            modifier = Modifier.matchParentSize()
-            )
+            modifier = Modifier.matchParentSize(),
+        )
         content()
     }
 }

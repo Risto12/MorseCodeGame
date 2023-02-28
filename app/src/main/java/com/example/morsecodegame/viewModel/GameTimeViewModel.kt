@@ -8,7 +8,6 @@ import kotlinx.coroutines.flow.update
 import java.math.RoundingMode
 import kotlin.time.Duration
 
-
 class GameTimeViewModel : ViewModel() {
     /***
      * ViewModel to keep track of the game time. How the game time is initialized is a bit
@@ -32,9 +31,9 @@ class GameTimeViewModel : ViewModel() {
         }
     }
 
-    private fun timeNotSet() : Boolean = _time < 0
+    private fun timeNotSet(): Boolean = _time < 0
 
-    fun hasTimeLeft() : Boolean = _time > 0
+    fun hasTimeLeft(): Boolean = _time > 0
 
     private fun calculateTimeLeft(): String {
         if (timeNotSet()) return "0:00"

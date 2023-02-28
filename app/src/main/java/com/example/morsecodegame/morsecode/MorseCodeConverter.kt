@@ -4,12 +4,12 @@ package com.example.morsecodegame.morsecode
 const val PARIS_IN_DITS = 50
 const val MINUTE_IN_SECONDS = 60f
 
-fun Float.toMilliseconds(): Float = this*1000
+fun Float.toMilliseconds(): Float = this * 1000
 
 fun Char.toMorseCodeStringConversion(): String {
     return this.toString().let {
-        if(it.contains("\\d".toRegex())) {
-            when(it) {
+        if (it.contains("\\d".toRegex())) {
+            when (it) {
                 "0" -> MorseCodeLetter.ZERO
                 "1" -> MorseCodeLetter.ONE
                 "2" -> MorseCodeLetter.TWO
@@ -34,7 +34,7 @@ object MorseCodeConverter {
 
     fun morseCodeAsMillisecondsRepresentation(
         morseCode: List<MorseCodeUnits>,
-        wordsPerMinute: Int
+        wordsPerMinute: Int,
     ): List<Long> {
         /***
          * Converts Morse code units to milliseconds representation
@@ -44,18 +44,18 @@ object MorseCodeConverter {
          */
 
         return morseCode.map { morseCodeUnit ->
-            val multiplier = when(morseCodeUnit) {
+            val multiplier = when (morseCodeUnit) {
                 MorseCodeUnits.DI -> MorseCodeUnits.DI.multiplier
                 MorseCodeUnits.DA -> MorseCodeUnits.DA.multiplier
-                MorseCodeUnits.INTRA_CHARACTER -> MorseCodeUnits.INTRA_CHARACTER.multiplier*WAIT
-                MorseCodeUnits.INTER_CHARACTER -> MorseCodeUnits.INTER_CHARACTER.multiplier*WAIT
-                MorseCodeUnits.WORD_SPACE -> MorseCodeUnits.WORD_SPACE.multiplier*WAIT
+                MorseCodeUnits.INTRA_CHARACTER -> MorseCodeUnits.INTRA_CHARACTER.multiplier * WAIT
+                MorseCodeUnits.INTER_CHARACTER -> MorseCodeUnits.INTER_CHARACTER.multiplier * WAIT
+                MorseCodeUnits.WORD_SPACE -> MorseCodeUnits.WORD_SPACE.multiplier * WAIT
             }
-            return@map multiplier*secondsPerDit(wordsPerMinute).toMilliseconds().toLong()
+            return@map multiplier * secondsPerDit(wordsPerMinute).toMilliseconds().toLong()
         }
     }
 
-    fun toMorseCode(text: String): List<MorseCodeUnits>{
+    fun toMorseCode(text: String): List<MorseCodeUnits> {
         val separatedWords = text
             .trim()
             .split(" ")
@@ -101,6 +101,5 @@ object MorseCodeConverter {
         return morseCode.toList()
     }
 
-    fun secondsPerDit(wordsPerMinute: Int): Float = MINUTE_IN_SECONDS/(PARIS_IN_DITS*wordsPerMinute)
-
+    fun secondsPerDit(wordsPerMinute: Int): Float = MINUTE_IN_SECONDS / (PARIS_IN_DITS * wordsPerMinute)
 }

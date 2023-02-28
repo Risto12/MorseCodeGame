@@ -8,8 +8,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.TabRowDefaults.Divider
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,7 +24,6 @@ import com.example.morsecodegame.morsecode.MorseCodeLetter
 import com.example.morsecodegame.ui.theme.MorseCodeGameTheme
 import kotlinx.coroutines.launch
 
-
 class MorseCodeLettersActivity : ComponentActivity() {
 
     // This value is only used once for remember saveable that has mutable state of strings.
@@ -34,7 +33,7 @@ class MorseCodeLettersActivity : ComponentActivity() {
             context = this,
             configurationBuilder = MorseCodeLettersInfoTextConfiguration
                 .MorseCodeLetterFactoryConfigurationsBuilder,
-            resourceId = R.raw.morseletter
+            resourceId = R.raw.morseletter,
         )
     }
 
@@ -48,7 +47,7 @@ class MorseCodeLettersActivity : ComponentActivity() {
                     overviewText = configurations.overview,
                     wordsPerMinuteText = configurations.wordsPerMinute,
                     exampleText = configurations.example,
-                    onClickBack = back
+                    onClickBack = back,
                 )
             }
         }
@@ -78,9 +77,9 @@ fun MorseCodeLetters(
                     text = "Back to top",
                     click = {
                         morseCodeLetterScope.launch { listState.animateScrollToItem(0) }
-                    }
+                    },
                 ),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             )
         }
         LazyColumn(
@@ -93,7 +92,7 @@ fun MorseCodeLetters(
             item {
                 TextWithDividerOnBottom(
                     topic = "Overview",
-                    text = overviewText
+                    text = overviewText,
                 )
                 TextWithDividerOnBottom(
                     topic = "Words per minute",
@@ -122,16 +121,16 @@ fun MorseCodeLetters(
                 Divider(
                     modifier = Modifier.padding(top = 40.dp),
                     color = Color.Magenta,
-                    thickness = 1.dp
+                    thickness = 1.dp,
                 )
             }
         }
         SharedComposable.DefaultButton(
             configurations = SharedComposable.DefaultButtonConfigurations(
                 text = "Back",
-                click = onClickBack
+                click = onClickBack,
             ),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
     }
 }
@@ -147,17 +146,17 @@ fun TextWithDividerOnBottom(
             fontSize = 25.sp,
             modifier = Modifier
                 .padding(start = 10.dp, end = 10.dp, bottom = 10.dp)
-                .align(Alignment.CenterHorizontally)
+                .align(Alignment.CenterHorizontally),
         )
         SharedComposable.DefaultText(
             text = text,
             fontSize = 18.sp,
-            modifier = Modifier.padding(start = 10.dp, end = 10.dp)
+            modifier = Modifier.padding(start = 10.dp, end = 10.dp),
         )
         Divider(
             modifier = Modifier.padding(top = 25.dp, bottom = 35.dp),
             color = Color.Magenta,
-            thickness = 1.dp
+            thickness = 1.dp,
         )
     }
 }
@@ -170,6 +169,6 @@ fun MorseCodeLetterActivityPreview() {
             "overview text",
             "words per minute text",
             "example text",
-            ) { }
+        ) { }
     }
 }

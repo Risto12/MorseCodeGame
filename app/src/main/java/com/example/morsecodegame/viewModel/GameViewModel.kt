@@ -1,6 +1,5 @@
 package com.example.morsecodegame.viewModel
 
-
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.morsecodegame.model.Options
@@ -18,7 +17,8 @@ data class GameViewModelData(
 class GameViewModel(private val options: Options) : ViewModel() {
 
     private val questions = QuestionGenerator.generateQuestions(
-        options.numberOfQuestions, options.difficultLevel
+        options.numberOfQuestions,
+        options.difficultLevel,
     )
 
     // TODO save this to savedStateHandle with syntax like:
@@ -30,7 +30,7 @@ class GameViewModel(private val options: Options) : ViewModel() {
     private val _gameViewModelData: MutableStateFlow<GameViewModelData> = MutableStateFlow(
         GameViewModelData(
             question = questions[0],
-            questionNumber = questionNumber
+            questionNumber = questionNumber,
         ),
 
     )
@@ -40,9 +40,10 @@ class GameViewModel(private val options: Options) : ViewModel() {
 
     fun nextQuestion() {
         questionNumber += 1
-        _gameViewModelData.update { GameViewModelData(
-                question = questions[(questionNumber-1)],
-                questionNumber = questionNumber
+        _gameViewModelData.update {
+            GameViewModelData(
+                question = questions[(questionNumber - 1)],
+                questionNumber = questionNumber,
             )
         }
     }

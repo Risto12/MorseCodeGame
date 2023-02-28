@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 
-class LoaderViewModel: ViewModel() {
+class LoaderViewModel : ViewModel() {
     private val _isLoadingDone: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val isLoadingDone: StateFlow<Boolean> = _isLoadingDone
 

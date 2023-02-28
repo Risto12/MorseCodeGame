@@ -11,5 +11,4 @@ object DataBaseCleaner {
      */
     fun save(options: Options) =
         AppDatabase.getOptionsDao().updateOptions(options.toOptionsEntity())
-
 }

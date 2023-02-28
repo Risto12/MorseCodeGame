@@ -36,7 +36,8 @@ enum class MorseCodeLetter(val units: List<MorseCodeUnits>) {
     SIX(listOf(MorseCodeUnits.DA, MorseCodeUnits.DI, MorseCodeUnits.DI, MorseCodeUnits.DI, MorseCodeUnits.DI)),
     SEVEN(listOf(MorseCodeUnits.DA, MorseCodeUnits.DA, MorseCodeUnits.DI, MorseCodeUnits.DI, MorseCodeUnits.DI)),
     EIGHT(listOf(MorseCodeUnits.DA, MorseCodeUnits.DA, MorseCodeUnits.DA, MorseCodeUnits.DI, MorseCodeUnits.DI)),
-    NINE(listOf(MorseCodeUnits.DA, MorseCodeUnits.DA, MorseCodeUnits.DA, MorseCodeUnits.DA, MorseCodeUnits.DI));
+    NINE(listOf(MorseCodeUnits.DA, MorseCodeUnits.DA, MorseCodeUnits.DA, MorseCodeUnits.DA, MorseCodeUnits.DI)),
+    ;
 
     fun getUnitsWithIntraAndInterUnits(): List<MorseCodeUnits> {
         val letterWithIntraCharacters = mutableListOf<MorseCodeUnits>()
@@ -61,7 +62,7 @@ enum class MorseCodeLetter(val units: List<MorseCodeUnits>) {
             postfix = postfix,
             separator = separator,
         ) {
-            when(it) {
+            when (it) {
                 ZERO -> "0"
                 ONE -> "1"
                 TWO -> "2"

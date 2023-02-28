@@ -9,13 +9,12 @@ import com.example.morsecodegame.utility.getConfigurationBuilderProperties
 import kotlinx.parcelize.Parcelize
 import java.util.*
 
-
 @Parcelize
 @Stable
 data class MorseCodeLettersInfoTextConfiguration(
     val overview: String,
     val wordsPerMinute: String,
-    val example: String
+    val example: String,
 ) : Parcelable {
 
     @Deprecated("In favor of Parcelize")
@@ -25,18 +24,20 @@ data class MorseCodeLettersInfoTextConfiguration(
         val keyWordsPerMinute = "wordsPerMinute"
         val keyExample = "example"
         return mapSaver(
-            save = { mapOf(
-                keyOverView to overview,
-                keyWordsPerMinute to wordsPerMinute,
-                keyExample to example
-            ) },
+            save = {
+                mapOf(
+                    keyOverView to overview,
+                    keyWordsPerMinute to wordsPerMinute,
+                    keyExample to example,
+                )
+            },
             restore = {
                 MorseCodeLettersInfoTextConfiguration(
                     it[keyOverView] as String,
                     it[keyWordsPerMinute] as String,
-                    it[keyExample] as String
+                    it[keyExample] as String,
                 )
-            }
+            },
         )
     }
 
@@ -46,17 +47,18 @@ data class MorseCodeLettersInfoTextConfiguration(
                 override val keyPrefix = "morse_letters"
                 override fun build(properties: Properties): MorseCodeLettersInfoTextConfiguration {
                     val (overview, wordsPerMinute, example) =
-                        properties.getConfigurationBuilderProperties(keyPrefix,
+                        properties.getConfigurationBuilderProperties(
+                            keyPrefix,
                             "overview",
                             "words_per_minute",
-                            "example"
+                            "example",
                         )
                     return MorseCodeLettersInfoTextConfiguration(
                         overview = overview,
                         wordsPerMinute = wordsPerMinute,
-                        example = example
+                        example = example,
                     )
+                }
             }
-        }
     }
 }

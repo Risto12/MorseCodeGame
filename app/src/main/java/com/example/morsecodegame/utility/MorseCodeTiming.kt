@@ -14,7 +14,8 @@ object MorseCodeTimer {
          */
         val morseCode = MorseCodeConverter.toMorseCode(text)
         MorseCodeConverter.morseCodeAsMillisecondsRepresentation(
-            morseCode, wordsPerMinute
+            morseCode,
+            wordsPerMinute,
         ).forEach { morseDelay ->
             // If morseDelay is not minus number it indicates that the light should be on
             invoke(morseDelay > 0)

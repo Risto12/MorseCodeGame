@@ -33,10 +33,12 @@ class ExceptionActivityResult<T>(
         } else if (REQUEST_CODE_EXCEPTION == 2) {
             intent?.getStringExtra(EXTRA_KEY_EXCEPTION_MESSAGE).also {
                 logMessage("Exception: $it From: ${activity.simpleName}")
-            } ?: null.also { logMessage(
+            } ?: null.also {
+                logMessage(
                     "No message with key:$EXTRA_KEY_EXCEPTION_MESSAGE returned from " +
-                            "activity: ${activity.simpleName}")
-                }
+                        "activity: ${activity.simpleName}",
+                )
+            }
         } else {
             "Unknown issue".also {
                 logMessage(it + " when returning from activity: ${activity.simpleName}")
@@ -47,6 +49,7 @@ class ExceptionActivityResult<T>(
     companion object {
         const val RESULT_CODE_OK = 1
         const val REQUEST_CODE_EXCEPTION = 2
+
         // this key should be used when returning message in put extra
         const val EXTRA_KEY_EXCEPTION_MESSAGE = "exception message"
         const val EXTRA_KEY_PARCEABLE = "parceable"

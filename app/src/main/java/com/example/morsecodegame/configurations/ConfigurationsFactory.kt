@@ -13,11 +13,13 @@ import java.util.*
  */
 interface ConfigurationBuilder<T> {
     val keyPrefix: String
+
     /**
      * Build configuration class by fetching properties with [properties] from resources.
      * @return [T] as configurations class that has wanted properties (prefer data class).
      */
     fun build(properties: Properties): T
+
     /**
      * Generates key from prefix and property name separated with underscore. The property name
      * should use this form in the property file.
@@ -36,7 +38,7 @@ object ConfigurationsFactory { // Maybe this should be propertyFactory ...
     fun <T>configurationsFactory(
         context: Context,
         configurationBuilder: ConfigurationBuilder<T>,
-        resourceId: Int
+        resourceId: Int,
     ): T {
         val resources: Resources = context.resources
         try {

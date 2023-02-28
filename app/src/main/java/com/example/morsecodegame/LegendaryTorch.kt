@@ -16,7 +16,7 @@ class TorchException(message: String? = null, cause: Throwable? = null) : Except
 
 class CameraTorch(
     private val cameraManager: CameraManager,
-    ) : Torch {
+) : Torch {
 
     private val cameraId = cameraManager.cameraIdList[0]
 
@@ -27,7 +27,7 @@ class CameraTorch(
             val reloadApplicationText =
                 "Something went wrong with the camera. Please restart application"
 
-            val message = when(e.reason) {
+            val message = when (e.reason) {
                 CameraAccessException.CAMERA_DISCONNECTED ->
                     reloadApplicationText
                 CameraAccessException.CAMERA_DISABLED ->
@@ -41,7 +41,6 @@ class CameraTorch(
             }
 
             throw TorchException(message = message)
-
         } catch (e: java.lang.IllegalArgumentException) {
             Log.e(TORCH_DEBUG_ID, "CameraTorch threw IllegalArgumentException", e)
             throw Exception(e.message)
@@ -51,9 +50,7 @@ class CameraTorch(
     override fun on() = useTorch(true)
 
     override fun off() = useTorch(false)
-
 }
-
 
 interface Torch {
     /**
@@ -77,7 +74,7 @@ class MorseCodeTorch(private val torch: Torch) {
         var isTorchOn = false
         onOffTimer(text, wordsPerMinute) { on ->
             isTorchOn = on
-            if(on) torch.on() else torch.off()
+            if (on) torch.on() else torch.off()
         }
         if (isTorchOn) torch.off()
     }

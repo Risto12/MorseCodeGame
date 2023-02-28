@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.morsecodegame.db.AppDatabase
-import com.example.morsecodegame.db.dao.OptionsDao
 import com.example.morsecodegame.model.Options
 import com.example.morsecodegame.utility.DifficultLevels
 import com.example.morsecodegame.utility.Learning
@@ -16,23 +15,25 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import kotlin.reflect.KMutableProperty0
-
 
 interface PersistData {
     suspend fun save()
     suspend fun load()
 }
 
-
-class OptionsViewModel: ViewModel(), PersistData {
+class OptionsViewModel : ViewModel(), PersistData {
 
     private val db = AppDatabase.getOptionsDao()
 
-    private val _optionsViewModelData: MutableStateFlow<Options> = MutableStateFlow(Options(
-        0, DifficultLevels.EASY, 10, 6
-    ))
+    private val _optionsViewModelData: MutableStateFlow<Options> = MutableStateFlow(
+        Options(
+            0,
+            DifficultLevels.EASY,
+            10,
+            6,
+        ),
+    )
 
     val optionsViewModelData: StateFlow<Options> = _optionsViewModelData
 
@@ -53,7 +54,7 @@ class OptionsViewModel: ViewModel(), PersistData {
     fun <T>updateConfiguration(
         context: Context,
         property: KMutableProperty0<*>,
-        value: T? = null
+        value: T? = null,
     ) {
         val options = optionsViewModelData.value
         try {
@@ -65,16 +66,17 @@ class OptionsViewModel: ViewModel(), PersistData {
                 else -> error("Not implemented property ${property.name}")
             }
             _optionsViewModelData.update { updatedOptions }
-        } catch(e: Exception) {
+        } catch (e: Exception) {
             // Bad fix but I want to see how the slider will behave when this happens
             ToastGenerator.showLongText(
                 context,
                 "There seemed be slight issue during configuration change. Please make sure " +
-                        "That the slider is in correct place"
+                    "That the slider is in correct place",
             )
             Log.e(
                 "Options view model",
-                "Exception during update configuration", e
+                "Exception during update configuration",
+                e,
             )
         }
     }

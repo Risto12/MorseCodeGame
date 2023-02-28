@@ -21,14 +21,15 @@ fun Intent.getOptions() = getParcelableExtra<Options>(CommonIntentExtraKeys.OPTI
  */
 fun Properties.getConfigurationBuilderProperties(
     keyPrefix: String,
-    vararg keys: String
+    vararg keys: String,
 // List interface keeps the inserting order
 ): List<String> = keys.map { key ->
     val optionsKey = keyPrefix + "_" + key
     getProperty(optionsKey) ?: "".also {
         Log.w(
             CONFIGURATION_LOG_TAG,
-            "No property value found for key:$optionsKey. Returning empty")
+            "No property value found for key:$optionsKey. Returning empty",
+        )
     }
 }
 
@@ -44,7 +45,7 @@ fun Properties.getConfigurationBuilderProperties(
  */
 fun Properties.getConfigurationBuilderPropertiesAsMap(
     keyPrefix: String,
-    vararg keys: String
+    vararg keys: String,
 ): Map<String, String?> {
     val map = mutableMapOf<String, String?>()
     keys.forEach { key ->
@@ -52,7 +53,7 @@ fun Properties.getConfigurationBuilderPropertiesAsMap(
         map[key] = getProperty(optionsKey) ?: null.also {
             Log.w(
                 CONFIGURATION_LOG_TAG,
-                "No property value found for key:$optionsKey. Returning null"
+                "No property value found for key:$optionsKey. Returning null",
             )
         }
     }

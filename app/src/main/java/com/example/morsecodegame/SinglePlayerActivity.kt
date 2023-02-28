@@ -34,7 +34,6 @@ import com.example.morsecodegame.viewModel.LoaderViewModel
 import kotlinx.coroutines.*
 import kotlin.time.Duration.Companion.minutes
 
-
 const val WAIT_BEFORE_NEXT_QUESTION = 500L
 const val WAIT_BEFORE_SENDING_NEXT_SIGNAL = 1500L
 const val WAIT_BEFORE_CLEARING_ANSWERS = 3500L
@@ -48,20 +47,20 @@ class SinglePlayerActivity : ComponentActivity() {
     init {
         // timer logic. Can be used in init because repeatOnLifeCycle -> Started
         lifecycleScope.launch {
-                repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    while(gameTimeViewModel.hasTimeLeft()) {
-                        delay(1000)
-                        gameTimeViewModel.decreaseOneSecond()
-                    }
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                while (gameTimeViewModel.hasTimeLeft()) {
+                    delay(1000)
+                    gameTimeViewModel.decreaseOneSecond()
                 }
             }
+        }
     }
 
     private fun gameOver() = lifecycleScope.launch(Dispatchers.Default) {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                delay(8000)
-                finish()
-            }
+        repeatOnLifecycle(Lifecycle.State.STARTED) {
+            delay(8000)
+            finish()
+        }
     }
 
     private fun lockScreenOrientation() {
@@ -82,8 +81,10 @@ class SinglePlayerActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val gameSettings = intent.getOptions()
-        gameViewModel = ViewModelProvider(this@SinglePlayerActivity,
-            GameViewModel.Companion.ViewModelFactory(gameSettings))[GameViewModel::class.java]
+        gameViewModel = ViewModelProvider(
+            this@SinglePlayerActivity,
+            GameViewModel.Companion.ViewModelFactory(gameSettings),
+        )[GameViewModel::class.java]
         if (!loaderViewModel.isLoadingDone.value) {
             gameTimeViewModel.setTime(gameSettings.gameTimeInMinutes.minutes)
             loaderViewModel.setLoadingDone()
@@ -104,7 +105,7 @@ class SinglePlayerActivity : ComponentActivity() {
                     val gameQuestionCount = gameQuestionData.questionNumber
                     val key = gameQuestion.answer + " " + gameQuestionCount
                     LaunchedEffect(key1 = key) {
-                        if(!answerBoxOn) {
+                        if (!answerBoxOn) {
                             lockScreenOrientation()
                             Log.v(SINGLE_PLAYER_TAG, "launched effect launched with key $key")
                             // Flashing light logic
@@ -113,7 +114,7 @@ class SinglePlayerActivity : ComponentActivity() {
                                 delay(WAIT_BEFORE_SENDING_NEXT_SIGNAL)
                                 MorseCodeTimer.onOffTimer(
                                     gameQuestion.answer,
-                                    gameViewModel.getWordsPerMinute()
+                                    gameViewModel.getWordsPerMinute(),
                                 ) { on: Boolean -> lightOn = on }
                                 lightOn = false
                                 answerBoxOn = true
@@ -123,12 +124,12 @@ class SinglePlayerActivity : ComponentActivity() {
                     }
 
                     Column(
-                        modifier = Modifier.background(color = Color.Black)
+                        modifier = Modifier.background(color = Color.Black),
                     ) {
                         StatusBar(
                             left = gameTimeLeft,
                             middle = "$gameQuestionCount/${gameViewModel.getAmountOfQuestions()}",
-                            right = "wpm: ${gameViewModel.getWordsPerMinute()}"
+                            right = "wpm: ${gameViewModel.getWordsPerMinute()}",
                         )
                         GameScreen(R.drawable.sea_red_moon) {
                             AnswerBox(
@@ -144,8 +145,8 @@ class SinglePlayerActivity : ComponentActivity() {
                                         // fading takes time but new answers are already drawn
                                         delay(WAIT_BEFORE_NEXT_QUESTION)
                                         if (
-                                            !gameViewModel.hasNextQuestion()
-                                            || !gameTimeViewModel.hasTimeLeft()
+                                            !gameViewModel.hasNextQuestion() ||
+                                            !gameTimeViewModel.hasTimeLeft()
                                         ) {
                                             isGameOver = true
                                             gameOver()
@@ -155,21 +156,27 @@ class SinglePlayerActivity : ComponentActivity() {
                                     }
                                 },
                                 question = gameQuestion,
-                                showCorrectAnswer = showCorrectAnswer
+                                showCorrectAnswer = showCorrectAnswer,
                             )
                         }
                     }
                 } else {
-                    Column(modifier = Modifier
-                        .background(Color.Black)
-                        .fillMaxSize()) {
+                    Column(
+                        modifier = Modifier
+                            .background(Color.Black)
+                            .fillMaxSize(),
+                    ) {
                         if (isGameOver) {
                             enableOrientation()
                             val reason = if (
                                 gameViewModel.hasNextQuestion() && !gameTimeViewModel.hasTimeLeft()
-                            ) "TIMEOUT... TAN TAN TAA...." else "TAN TAN TAA...."
+                            ) {
+                                "TIMEOUT... TAN TAN TAA...."
+                            } else {
+                                "TAN TAN TAA...."
+                            }
                             SharedComposable.DefaultHeaderText(
-                                text = "GAME OVER... $reason"
+                                text = "GAME OVER... $reason",
                             )
                         } else {
                             Text("Loading...", color = Color.White)
@@ -185,25 +192,25 @@ class SinglePlayerActivity : ComponentActivity() {
 fun StatusBar(
     left: String,
     middle: String,
-    right: String
+    right: String,
 ) {
-    Row (Modifier.heightIn(max = 30.dp)) {
+    Row(Modifier.heightIn(max = 30.dp)) {
         Text(
             text = left,
             modifier = Modifier
                 .padding(start = 8.dp)
                 .weight(1.6f),
-            color = Color.White
+            color = Color.White,
         )
         Text(
             text = middle,
             modifier = Modifier.weight(1.2f),
-            color = Color.White
+            color = Color.White,
         )
         Text(
             text = right,
             modifier = Modifier.weight(0.7f),
-            color = Color.White
+            color = Color.White,
         )
     }
 }
@@ -222,21 +229,21 @@ private fun BoxScope.AnswerBox(
                 .align(Alignment.Center)
                 .clip(CircleShape)
                 .background(Color.Yellow.copy(alpha = 0.9f))
-                .size(13.dp)
+                .size(13.dp),
         )
     }
     AnimatedVisibility(
         visible = answerBoxOn,
         modifier = Modifier.align(Alignment.BottomCenter),
         enter = fadeIn(),
-        exit = fadeOut()
+        exit = fadeOut(),
     ) {
         Column(
             modifier = Modifier
                 // .align(Alignment.BottomCenter)
                 .fillMaxWidth()
                 .background(Color.Black),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             question.possibleAnswers.forEach { possibleAnswer ->
                 val buttonColor = if (showCorrectAnswer) {
@@ -246,13 +253,13 @@ private fun BoxScope.AnswerBox(
                 }
                 Button(
                     colors = ButtonDefaults.textButtonColors(
-                        backgroundColor = buttonColor
+                        backgroundColor = buttonColor,
                     ),
                     onClick = { onClickAnswer(possibleAnswer) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 2.dp, bottom = 2.dp),
-                    enabled = !showCorrectAnswer
+                    enabled = !showCorrectAnswer,
                 ) {
                     Text(possibleAnswer, color = Color.White, fontWeight = FontWeight.Bold)
                 }
@@ -266,7 +273,7 @@ private fun BoxScope.AnswerBox(
 fun SinglePlayerActivityPreview() {
     MorseCodeGameTheme {
         Column(
-            modifier = Modifier.background(color = Color.Black)
+            modifier = Modifier.background(color = Color.Black),
         ) {
             StatusBar(left = "5:00", middle = "1/10", right = "wpm: 20")
             GameScreen(R.drawable.sea_red_moon) {
@@ -276,7 +283,7 @@ fun SinglePlayerActivityPreview() {
                     onClickAnswer = {},
                     question = QuestionGenerator
                         .generateQuestions(1, DifficultLevels.HARD).first(),
-                    showCorrectAnswer = true
+                    showCorrectAnswer = true,
                 )
             }
         }

@@ -15,7 +15,7 @@ data class OptionsConfigurations(
     val wordsPerMinuteMin: Float,
     val wordsPerMinuteMax: Float,
     val numberOfQuestionsMin: Float,
-    val numberOfQuestionsMax: Float
+    val numberOfQuestionsMax: Float,
 ) : Parcelable {
 
     companion object {
@@ -37,15 +37,15 @@ data class OptionsConfigurations(
                         wordsPerMinuteMinKey,
                         wordsPerMinuteMaxKey,
                         numberOfQuestionsMinKey,
-                        numberOfQuestionsMaxKey
+                        numberOfQuestionsMaxKey,
                     ).mapValues {
                         it.value?.let { property ->
                             try {
                                 property.toFloat()
-                            } catch(e: NumberFormatException) {
+                            } catch (e: NumberFormatException) {
                                 Log.w(
                                     "Morse code configurations builder",
-                                    "Can't cast value:$property to float for key: ${it.key}"
+                                    "Can't cast value:$property to float for key: ${it.key}",
                                 )
                                 null
                             }

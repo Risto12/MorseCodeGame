@@ -37,7 +37,7 @@ abstract class AppDatabase : RoomDatabase() {
                 gameTimeInMinutes = 5,
                 difficultLevel = DifficultLevels.EASY,
                 numberOfQuestions = 10,
-                wordsPerMinute = 10
+                wordsPerMinute = 10,
             )
             options.setOptions(defaultOptions.toOptionsEntity())
         }

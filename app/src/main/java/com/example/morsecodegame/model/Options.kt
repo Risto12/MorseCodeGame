@@ -4,9 +4,9 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.example.morsecodegame.db.entity.OptionsEntity
 import com.example.morsecodegame.utility.DifficultLevels
+import kotlinx.serialization.*
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.*
 
 const val OPTIONS_ID = 1
 
@@ -21,13 +21,13 @@ data class Options(
     var gameTimeInMinutes: Int,
     var difficultLevel: DifficultLevels,
     var numberOfQuestions: Int,
-    var wordsPerMinute: Int
-): Parcelable {
+    var wordsPerMinute: Int,
+) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString()!!.toDifficultLevel(),
         parcel.readInt(),
-        parcel.readInt()
+        parcel.readInt(),
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
