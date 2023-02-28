@@ -11,14 +11,14 @@ import kotlinx.coroutines.flow.update
 
 data class GameViewModelData(
     val question: Question,
-    val questionNumber: Int,
+    val questionNumber: Int
 )
 
 class GameViewModel(private val options: Options) : ViewModel() {
 
     private val questions = QuestionGenerator.generateQuestions(
         options.numberOfQuestions,
-        options.difficultLevel,
+        options.difficultLevel
     )
 
     // TODO save this to savedStateHandle with syntax like:
@@ -30,8 +30,8 @@ class GameViewModel(private val options: Options) : ViewModel() {
     private val _gameViewModelData: MutableStateFlow<GameViewModelData> = MutableStateFlow(
         GameViewModelData(
             question = questions[0],
-            questionNumber = questionNumber,
-        ),
+            questionNumber = questionNumber
+        )
 
     )
     val gameViewModelData: StateFlow<GameViewModelData> = _gameViewModelData
@@ -43,7 +43,7 @@ class GameViewModel(private val options: Options) : ViewModel() {
         _gameViewModelData.update {
             GameViewModelData(
                 question = questions[(questionNumber - 1)],
-                questionNumber = questionNumber,
+                questionNumber = questionNumber
             )
         }
     }

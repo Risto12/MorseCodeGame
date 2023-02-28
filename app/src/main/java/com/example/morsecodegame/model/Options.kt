@@ -21,13 +21,13 @@ data class Options(
     var gameTimeInMinutes: Int,
     var difficultLevel: DifficultLevels,
     var numberOfQuestions: Int,
-    var wordsPerMinute: Int,
+    var wordsPerMinute: Int
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString()!!.toDifficultLevel(),
         parcel.readInt(),
-        parcel.readInt(),
+        parcel.readInt()
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

@@ -34,7 +34,7 @@ object MorseCodeConverter {
 
     fun morseCodeAsMillisecondsRepresentation(
         morseCode: List<MorseCodeUnits>,
-        wordsPerMinute: Int,
+        wordsPerMinute: Int
     ): List<Long> {
         /***
          * Converts Morse code units to milliseconds representation

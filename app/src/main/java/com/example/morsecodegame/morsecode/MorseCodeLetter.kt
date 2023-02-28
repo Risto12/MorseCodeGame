@@ -27,16 +27,96 @@ enum class MorseCodeLetter(val units: List<MorseCodeUnits>) {
     X(listOf(MorseCodeUnits.DA, MorseCodeUnits.DI, MorseCodeUnits.DI, MorseCodeUnits.DA)),
     Y(listOf(MorseCodeUnits.DA, MorseCodeUnits.DI, MorseCodeUnits.DA, MorseCodeUnits.DA)),
     Z(listOf(MorseCodeUnits.DA, MorseCodeUnits.DA, MorseCodeUnits.DI, MorseCodeUnits.DI)),
-    ZERO(listOf(MorseCodeUnits.DA, MorseCodeUnits.DA, MorseCodeUnits.DA, MorseCodeUnits.DA, MorseCodeUnits.DA)),
-    ONE(listOf(MorseCodeUnits.DI, MorseCodeUnits.DA, MorseCodeUnits.DA, MorseCodeUnits.DA, MorseCodeUnits.DA)),
-    TWO(listOf(MorseCodeUnits.DI, MorseCodeUnits.DI, MorseCodeUnits.DA, MorseCodeUnits.DA, MorseCodeUnits.DA)),
-    THREE(listOf(MorseCodeUnits.DI, MorseCodeUnits.DI, MorseCodeUnits.DI, MorseCodeUnits.DA, MorseCodeUnits.DA)),
-    FOUR(listOf(MorseCodeUnits.DI, MorseCodeUnits.DI, MorseCodeUnits.DI, MorseCodeUnits.DI, MorseCodeUnits.DA)),
-    FIVE(listOf(MorseCodeUnits.DI, MorseCodeUnits.DI, MorseCodeUnits.DI, MorseCodeUnits.DI, MorseCodeUnits.DI)),
-    SIX(listOf(MorseCodeUnits.DA, MorseCodeUnits.DI, MorseCodeUnits.DI, MorseCodeUnits.DI, MorseCodeUnits.DI)),
-    SEVEN(listOf(MorseCodeUnits.DA, MorseCodeUnits.DA, MorseCodeUnits.DI, MorseCodeUnits.DI, MorseCodeUnits.DI)),
-    EIGHT(listOf(MorseCodeUnits.DA, MorseCodeUnits.DA, MorseCodeUnits.DA, MorseCodeUnits.DI, MorseCodeUnits.DI)),
-    NINE(listOf(MorseCodeUnits.DA, MorseCodeUnits.DA, MorseCodeUnits.DA, MorseCodeUnits.DA, MorseCodeUnits.DI)),
+    ZERO(
+        listOf(
+            MorseCodeUnits.DA,
+            MorseCodeUnits.DA,
+            MorseCodeUnits.DA,
+            MorseCodeUnits.DA,
+            MorseCodeUnits.DA
+        )
+    ),
+    ONE(
+        listOf(
+            MorseCodeUnits.DI,
+            MorseCodeUnits.DA,
+            MorseCodeUnits.DA,
+            MorseCodeUnits.DA,
+            MorseCodeUnits.DA
+        )
+    ),
+    TWO(
+        listOf(
+            MorseCodeUnits.DI,
+            MorseCodeUnits.DI,
+            MorseCodeUnits.DA,
+            MorseCodeUnits.DA,
+            MorseCodeUnits.DA
+        )
+    ),
+    THREE(
+        listOf(
+            MorseCodeUnits.DI,
+            MorseCodeUnits.DI,
+            MorseCodeUnits.DI,
+            MorseCodeUnits.DA,
+            MorseCodeUnits.DA
+        )
+    ),
+    FOUR(
+        listOf(
+            MorseCodeUnits.DI,
+            MorseCodeUnits.DI,
+            MorseCodeUnits.DI,
+            MorseCodeUnits.DI,
+            MorseCodeUnits.DA
+        )
+    ),
+    FIVE(
+        listOf(
+            MorseCodeUnits.DI,
+            MorseCodeUnits.DI,
+            MorseCodeUnits.DI,
+            MorseCodeUnits.DI,
+            MorseCodeUnits.DI
+        )
+    ),
+    SIX(
+        listOf(
+            MorseCodeUnits.DA,
+            MorseCodeUnits.DI,
+            MorseCodeUnits.DI,
+            MorseCodeUnits.DI,
+            MorseCodeUnits.DI
+        )
+    ),
+    SEVEN(
+        listOf(
+            MorseCodeUnits.DA,
+            MorseCodeUnits.DA,
+            MorseCodeUnits.DI,
+            MorseCodeUnits.DI,
+            MorseCodeUnits.DI
+        )
+    ),
+    EIGHT(
+        listOf(
+            MorseCodeUnits.DA,
+            MorseCodeUnits.DA,
+            MorseCodeUnits.DA,
+            MorseCodeUnits.DI,
+            MorseCodeUnits.DI
+        )
+    ),
+    NINE(
+        listOf(
+            MorseCodeUnits.DA,
+            MorseCodeUnits.DA,
+            MorseCodeUnits.DA,
+            MorseCodeUnits.DA,
+            MorseCodeUnits.DI
+        )
+    )
     ;
 
     fun getUnitsWithIntraAndInterUnits(): List<MorseCodeUnits> {
@@ -56,11 +136,11 @@ enum class MorseCodeLetter(val units: List<MorseCodeUnits>) {
         private fun morseCodeLettersToString(
             prefix: String = "",
             postfix: String = "",
-            separator: String = "",
+            separator: String = ""
         ): String = values().joinToString(
             prefix = prefix,
             postfix = postfix,
-            separator = separator,
+            separator = separator
         ) {
             when (it) {
                 ZERO -> "0"
@@ -83,7 +163,7 @@ enum class MorseCodeLetter(val units: List<MorseCodeUnits>) {
             val notSupportedCharacters = morseCodeLettersToString(
                 prefix = "[^", // match all other except allowed characters
                 postfix = " ]", // This allows spaces to be used
-                separator = "",
+                separator = ""
             )
             return text.contains(notSupportedCharacters.toRegex(setOf(RegexOption.IGNORE_CASE)))
         }

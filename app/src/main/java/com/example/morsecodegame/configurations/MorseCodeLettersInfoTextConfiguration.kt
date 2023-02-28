@@ -6,15 +6,15 @@ import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.mapSaver
 import com.example.morsecodegame.utility.Learning
 import com.example.morsecodegame.utility.getConfigurationBuilderProperties
-import kotlinx.parcelize.Parcelize
 import java.util.*
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @Stable
 data class MorseCodeLettersInfoTextConfiguration(
     val overview: String,
     val wordsPerMinute: String,
-    val example: String,
+    val example: String
 ) : Parcelable {
 
     @Deprecated("In favor of Parcelize")
@@ -28,16 +28,16 @@ data class MorseCodeLettersInfoTextConfiguration(
                 mapOf(
                     keyOverView to overview,
                     keyWordsPerMinute to wordsPerMinute,
-                    keyExample to example,
+                    keyExample to example
                 )
             },
             restore = {
                 MorseCodeLettersInfoTextConfiguration(
                     it[keyOverView] as String,
                     it[keyWordsPerMinute] as String,
-                    it[keyExample] as String,
+                    it[keyExample] as String
                 )
-            },
+            }
         )
     }
 
@@ -51,12 +51,12 @@ data class MorseCodeLettersInfoTextConfiguration(
                             keyPrefix,
                             "overview",
                             "words_per_minute",
-                            "example",
+                            "example"
                         )
                     return MorseCodeLettersInfoTextConfiguration(
                         overview = overview,
                         wordsPerMinute = wordsPerMinute,
-                        example = example,
+                        example = example
                     )
                 }
             }

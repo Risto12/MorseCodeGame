@@ -1,2 +1,4 @@
-lint:
-	ktlint --format # Needs Ktlint to be installed to your computer
+lint-check:
+	./gradlew --continue ktlintCheck
+lint-format:
+	./gradlew --continue ktlintFormat

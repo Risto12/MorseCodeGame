@@ -37,7 +37,7 @@ object QuestionGenerator {
         "apollo",
         "zeus",
         "hermes",
-        "sos",
+        "sos"
     )
 
     private val hard = listOf(
@@ -62,7 +62,7 @@ object QuestionGenerator {
         "what hath God wrought", // yes it's not spelling mistake
         "rats",
         "dining with you tonight in spirit heart with you always",
-        "no sickness all well",
+        "no sickness all well"
     )
 
     fun generateQuestions(count: Int, difficulty: DifficultLevels): List<Question> {
@@ -84,7 +84,7 @@ object QuestionGenerator {
                 questions.add(questionsList.random())
             }
             generated.add(
-                Question(answer = questions.random(), possibleAnswers = questions),
+                Question(answer = questions.random(), possibleAnswers = questions)
             )
         }
 

@@ -5,5 +5,5 @@ enum class MorseCodeUnits(val multiplier: Int) {
     DA(3),
     INTRA_CHARACTER(1), // the gap between dit and dah within a character
     INTER_CHARACTER(3), // the gap between the characters of a word
-    WORD_SPACE(7), // the gap between two words
+    WORD_SPACE(7) // the gap between two words
 }

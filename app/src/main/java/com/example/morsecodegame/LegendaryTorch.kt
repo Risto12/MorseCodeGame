@@ -15,7 +15,7 @@ const val TORCH_DEBUG_ID = "torch"
 class TorchException(message: String? = null, cause: Throwable? = null) : Exception(message, cause)
 
 class CameraTorch(
-    private val cameraManager: CameraManager,
+    private val cameraManager: CameraManager
 ) : Torch {
 
     private val cameraId = cameraManager.cameraIdList[0]

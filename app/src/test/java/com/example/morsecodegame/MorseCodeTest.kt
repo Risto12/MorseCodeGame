@@ -18,7 +18,7 @@ class MorseCodeTest {
             MorseCodeUnits.INTRA_CHARACTER,
             MorseCodeUnits.DA,
             MorseCodeUnits.INTRA_CHARACTER,
-            MorseCodeUnits.DI,
+            MorseCodeUnits.DI
         )
         val morseCode = MorseCodeConverter.toMorseCode(letter)
         Assert.assertEquals(expected, morseCode)
@@ -40,7 +40,7 @@ class MorseCodeTest {
             MorseCodeUnits.INTRA_CHARACTER,
             MorseCodeUnits.DA,
             MorseCodeUnits.INTER_CHARACTER,
-            MorseCodeUnits.DA, // t
+            MorseCodeUnits.DA // t
         )
         val morseCode = MorseCodeConverter.toMorseCode(word)
         Assert.assertEquals(expected, morseCode)
@@ -78,7 +78,7 @@ class MorseCodeTest {
             MorseCodeUnits.INTRA_CHARACTER,
             MorseCodeUnits.DA,
             MorseCodeUnits.INTRA_CHARACTER,
-            MorseCodeUnits.DI,
+            MorseCodeUnits.DI
         )
         val morseCode = MorseCodeConverter.toMorseCode(words)
         Assert.assertEquals(expected, morseCode)

@@ -11,15 +11,15 @@ class QuestionGeneratorTest {
     fun test_correct_number_of_question_is_generated() {
         Assert.assertEquals(
             5,
-            QuestionGenerator.generateQuestions(5, DifficultLevels.EASY).size,
+            QuestionGenerator.generateQuestions(5, DifficultLevels.EASY).size
         )
         Assert.assertEquals(
             2,
-            QuestionGenerator.generateQuestions(2, DifficultLevels.MEDIUM).size,
+            QuestionGenerator.generateQuestions(2, DifficultLevels.MEDIUM).size
         )
         Assert.assertEquals(
             2,
-            QuestionGenerator.generateQuestions(2, DifficultLevels.HARD).size,
+            QuestionGenerator.generateQuestions(2, DifficultLevels.HARD).size
         )
     }
 

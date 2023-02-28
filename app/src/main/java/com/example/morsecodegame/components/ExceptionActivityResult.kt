@@ -15,7 +15,7 @@ import androidx.activity.result.contract.ActivityResultContract
  */
 class ExceptionActivityResult<T>(
     private val activity: Class<T>, // TODO this should have some boundaries
-    private val intentExtraKey: String = EXTRA_KEY_PARCEABLE,
+    private val intentExtraKey: String = EXTRA_KEY_PARCEABLE
 ) : ActivityResultContract<Parcelable?, String?>() {
 
     private fun logMessage(text: String) = Log.w("exception activity result", text)
@@ -36,7 +36,7 @@ class ExceptionActivityResult<T>(
             } ?: null.also {
                 logMessage(
                     "No message with key:$EXTRA_KEY_EXCEPTION_MESSAGE returned from " +
-                        "activity: ${activity.simpleName}",
+                        "activity: ${activity.simpleName}"
                 )
             }
         } else {

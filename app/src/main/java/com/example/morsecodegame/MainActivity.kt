@@ -64,7 +64,7 @@ class MainActivity : ComponentActivity() {
         ConfigurationsFactory.configurationsFactory(
             context = this,
             configurationBuilder = MainInfoTextConfigurations.MainInfoTextConfigurationsBuilder,
-            resourceId = R.raw.main,
+            resourceId = R.raw.main
         )
     }
 
@@ -108,8 +108,8 @@ class MainActivity : ComponentActivity() {
         registerForActivityResult(
             ExceptionActivityResult(
                 FlashlightActivity::class.java,
-                CommonIntentExtraKeys.OPTIONS,
-            ),
+                CommonIntentExtraKeys.OPTIONS
+            )
         ) {
                 text: String? ->
             text?.let { ToastGenerator.showLongText(this, it) }
@@ -126,8 +126,8 @@ class MainActivity : ComponentActivity() {
                 startActivity(
                     Intent(this@MainActivity, activity).putExtra(
                         CommonIntentExtraKeys.OPTIONS,
-                        testViewModel.getOptions(),
-                    ),
+                        testViewModel.getOptions()
+                    )
                 )
             }
             FlashlightActivity::class.java -> {
@@ -174,13 +174,13 @@ class MainActivity : ComponentActivity() {
                     singlePlayerClicked -> SinglePlayerMenu(
                         onClickSinglePlayerType = setLoadingOptions(singlePlayer),
                         onClickCancel = { singlePlayerClicked = false },
-                        infoTexts = infoTexts,
+                        infoTexts = infoTexts
                     )
                     multiplayerClicked -> MultiplayerMenu(
                         onClickCancel = { multiplayerClicked = false },
                         onClickBluetooth = {},
                         onClickFlashLight = setLoadingOptions(multiplayer),
-                        infoTexts = infoTexts,
+                        infoTexts = infoTexts
                     )
                     else -> MainMenu(
                         onClickSinglePlayer = { singlePlayerClicked = true },
@@ -188,7 +188,7 @@ class MainActivity : ComponentActivity() {
                         onClickOptions = options,
                         onClickMorseCode = morseCode,
                         onClickExit = exit,
-                        version = infoTexts.appVersion,
+                        version = infoTexts.appVersion
                     )
                 }
             } else {
@@ -203,40 +203,40 @@ class MainActivity : ComponentActivity() {
 private fun SinglePlayerMenu(
     onClickSinglePlayerType: (GameType) -> Unit,
     onClickCancel: () -> Unit,
-    infoTexts: MainInfoTextConfigurations,
+    infoTexts: MainInfoTextConfigurations
 ) = MorseCodeGameTheme {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         SharedComposable.Header(
             text = "Choose Morse type",
-            fontSize = 30.sp,
+            fontSize = 30.sp
         )
         ButtonWithInfoBox(
             defaultButtonConfigurations = SharedComposable.DefaultButtonConfigurations(
                 text = "Blinking light",
-                click = { onClickSinglePlayerType(GameType.LIGHT) },
+                click = { onClickSinglePlayerType(GameType.LIGHT) }
             ),
             iconContentDescription = "Blinking light game mode info",
-            infoText = infoTexts.blinkingLightInfo,
+            infoText = infoTexts.blinkingLightInfo
         )
         ButtonWithInfoBox(
             defaultButtonConfigurations = SharedComposable.DefaultButtonConfigurations(
                 text = "Sound",
                 click = { },
                 available = false,
-                enabled = false,
+                enabled = false
             ),
             iconContentDescription = "Sound game mode info",
-            infoText = infoTexts.soundInfo,
+            infoText = infoTexts.soundInfo
         )
         SharedComposable.DefaultButton(
             configurations = SharedComposable.DefaultButtonConfigurations(
                 text = "Cancel",
-                click = onClickCancel,
-            ),
+                click = onClickCancel
+            )
         )
     }
 }
@@ -246,36 +246,36 @@ private fun MultiplayerMenu(
     onClickCancel: () -> Unit,
     onClickBluetooth: (type: GameType) -> Unit,
     onClickFlashLight: (type: GameType) -> Unit,
-    infoTexts: MainInfoTextConfigurations,
+    infoTexts: MainInfoTextConfigurations
 ) = MorseCodeGameTheme {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         ButtonWithInfoBox(
             defaultButtonConfigurations = SharedComposable.DefaultButtonConfigurations(
                 text = "Flashlight",
-                click = { onClickFlashLight(GameType.FLASHLIGHT) },
+                click = { onClickFlashLight(GameType.FLASHLIGHT) }
             ),
             iconContentDescription = "Flash game mode info",
-            infoText = infoTexts.flashlightInfo,
+            infoText = infoTexts.flashlightInfo
         )
         ButtonWithInfoBox(
             defaultButtonConfigurations = SharedComposable.DefaultButtonConfigurations(
                 text = "Bluetooth",
                 click = { },
                 available = false,
-                enabled = false,
+                enabled = false
             ),
             iconContentDescription = "Bluetooth game mode info",
-            infoText = infoTexts.bluetoothInfo,
+            infoText = infoTexts.bluetoothInfo
         )
         SharedComposable.DefaultButton(
             configurations = SharedComposable.DefaultButtonConfigurations(
                 text = "Cancel",
-                click = onClickCancel,
-            ),
+                click = onClickCancel
+            )
         )
     }
 }
@@ -284,29 +284,29 @@ private fun MultiplayerMenu(
 fun ButtonWithInfoBox(
     defaultButtonConfigurations: SharedComposable.DefaultButtonConfigurations,
     iconContentDescription: String,
-    infoText: String,
+    infoText: String
 ) {
     // Info popup could be promoted to its own composable.
     var infoPopUp by rememberSaveable { mutableStateOf(false) }
     Row {
         if (infoPopUp) {
             Popup(
-                onDismissRequest = { infoPopUp = false },
+                onDismissRequest = { infoPopUp = false }
             ) {
                 Surface(
                     elevation = 9.dp,
                     color = Color.White,
                     border = BorderStroke(2.dp, color = Color.Magenta),
                     contentColor = Color.Magenta,
-                    modifier = Modifier.defaultMinSize(240.dp, 250.dp),
+                    modifier = Modifier.defaultMinSize(240.dp, 250.dp)
                 ) {
                     Column(
                         verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally,
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         SharedComposable.DefaultText(
                             text = infoText,
-                            modifier = Modifier.padding(bottom = 20.dp),
+                            modifier = Modifier.padding(bottom = 20.dp)
                         )
                     }
                 }
@@ -319,14 +319,14 @@ fun ButtonWithInfoBox(
                     Icon(
                         imageVector = Icons.Default.Info,
                         contentDescription = iconContentDescription,
-                        tint = Color.White,
+                        tint = Color.White
                     )
                 },
                 click = {
                     infoPopUp = true
-                },
+                }
             ),
-            modifier = Modifier.padding(start = 10.dp),
+            modifier = Modifier.padding(start = 10.dp)
         )
     }
 }
@@ -338,54 +338,54 @@ private fun MainMenu(
     onClickOptions: () -> Unit,
     onClickExit: () -> Unit, // aka quit app
     onClickMorseCode: () -> Unit,
-    version: String,
+    version: String
 ) = MorseCodeGameTheme {
     Box {
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             SharedComposable.Header(
                 text = stringResource(R.string.app_name),
-                fontSize = 30.sp,
+                fontSize = 30.sp
             )
             SharedComposable.DefaultButton(
                 configurations = SharedComposable.DefaultButtonConfigurations(
                     text = "Single player",
-                    click = onClickSinglePlayer,
-                ),
+                    click = onClickSinglePlayer
+                )
             )
             SharedComposable.DefaultButton(
                 configurations = SharedComposable.DefaultButtonConfigurations(
                     text = "Multiplayer",
                     click = onClickMultiplayer,
-                    available = true,
-                ),
+                    available = true
+                )
             )
             SharedComposable.DefaultButton(
                 configurations = SharedComposable.DefaultButtonConfigurations(
                     text = "Options",
-                    click = onClickOptions,
-                ),
+                    click = onClickOptions
+                )
             )
             SharedComposable.DefaultButton(
                 configurations = SharedComposable.DefaultButtonConfigurations(
                     text = "Morse Code",
-                    click = onClickMorseCode,
-                ),
+                    click = onClickMorseCode
+                )
             )
             SharedComposable.DefaultButton(
                 configurations = SharedComposable.DefaultButtonConfigurations(
                     text = "Exit",
-                    click = onClickExit,
-                ),
+                    click = onClickExit
+                )
             )
         }
         SharedComposable.DefaultText(
             text = "v$version",
             fontSize = 15.sp,
-            modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 10.dp),
+            modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 10.dp)
         )
     }
 }
@@ -401,13 +401,13 @@ fun MainActivityPreview() {
         singlePlayerClicked -> SinglePlayerMenu(
             onClickSinglePlayerType = { },
             onClickCancel = { },
-            infoTexts = infoTextConfigurations,
+            infoTexts = infoTextConfigurations
         )
         multiplayerClicked -> MultiplayerMenu(
             onClickCancel = { },
             onClickBluetooth = { },
             onClickFlashLight = { },
-            infoTexts = infoTextConfigurations,
+            infoTexts = infoTextConfigurations
         )
         else -> MainMenu(
             onClickSinglePlayer = { },
@@ -415,7 +415,7 @@ fun MainActivityPreview() {
             onClickOptions = { },
             onClickExit = { },
             onClickMorseCode = { },
-            "1.0a",
+            "1.0a"
         )
     }
 }

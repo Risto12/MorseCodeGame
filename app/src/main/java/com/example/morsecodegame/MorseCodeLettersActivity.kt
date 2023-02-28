@@ -33,7 +33,7 @@ class MorseCodeLettersActivity : ComponentActivity() {
             context = this,
             configurationBuilder = MorseCodeLettersInfoTextConfiguration
                 .MorseCodeLetterFactoryConfigurationsBuilder,
-            resourceId = R.raw.morseletter,
+            resourceId = R.raw.morseletter
         )
     }
 
@@ -47,7 +47,7 @@ class MorseCodeLettersActivity : ComponentActivity() {
                     overviewText = configurations.overview,
                     wordsPerMinuteText = configurations.wordsPerMinute,
                     exampleText = configurations.example,
-                    onClickBack = back,
+                    onClickBack = back
                 )
             }
         }
@@ -59,7 +59,7 @@ fun MorseCodeLetters(
     overviewText: String,
     wordsPerMinuteText: String,
     exampleText: String,
-    onClickBack: () -> Unit,
+    onClickBack: () -> Unit
 ) {
     val listState = rememberLazyListState()
     val showButton by remember {
@@ -77,9 +77,9 @@ fun MorseCodeLetters(
                     text = "Back to top",
                     click = {
                         morseCodeLetterScope.launch { listState.animateScrollToItem(0) }
-                    },
+                    }
                 ),
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth()
             )
         }
         LazyColumn(
@@ -87,22 +87,22 @@ fun MorseCodeLetters(
             modifier = Modifier
                 .fillMaxSize()
                 .weight(2.5f),
-            horizontalAlignment = Alignment.CenterHorizontally,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             item {
                 TextWithDividerOnBottom(
                     topic = "Overview",
-                    text = overviewText,
+                    text = overviewText
                 )
                 TextWithDividerOnBottom(
                     topic = "Words per minute",
-                    text = wordsPerMinuteText,
+                    text = wordsPerMinuteText
                 )
             }
             item {
                 TextWithDividerOnBottom(
                     topic = "Example",
-                    text = exampleText,
+                    text = exampleText
                 )
             }
             item {
@@ -121,16 +121,16 @@ fun MorseCodeLetters(
                 Divider(
                     modifier = Modifier.padding(top = 40.dp),
                     color = Color.Magenta,
-                    thickness = 1.dp,
+                    thickness = 1.dp
                 )
             }
         }
         SharedComposable.DefaultButton(
             configurations = SharedComposable.DefaultButtonConfigurations(
                 text = "Back",
-                click = onClickBack,
+                click = onClickBack
             ),
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth()
         )
     }
 }
@@ -138,7 +138,7 @@ fun MorseCodeLetters(
 @Composable
 fun TextWithDividerOnBottom(
     topic: String,
-    text: String,
+    text: String
 ) {
     Column {
         SharedComposable.DefaultText(
@@ -146,17 +146,17 @@ fun TextWithDividerOnBottom(
             fontSize = 25.sp,
             modifier = Modifier
                 .padding(start = 10.dp, end = 10.dp, bottom = 10.dp)
-                .align(Alignment.CenterHorizontally),
+                .align(Alignment.CenterHorizontally)
         )
         SharedComposable.DefaultText(
             text = text,
             fontSize = 18.sp,
-            modifier = Modifier.padding(start = 10.dp, end = 10.dp),
+            modifier = Modifier.padding(start = 10.dp, end = 10.dp)
         )
         Divider(
             modifier = Modifier.padding(top = 25.dp, bottom = 35.dp),
             color = Color.Magenta,
-            thickness = 1.dp,
+            thickness = 1.dp
         )
     }
 }
@@ -168,7 +168,7 @@ fun MorseCodeLetterActivityPreview() {
         MorseCodeLetters(
             "overview text",
             "words per minute text",
-            "example text",
+            "example text"
         ) { }
     }
 }

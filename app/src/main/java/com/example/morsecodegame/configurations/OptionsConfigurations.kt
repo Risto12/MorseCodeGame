@@ -4,8 +4,8 @@ import android.os.Parcelable
 import android.util.Log
 import androidx.compose.runtime.Stable
 import com.example.morsecodegame.utility.getConfigurationBuilderPropertiesAsMap
-import kotlinx.parcelize.Parcelize
 import java.util.*
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @Stable
@@ -15,7 +15,7 @@ data class OptionsConfigurations(
     val wordsPerMinuteMin: Float,
     val wordsPerMinuteMax: Float,
     val numberOfQuestionsMin: Float,
-    val numberOfQuestionsMax: Float,
+    val numberOfQuestionsMax: Float
 ) : Parcelable {
 
     companion object {
@@ -37,7 +37,7 @@ data class OptionsConfigurations(
                         wordsPerMinuteMinKey,
                         wordsPerMinuteMaxKey,
                         numberOfQuestionsMinKey,
-                        numberOfQuestionsMaxKey,
+                        numberOfQuestionsMaxKey
                     ).mapValues {
                         it.value?.let { property ->
                             try {
@@ -45,7 +45,7 @@ data class OptionsConfigurations(
                             } catch (e: NumberFormatException) {
                                 Log.w(
                                     "Morse code configurations builder",
-                                    "Can't cast value:$property to float for key: ${it.key}",
+                                    "Can't cast value:$property to float for key: ${it.key}"
                                 )
                                 null
                             }
@@ -58,7 +58,7 @@ data class OptionsConfigurations(
                         wordsPerMinuteMin = configurations[wordsPerMinuteMinKey] ?: 1f,
                         wordsPerMinuteMax = configurations[wordsPerMinuteMaxKey] ?: 15f,
                         numberOfQuestionsMin = configurations[numberOfQuestionsMinKey] ?: 4f,
-                        numberOfQuestionsMax = configurations[numberOfQuestionsMaxKey] ?: 8f,
+                        numberOfQuestionsMax = configurations[numberOfQuestionsMaxKey] ?: 8f
                     )
                 }
             }

@@ -39,7 +39,7 @@ class OptionsActivity : ComponentActivity() {
             context = this,
             configurationBuilder = OptionsConfigurations
                 .MorseCodeLetterFactoryConfigurationsBuilder,
-            resourceId = R.raw.options,
+            resourceId = R.raw.options
         )
     }
 
@@ -61,7 +61,7 @@ class OptionsActivity : ComponentActivity() {
                             .updateConfiguration(
                                 this,
                                 options::gameTimeInMinutes,
-                                sliderValue.roundToInt(),
+                                sliderValue.roundToInt()
                             )
                     },
                     onWordsPerMinuteSliderValueChange = { sliderValue: Float ->
@@ -69,7 +69,7 @@ class OptionsActivity : ComponentActivity() {
                             .updateConfiguration(
                                 this,
                                 options::wordsPerMinute,
-                                sliderValue.roundToInt(),
+                                sliderValue.roundToInt()
                             )
                     },
                     onNumberOfQuestionsSliderValueChange = { sliderValue: Float ->
@@ -77,7 +77,7 @@ class OptionsActivity : ComponentActivity() {
                             .updateConfiguration(
                                 this,
                                 options::numberOfQuestions,
-                                sliderValue.roundToInt(),
+                                sliderValue.roundToInt()
                             )
                     },
                     onDifficultLevelRadioButtonChange = { difficultLevel ->
@@ -85,11 +85,11 @@ class OptionsActivity : ComponentActivity() {
                             .updateConfiguration(
                                 this,
                                 options::difficultLevel,
-                                difficultLevel,
+                                difficultLevel
                             )
                     },
                     onSaveButtonClicked = { saveChanges() },
-                    configurations = configurations,
+                    configurations = configurations
                 )
             }
         }
@@ -104,7 +104,7 @@ private fun OptionsScreen(
     onWordsPerMinuteSliderValueChange: (Float) -> Unit,
     onNumberOfQuestionsSliderValueChange: (Float) -> Unit,
     onDifficultLevelRadioButtonChange: (DifficultLevels) -> Unit,
-    onSaveButtonClicked: () -> Unit,
+    onSaveButtonClicked: () -> Unit
 ) {
     val listState = rememberLazyListState()
     LazyColumn(
@@ -112,7 +112,7 @@ private fun OptionsScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         state = listState,
         contentPadding = PaddingValues(all = 30.dp),
-        modifier = Modifier.background(color = Color.White),
+        modifier = Modifier.background(color = Color.White)
     ) {
         item {
             TextWithSlider(
@@ -120,7 +120,7 @@ private fun OptionsScreen(
                 sliderText = "${(options.gameTimeInMinutes)} minutes",
                 sliderValue = options.gameTimeInMinutes.toFloat(),
                 onSliderValueChange = onGameTimeSliderValueChange,
-                sliderValueRange = configurations.gameTimeMin..configurations.gameTimeMax,
+                sliderValueRange = configurations.gameTimeMin..configurations.gameTimeMax
             )
         }
         item {
@@ -129,7 +129,7 @@ private fun OptionsScreen(
                 sliderText = "${(options.wordsPerMinute)}",
                 sliderValue = options.wordsPerMinute.toFloat(),
                 onSliderValueChange = onWordsPerMinuteSliderValueChange,
-                sliderValueRange = configurations.wordsPerMinuteMin..configurations.wordsPerMinuteMax,
+                sliderValueRange = configurations.wordsPerMinuteMin..configurations.wordsPerMinuteMax
             )
         }
         item {
@@ -138,23 +138,23 @@ private fun OptionsScreen(
                 sliderText = "${(options.numberOfQuestions)}",
                 sliderValue = options.numberOfQuestions.toFloat(),
                 onSliderValueChange = onNumberOfQuestionsSliderValueChange,
-                sliderValueRange = configurations.numberOfQuestionsMin..configurations.numberOfQuestionsMax,
+                sliderValueRange = configurations.numberOfQuestionsMin..configurations.numberOfQuestionsMax
             )
         }
         item {
             DifficultLevelRadioButtonsWithText(
                 headerText = "Difficult level:",
                 onClickRadioButton = onDifficultLevelRadioButtonChange,
-                defaultDifficultLevel = options.difficultLevel.name,
+                defaultDifficultLevel = options.difficultLevel.name
             )
         }
         item {
             DefaultButton(
                 SharedComposable.DefaultButtonConfigurations(
                     text = "save",
-                    click = onSaveButtonClicked,
+                    click = onSaveButtonClicked
                 ),
-                modifier = Modifier.padding(top = 20.dp),
+                modifier = Modifier.padding(top = 20.dp)
             )
         }
     }
@@ -166,14 +166,14 @@ private fun TextWithSlider(
     sliderText: String,
     sliderValue: Float,
     onSliderValueChange: (Float) -> Unit,
-    sliderValueRange: ClosedFloatingPointRange<Float>,
+    sliderValueRange: ClosedFloatingPointRange<Float>
 ) {
     SharedComposable.DefaultHeaderText(
         text = headerText,
-        fontSize = 25.sp,
+        fontSize = 25.sp
     )
     SharedComposable.DefaultText(
-        text = sliderText,
+        text = sliderText
     )
     Slider(
         value = sliderValue,
@@ -181,9 +181,9 @@ private fun TextWithSlider(
         valueRange = sliderValueRange,
         colors = SliderDefaults.colors(
             activeTrackColor = DEFAULT_THEME_COLOR,
-            thumbColor = DEFAULT_THEME_COLOR,
+            thumbColor = DEFAULT_THEME_COLOR
         ),
-        modifier = Modifier.padding(bottom = 30.dp),
+        modifier = Modifier.padding(bottom = 30.dp)
     )
 }
 
@@ -192,19 +192,19 @@ private fun TextWithSlider(
 fun DifficultLevelRadioButtonsWithText(
     headerText: String,
     onClickRadioButton: (DifficultLevels) -> Unit,
-    defaultDifficultLevel: String,
+    defaultDifficultLevel: String
 ) {
     val radioOptions = DifficultLevels.values()
     val (_, onOptionSelected) = remember { mutableStateOf(defaultDifficultLevel) }
     Column(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth()
     ) {
         SharedComposable.DefaultHeaderText(
             text = headerText,
             fontSize = 25.sp,
-            modifier = Modifier.padding(bottom = 5.dp),
+            modifier = Modifier.padding(bottom = 5.dp)
         )
         radioOptions.forEach { difficultLevel ->
             Row(
@@ -216,19 +216,19 @@ fun DifficultLevelRadioButtonsWithText(
                         onClick = {
                             onOptionSelected(difficultLevel.name)
                             onClickRadioButton(difficultLevel)
-                        },
+                        }
                     )
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
             ) {
                 RadioButton(
                     selected = (difficultLevel.name == defaultDifficultLevel),
                     onClick = { // TODO get the medium button on the same vertical level as the other difficulties
                         onOptionSelected(difficultLevel.name)
                         onClickRadioButton(difficultLevel)
-                    },
+                    }
                 )
                 Text(
-                    text = difficultLevel.name,
+                    text = difficultLevel.name
                 )
             }
         }
@@ -244,7 +244,7 @@ fun OptionsActivityPreview() {
                 gameTimeInMinutes = 3,
                 difficultLevel = DifficultLevels.EASY,
                 numberOfQuestions = 2,
-                wordsPerMinute = 2,
+                wordsPerMinute = 2
             ),
             onGameTimeSliderValueChange = {},
             onWordsPerMinuteSliderValueChange = {},
@@ -257,8 +257,8 @@ fun OptionsActivityPreview() {
                 2f,
                 15f,
                 4f,
-                8f,
-            ),
+                8f
+            )
         )
     }
 }

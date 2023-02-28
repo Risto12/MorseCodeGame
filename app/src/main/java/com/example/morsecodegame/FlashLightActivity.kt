@@ -43,14 +43,14 @@ class FlashlightActivity : ComponentActivity() {
     private fun finishWithExceptionMsg(text: String) {
         setResult(
             REQUEST_CODE_EXCEPTION,
-            Intent().putExtra(EXTRA_KEY_EXCEPTION_MESSAGE, text),
+            Intent().putExtra(EXTRA_KEY_EXCEPTION_MESSAGE, text)
         )
         finish()
     }
 
     private fun initSettings() {
         if (!this@FlashlightActivity.packageManager
-                .hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)
+            .hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)
         ) {
             finishWithExceptionMsg("Your phone doesn't support camera")
         }
@@ -75,7 +75,7 @@ class FlashlightActivity : ComponentActivity() {
                     try {
                         legendaryTorch.sendMorse(
                             text,
-                            wordsPerMinute,
+                            wordsPerMinute
                         )
                         flashViewModel.flashingOff()
                     } catch (e: TorchException) {
@@ -84,7 +84,7 @@ class FlashlightActivity : ComponentActivity() {
                         Log.e(
                             FLASH_ACTIVITY_LOG_TAG,
                             "Exception when accessing camera",
-                            e,
+                            e
                         )
                         finishWithExceptionMsg(unknownIssueText)
                     }
@@ -94,7 +94,7 @@ class FlashlightActivity : ComponentActivity() {
                 ToastGenerator.showLongText(
                     this,
                     "Input contains not supported characters. " +
-                        "Supported characters are $supportedCharacters",
+                        "Supported characters are $supportedCharacters"
                 )
             }
         }
@@ -103,7 +103,7 @@ class FlashlightActivity : ComponentActivity() {
             MorseCodeGameTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = Color.Black,
+                    color = Color.Black
                 ) {
                     val isFlashing by flashViewModel.isFlashing.collectAsState()
                     GameScreen(imageId = R.drawable.sea_red_moon) {
@@ -113,7 +113,7 @@ class FlashlightActivity : ComponentActivity() {
                                 sendMorse(it)
                             },
                             onClickCancel = cancel,
-                            sendingMorse = isFlashing,
+                            sendingMorse = isFlashing
                         )
                     }
                 }
@@ -126,14 +126,14 @@ class FlashlightActivity : ComponentActivity() {
 fun BoxScope.SendMorseBox(
     onClickSend: (text: String) -> Unit,
     onClickCancel: () -> Unit,
-    sendingMorse: Boolean = false,
+    sendingMorse: Boolean = false
 ) {
     Column(
         modifier = Modifier
             .align(Alignment.BottomCenter)
             .fillMaxWidth()
             .background(Color.Black),
-        horizontalAlignment = Alignment.CenterHorizontally,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         var inputText by rememberSaveable { mutableStateOf("") }
         var placeHolderText by remember { mutableStateOf("Insert text") }
@@ -142,7 +142,7 @@ fun BoxScope.SendMorseBox(
             onValueChange = { text -> inputText = text },
             placeholder = @Composable { Text(text = placeHolderText, color = Color.Magenta) },
             modifier = Modifier.background(Color.White.copy(alpha = 0.1f)),
-            colors = TextFieldDefaults.textFieldColors(textColor = Color.Magenta),
+            colors = TextFieldDefaults.textFieldColors(textColor = Color.Magenta)
         )
         SharedComposable.DefaultButton(
             configurations = SharedComposable.DefaultButtonConfigurations(
@@ -155,14 +155,14 @@ fun BoxScope.SendMorseBox(
                     }
                 },
                 enabled = !sendingMorse,
-                available = !sendingMorse,
-            ),
+                available = !sendingMorse
+            )
         )
         SharedComposable.DefaultButton(
             configurations = SharedComposable.DefaultButtonConfigurations(
                 text = "Cancel",
-                click = onClickCancel,
-            ),
+                click = onClickCancel
+            )
         )
     }
 }
@@ -173,12 +173,12 @@ fun DefaultPreview() {
     MorseCodeGameTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
-            color = Color.Black,
+            color = Color.Black
         ) {
             GameScreen(imageId = R.drawable.sea_red_moon) {
                 SendMorseBox(
                     onClickSend = { },
-                    onClickCancel = { },
+                    onClickCancel = { }
                 )
             }
         }

@@ -9,13 +9,13 @@ import com.example.morsecodegame.model.Options
 import com.example.morsecodegame.utility.DifficultLevels
 import com.example.morsecodegame.utility.Learning
 import com.example.morsecodegame.utility.ToastGenerator
+import kotlin.reflect.KMutableProperty0
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlin.reflect.KMutableProperty0
 
 interface PersistData {
     suspend fun save()
@@ -31,8 +31,8 @@ class OptionsViewModel : ViewModel(), PersistData {
             0,
             DifficultLevels.EASY,
             10,
-            6,
-        ),
+            6
+        )
     )
 
     val optionsViewModelData: StateFlow<Options> = _optionsViewModelData
@@ -54,7 +54,7 @@ class OptionsViewModel : ViewModel(), PersistData {
     fun <T>updateConfiguration(
         context: Context,
         property: KMutableProperty0<*>,
-        value: T? = null,
+        value: T? = null
     ) {
         val options = optionsViewModelData.value
         try {
@@ -71,12 +71,12 @@ class OptionsViewModel : ViewModel(), PersistData {
             ToastGenerator.showLongText(
                 context,
                 "There seemed be slight issue during configuration change. Please make sure " +
-                    "That the slider is in correct place",
+                    "That the slider is in correct place"
             )
             Log.e(
                 "Options view model",
                 "Exception during update configuration",
-                e,
+                e
             )
         }
     }

@@ -25,7 +25,7 @@ object SharedComposable {
         val text: String,
         val click: () -> Unit,
         val available: Boolean = true,
-        val enabled: Boolean = true,
+        val enabled: Boolean = true
     )
 
     /**
@@ -36,7 +36,7 @@ object SharedComposable {
         val content: @Composable() () -> Unit,
         val click: () -> Unit,
         val available: Boolean = true,
-        val enabled: Boolean = true,
+        val enabled: Boolean = true
     )
 
     @Composable
@@ -44,7 +44,7 @@ object SharedComposable {
         text: String,
         @SuppressLint("ModifierParameter")
         modifier: Modifier = Modifier.padding(bottom = 40.dp),
-        fontSize: TextUnit = 20.sp,
+        fontSize: TextUnit = 20.sp
     ) {
         Text(
             text = text,
@@ -52,7 +52,7 @@ object SharedComposable {
             fontSize = fontSize,
             fontWeight = FontWeight.Black,
             fontStyle = FontStyle.Italic,
-            modifier = modifier,
+            modifier = modifier
         )
     }
 
@@ -61,7 +61,7 @@ object SharedComposable {
     fun DefaultText(
         text: String,
         modifier: Modifier = Modifier.padding(bottom = 5.dp),
-        fontSize: TextUnit = 15.sp,
+        fontSize: TextUnit = 15.sp
     ) {
         Text(
             text = text,
@@ -69,7 +69,7 @@ object SharedComposable {
             fontSize = fontSize,
             fontWeight = FontWeight.Black,
             fontStyle = FontStyle.Italic,
-            modifier = modifier,
+            modifier = modifier
         )
     }
 
@@ -77,7 +77,7 @@ object SharedComposable {
     @SuppressLint("ModifierParameter")
     fun DefaultButton(
         configurations: DefaultButtonConfigurations,
-        modifier: Modifier = Modifier.padding(bottom = 15.dp),
+        modifier: Modifier = Modifier.padding(bottom = 15.dp)
     ) {
         val (color, textDecoration) = if (configurations.available) {
             Pair(DEFAULT_THEME_COLOR, null)
@@ -86,17 +86,17 @@ object SharedComposable {
         }
         Button(
             colors = ButtonDefaults.textButtonColors(
-                backgroundColor = color,
+                backgroundColor = color
             ),
             modifier = modifier,
             onClick = configurations.click,
-            enabled = configurations.enabled,
+            enabled = configurations.enabled
         ) {
             Text(
                 text = configurations.text,
                 color = Color.White,
                 fontSize = 20.sp,
-                textDecoration = textDecoration,
+                textDecoration = textDecoration
             )
         }
     }
@@ -105,16 +105,16 @@ object SharedComposable {
     @SuppressLint("ModifierParameter")
     fun DefaultButton(
         configurations: DefaultButtonComposableConfigurations,
-        modifier: Modifier = Modifier.fillMaxWidth(),
+        modifier: Modifier = Modifier.fillMaxWidth()
     ) {
         val color = if (configurations.available) DEFAULT_THEME_COLOR else Color.Gray
         Button(
             colors = ButtonDefaults.textButtonColors(
-                backgroundColor = color,
+                backgroundColor = color
             ),
             modifier = modifier,
             onClick = configurations.click,
-            enabled = configurations.enabled,
+            enabled = configurations.enabled
         ) {
             configurations.content()
         }
@@ -123,11 +123,11 @@ object SharedComposable {
     @Composable
     fun Header(
         text: String,
-        fontSize: TextUnit = 40.sp,
+        fontSize: TextUnit = 40.sp
     ) {
         DefaultHeaderText(
             text = text,
-            fontSize = fontSize,
+            fontSize = fontSize
         )
     }
 }
@@ -135,16 +135,16 @@ object SharedComposable {
 @Composable
 fun GameScreen(
     imageId: Int,
-    content: @Composable BoxScope.() -> Unit,
+    content: @Composable BoxScope.() -> Unit
 ) {
     Box(
         modifier = Modifier
-            .fillMaxSize(),
+            .fillMaxSize()
     ) {
         Image(
             painterResource(imageId),
             contentDescription = "Stormy sea",
-            modifier = Modifier.matchParentSize(),
+            modifier = Modifier.matchParentSize()
         )
         content()
     }

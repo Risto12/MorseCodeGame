@@ -38,7 +38,7 @@ object ConfigurationsFactory { // Maybe this should be propertyFactory ...
     fun <T>configurationsFactory(
         context: Context,
         configurationBuilder: ConfigurationBuilder<T>,
-        resourceId: Int,
+        resourceId: Int
     ): T {
         val resources: Resources = context.resources
         try {

@@ -1,8 +1,8 @@
 package com.example.morsecodegame.utility
 
 import com.example.morsecodegame.morsecode.MorseCodeConverter
-import kotlinx.coroutines.delay
 import kotlin.math.abs
+import kotlinx.coroutines.delay
 
 object MorseCodeTimer {
     // TODO should be named better ...
@@ -15,7 +15,7 @@ object MorseCodeTimer {
         val morseCode = MorseCodeConverter.toMorseCode(text)
         MorseCodeConverter.morseCodeAsMillisecondsRepresentation(
             morseCode,
-            wordsPerMinute,
+            wordsPerMinute
         ).forEach { morseDelay ->
             // If morseDelay is not minus number it indicates that the light should be on
             invoke(morseDelay > 0)

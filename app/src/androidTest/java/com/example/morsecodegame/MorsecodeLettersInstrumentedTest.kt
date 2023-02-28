@@ -13,7 +13,7 @@ import org.junit.runner.RunWith
  * TODO make tests that toggles activities buttons and check that not exceptions occur for 1.0b version
  */
 @RunWith(AndroidJUnit4::class)
-class MainActivityTest {
+class MorseCodeLettersInstrumentedTest {
 
     @get:Rule
     val rule = createAndroidComposeRule<MorseCodeLettersActivity>()
