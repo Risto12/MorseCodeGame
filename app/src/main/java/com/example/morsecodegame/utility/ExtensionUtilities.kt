@@ -19,7 +19,7 @@ fun Intent.getOptions() = getParcelableExtra<Options>(CommonIntentExtraKeys.OPTI
  * @param keys
  * @return String [List] returns the values fetched in the same order as keys were given
  */
-fun Properties.getConfigurationBuilderProperties(
+fun Properties.getConfigurationGeneratorProperties(
     keyPrefix: String,
     vararg keys: String
 // List interface keeps the inserting order
@@ -43,7 +43,7 @@ fun Properties.getConfigurationBuilderProperties(
  * @param keys
  * @return String? [Map] returns the value fetched.
  */
-fun Properties.getConfigurationBuilderPropertiesAsMap(
+fun Properties.getConfigurationGeneratorPropertiesAsMap(
     keyPrefix: String,
     vararg keys: String
 ): Map<String, String?> {

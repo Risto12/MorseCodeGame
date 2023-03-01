@@ -31,7 +31,7 @@ class MorseCodeLettersActivity : ComponentActivity() {
     private val configurations: MorseCodeLettersInfoTextConfiguration by lazy {
         ConfigurationsFactory.configurationsFactory(
             context = this,
-            configurationBuilder = MorseCodeLettersInfoTextConfiguration
+            configurationGenerator = MorseCodeLettersInfoTextConfiguration
                 .MorseCodeLetterFactoryConfigurationsBuilder,
             resourceId = R.raw.morseletter
         )

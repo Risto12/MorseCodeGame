@@ -21,26 +21,24 @@ import androidx.compose.ui.unit.sp
 import com.example.morsecodegame.composables.DEFAULT_THEME_COLOR
 import com.example.morsecodegame.composables.SharedComposable
 import com.example.morsecodegame.composables.SharedComposable.DefaultButton
-import com.example.morsecodegame.configurations.ConfigurationsFactory
 import com.example.morsecodegame.configurations.OptionsConfigurations
-import com.example.morsecodegame.di.components.OptionsComponent
 import com.example.morsecodegame.model.Options
 import com.example.morsecodegame.ui.theme.MorseCodeGameTheme
 import com.example.morsecodegame.utility.DifficultLevels
 import com.example.morsecodegame.utility.launchIOCoroutine
-import com.example.morsecodegame.viewModel.OptionsViewModel
+import com.example.morsecodegame.viewModel.OptionsConfigurationsViewModel
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
 class OptionsActivity : ComponentActivity() {
 
-    private val optionsViewModel: OptionsViewModel by viewModels()
+    private val optionsConfigurationsViewModel: OptionsConfigurationsViewModel by viewModels()
 
     @Inject
     lateinit var optionsConfigurations: OptionsConfigurations
 
     private fun saveChanges() = launchIOCoroutine {
-        optionsViewModel.save()
+        optionsConfigurationsViewModel.save()
         finish()
     }
 
@@ -50,11 +48,11 @@ class OptionsActivity : ComponentActivity() {
         setContent {
             MorseCodeGameTheme {
                 val configurations by rememberSaveable { mutableStateOf(optionsConfigurations) }
-                val options by optionsViewModel.optionsViewModelData.collectAsState()
+                val options by optionsConfigurationsViewModel.optionsViewModelData.collectAsState()
                 OptionsScreen(
                     options = options,
                     onGameTimeSliderValueChange = { sliderValue: Float ->
-                        optionsViewModel
+                        optionsConfigurationsViewModel
                             .updateConfiguration(
                                 this,
                                 options::gameTimeInMinutes,
@@ -62,7 +60,7 @@ class OptionsActivity : ComponentActivity() {
                             )
                     },
                     onWordsPerMinuteSliderValueChange = { sliderValue: Float ->
-                        optionsViewModel
+                        optionsConfigurationsViewModel
                             .updateConfiguration(
                                 this,
                                 options::wordsPerMinute,
@@ -70,7 +68,7 @@ class OptionsActivity : ComponentActivity() {
                             )
                     },
                     onNumberOfQuestionsSliderValueChange = { sliderValue: Float ->
-                        optionsViewModel
+                        optionsConfigurationsViewModel
                             .updateConfiguration(
                                 this,
                                 options::numberOfQuestions,
@@ -78,7 +76,7 @@ class OptionsActivity : ComponentActivity() {
                             )
                     },
                     onDifficultLevelRadioButtonChange = { difficultLevel ->
-                        optionsViewModel
+                        optionsConfigurationsViewModel
                             .updateConfiguration(
                                 this,
                                 options::difficultLevel,

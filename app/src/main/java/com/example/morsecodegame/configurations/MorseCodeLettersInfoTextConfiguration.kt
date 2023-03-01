@@ -5,7 +5,7 @@ import androidx.compose.runtime.Stable
 import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.mapSaver
 import com.example.morsecodegame.utility.Learning
-import com.example.morsecodegame.utility.getConfigurationBuilderProperties
+import com.example.morsecodegame.utility.getConfigurationGeneratorProperties
 import java.util.*
 import kotlinx.parcelize.Parcelize
 
@@ -43,11 +43,11 @@ data class MorseCodeLettersInfoTextConfiguration(
 
     companion object {
         val MorseCodeLetterFactoryConfigurationsBuilder =
-            object : ConfigurationBuilder<MorseCodeLettersInfoTextConfiguration> {
+            object : ConfigurationGenerator<MorseCodeLettersInfoTextConfiguration> {
                 override val keyPrefix = "morse_letters"
-                override fun build(properties: Properties): MorseCodeLettersInfoTextConfiguration {
+                override fun generate(properties: Properties): MorseCodeLettersInfoTextConfiguration {
                     val (overview, wordsPerMinute, example) =
-                        properties.getConfigurationBuilderProperties(
+                        properties.getConfigurationGeneratorProperties(
                             keyPrefix,
                             "overview",
                             "words_per_minute",

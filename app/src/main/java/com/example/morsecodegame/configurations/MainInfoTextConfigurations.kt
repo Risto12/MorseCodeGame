@@ -2,13 +2,14 @@ package com.example.morsecodegame.configurations
 
 import android.os.Parcelable
 import androidx.compose.runtime.Stable
-import com.example.morsecodegame.utility.getConfigurationBuilderProperties
+import com.example.morsecodegame.utility.getConfigurationGeneratorProperties
 import java.util.*
 import kotlinx.parcelize.Parcelize
+import javax.inject.Inject
 
 @Parcelize
 @Stable
-class MainInfoTextConfigurations(
+class MainInfoTextConfigurations @Inject constructor(
     val appVersion: String,
     val blinkingLightInfo: String,
     val soundInfo: String,
@@ -17,12 +18,12 @@ class MainInfoTextConfigurations(
 ) : Parcelable {
 
     companion object {
-        val MainInfoTextConfigurationsBuilder =
-            object : ConfigurationBuilder<MainInfoTextConfigurations> {
+        val MainInfoTextConfigurationsGenerator =
+            object : ConfigurationGenerator<MainInfoTextConfigurations> {
                 override val keyPrefix = "main"
-                override fun build(properties: Properties): MainInfoTextConfigurations {
+                override fun generate(properties: Properties): MainInfoTextConfigurations {
                     val (appVersion, blinkingLightInfo, soundInfo, flashlightInfo, bluetoothInfo) =
-                        properties.getConfigurationBuilderProperties(
+                        properties.getConfigurationGeneratorProperties(
                             keyPrefix,
                             "app_version",
                             "blinking_light_info",

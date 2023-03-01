@@ -22,51 +22,25 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
-import androidx.lifecycle.*
 import com.example.morsecodegame.components.ExceptionActivityResult
 import com.example.morsecodegame.composables.SharedComposable
 import com.example.morsecodegame.configurations.ConfigurationsFactory
 import com.example.morsecodegame.configurations.MainInfoTextConfigurations
-import com.example.morsecodegame.db.AppDatabase
-import com.example.morsecodegame.model.Options
 import com.example.morsecodegame.ui.theme.MorseCodeGameTheme
 import com.example.morsecodegame.utility.ToastGenerator
-import kotlinx.coroutines.*
+import com.example.morsecodegame.viewModel.OptionsViewModel
+import javax.inject.Inject
 
 private enum class GameType {
     LIGHT, SOUND, BLUETOOTH, FLASHLIGHT
 }
 
-// This can be named this way for now because migrating to dagger and will name this differently soon
-class OptionsViewModelTest : ViewModel() {
-
-    private val db = AppDatabase.getOptionsDao()
-
-    @Volatile
-    private lateinit var optionsViewModelData: Options
-
-    fun load() {
-        viewModelScope.launch(Dispatchers.IO) { // TODO test
-            db.getOptions().collect {
-                optionsViewModelData = it!!.toOptions()
-            }
-        }
-    }
-
-    fun getOptions() = optionsViewModelData.copy()
-}
-
 class MainActivity : ComponentActivity() {
 
-    private val testViewModel: OptionsViewModelTest by viewModels()
+    private val testViewModel: OptionsViewModel by viewModels()
 
-    private val infoTextConfigurations: MainInfoTextConfigurations by lazy {
-        ConfigurationsFactory.configurationsFactory(
-            context = this,
-            configurationBuilder = MainInfoTextConfigurations.MainInfoTextConfigurationsBuilder,
-            resourceId = R.raw.main
-        )
-    }
+    @Inject
+    lateinit var infoTextConfigurations: MainInfoTextConfigurations
 
     // TODO remove these onStart and so on methods after experimenting
     private fun debugInfo(onAny: String) {
@@ -138,6 +112,7 @@ class MainActivity : ComponentActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        (application as MorseCodeGameApplication).optionsComponent.inject(this)
         super.onCreate(savedInstanceState)
         debugInfo("create")
         testViewModel.load()

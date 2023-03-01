@@ -3,7 +3,7 @@ package com.example.morsecodegame.configurations
 import android.os.Parcelable
 import android.util.Log
 import androidx.compose.runtime.Stable
-import com.example.morsecodegame.utility.getConfigurationBuilderPropertiesAsMap
+import com.example.morsecodegame.utility.getConfigurationGeneratorPropertiesAsMap
 import java.util.*
 import kotlinx.parcelize.Parcelize
 import javax.inject.Inject
@@ -20,10 +20,10 @@ data class OptionsConfigurations @Inject constructor(
 ) : Parcelable {
 
     companion object {
-        val MorseCodeLetterFactoryConfigurationsBuilder =
-            object : ConfigurationBuilder<OptionsConfigurations> {
+        val MorseCodeLetterFactoryConfigurationsGenerator =
+            object : ConfigurationGenerator<OptionsConfigurations> {
                 override val keyPrefix = "options"
-                override fun build(properties: Properties): OptionsConfigurations {
+                override fun generate(properties: Properties): OptionsConfigurations {
                     val gameTimeMinKey = "game_time_min"
                     val gameTimeMaxKey = "game_time_max"
                     val wordsPerMinuteMinKey = "words_per_minute_min"
@@ -31,7 +31,7 @@ data class OptionsConfigurations @Inject constructor(
                     val numberOfQuestionsMinKey = "number_of_questions_min"
                     val numberOfQuestionsMaxKey = "number_of_questions_max"
 
-                    val configurations = properties.getConfigurationBuilderPropertiesAsMap(
+                    val configurations = properties.getConfigurationGeneratorPropertiesAsMap(
                         keyPrefix,
                         gameTimeMinKey,
                         gameTimeMaxKey,
