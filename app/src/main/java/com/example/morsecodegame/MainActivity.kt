@@ -7,6 +7,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.Surface
@@ -143,31 +144,35 @@ class MainActivity : ComponentActivity() {
             }
             var singlePlayerClicked by rememberSaveable { mutableStateOf(false) }
             var multiplayerClicked by rememberSaveable { mutableStateOf(false) }
-            if (!loadingOptions) {
-                when {
-                    singlePlayerClicked -> SinglePlayerMenu(
-                        onClickSinglePlayerType = setLoadingOptions(singlePlayer),
-                        onClickCancel = { singlePlayerClicked = false },
-                        infoTexts = infoTexts
-                    )
-                    multiplayerClicked -> MultiplayerMenu(
-                        onClickCancel = { multiplayerClicked = false },
-                        onClickBluetooth = {},
-                        onClickFlashLight = setLoadingOptions(multiplayer),
-                        infoTexts = infoTexts
-                    )
-                    else -> MainMenu(
-                        onClickSinglePlayer = { singlePlayerClicked = true },
-                        onClickMultiplayer = { multiplayerClicked = true },
-                        onClickOptions = options,
-                        onClickMorseCode = morseCode,
-                        onClickExit = exit,
-                        version = infoTexts.appVersion
-                    )
+            Box(
+                modifier = Modifier.background(color = Color.White).fillMaxSize()
+            ) {
+                if (!loadingOptions) {
+                    when {
+                        singlePlayerClicked -> SinglePlayerMenu(
+                            onClickSinglePlayerType = setLoadingOptions(singlePlayer),
+                            onClickCancel = { singlePlayerClicked = false },
+                            infoTexts = infoTexts
+                        )
+                        multiplayerClicked -> MultiplayerMenu(
+                            onClickCancel = { multiplayerClicked = false },
+                            onClickBluetooth = {},
+                            onClickFlashLight = setLoadingOptions(multiplayer),
+                            infoTexts = infoTexts
+                        )
+                        else -> MainMenu(
+                            onClickSinglePlayer = { singlePlayerClicked = true },
+                            onClickMultiplayer = { multiplayerClicked = true },
+                            onClickOptions = options,
+                            onClickMorseCode = morseCode,
+                            onClickExit = exit,
+                            version = infoTexts.appVersion
+                        )
+                    }
+                } else {
+                    // TODO create shareable composable for this loading functionality
+                    SharedComposable.DefaultText(text = "Loading ...")
                 }
-            } else {
-                // TODO create shareable composable for this loading functionality
-                SharedComposable.DefaultText(text = "Loading ...")
             }
         }
     }
@@ -314,7 +319,7 @@ private fun MainMenu(
     onClickMorseCode: () -> Unit,
     version: String
 ) = MorseCodeGameTheme {
-    Box {
+    Box(modifier = Modifier.background(color = Color.White)){
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
@@ -359,7 +364,9 @@ private fun MainMenu(
         SharedComposable.DefaultText(
             text = "v$version",
             fontSize = 15.sp,
-            modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 10.dp)
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 10.dp)
         )
     }
 }
