@@ -34,8 +34,7 @@ import kotlin.math.roundToInt
 
 class OptionsActivity : ComponentActivity() {
 
-    @Inject
-    lateinit var optionsViewModel: OptionsViewModel
+    private val optionsViewModel: OptionsViewModel by viewModels()
 
     @Inject
     lateinit var optionsConfigurations: OptionsConfigurations

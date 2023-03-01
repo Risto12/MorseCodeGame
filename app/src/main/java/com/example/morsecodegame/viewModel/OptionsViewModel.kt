@@ -23,7 +23,7 @@ interface PersistData {
     suspend fun load()
 }
 
-class OptionsViewModel @Inject constructor(): ViewModel(), PersistData {
+class OptionsViewModel : ViewModel(), PersistData {
 
     private val db = AppDatabase.getOptionsDao()
 
