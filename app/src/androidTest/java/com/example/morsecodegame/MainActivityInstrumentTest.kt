@@ -7,12 +7,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
-fun SemanticsNodeInteractionsProvider.onNodeWithTextIgnore(text: String) =
-    onNodeWithText(text, ignoreCase = true)
-
-fun SemanticsNodeInteractionsProvider.onNodeWithTextAndSubStringIgnore(text: String) =
-    onNodeWithText(text, ignoreCase = true, substring = true)
-
 @RunWith(AndroidJUnit4::class)
 class MainActivityInstrumentTest {
 
