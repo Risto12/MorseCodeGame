@@ -1,8 +1,11 @@
-package com.example.morsecodegame
+package com.example.morsecodegame.tests
 
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.example.morsecodegame.MainActivity
+import com.example.morsecodegame.onNodeWithTextAndSubStringIgnore
+import com.example.morsecodegame.onNodeWithTextIgnore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -36,12 +39,12 @@ class MainActivityInstrumentTest {
             .performClick()
         rule.onNodeWithContentDescription("Sound game mode info")
             .performClick()
-        rule.onNodeWithTextAndSubStringIgnore("Not available")
+        rule.onNodeWithTextAndSubStringIgnore("Sound info")
             .assertExists()
 
         rule.onNodeWithContentDescription("Blinking light game mode info")
             .performClick()
-        rule.onNodeWithTextAndSubStringIgnore("a blinking light")
+        rule.onNodeWithTextAndSubStringIgnore("blinking info")
             .assertExists()
     }
 
@@ -60,12 +63,12 @@ class MainActivityInstrumentTest {
             .performClick()
         rule.onNodeWithContentDescription("Flash game mode info")
             .performClick()
-        rule.onNodeWithTextAndSubStringIgnore("Phones flashlight")
+        rule.onNodeWithTextAndSubStringIgnore("flash info")
             .assertExists()
 
         rule.onNodeWithContentDescription("Bluetooth game mode info")
             .performClick()
-        rule.onNodeWithTextAndSubStringIgnore("Not available")
+        rule.onNodeWithTextAndSubStringIgnore("bluetooth info")
             .assertExists()
     }
 
@@ -85,7 +88,7 @@ class MainActivityInstrumentTest {
 
     @Test
     fun testVersionNumberExists() {
-        // TODO
+        rule.onNodeWithTextIgnore("v1.0").assertExists()
     }
 }
 

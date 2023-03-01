@@ -22,7 +22,8 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.example.morsecodegame.MorseCodeGameTestRunner"
+
         vectorDrawables {
             useSupportLibrary true
         }
@@ -94,5 +95,6 @@ dependencies {
     // Optional -- UI testing with UI Automator
     androidTestImplementation "androidx.test.uiautomator:uiautomator:2.2.0"
     // Optional -- UI testing with Compose
+    kaptAndroidTest "com.google.dagger:dagger-compiler:$dagger_version"
 
 }

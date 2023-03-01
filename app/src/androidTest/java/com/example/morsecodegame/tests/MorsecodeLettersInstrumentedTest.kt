@@ -1,8 +1,9 @@
-package com.example.morsecodegame
+package com.example.morsecodegame.tests
 
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.example.morsecodegame.MorseCodeLettersActivity
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
