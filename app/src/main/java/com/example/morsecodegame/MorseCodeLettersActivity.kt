@@ -29,8 +29,6 @@ import javax.inject.Inject
  */
 class MorseCodeLettersActivity : ComponentActivity() {
 
-    // This value is only used once for remember saveable that has mutable state of strings.
-    // so lazy takes care of that this is not instantiated with every orientation change. <- NOTE preseve this functionality
     @Inject
     lateinit var configurations: MorseCodeLettersInfoTextConfiguration
 

@@ -8,10 +8,11 @@ import com.example.morsecodegame.utility.Learning
 import com.example.morsecodegame.utility.getConfigurationGeneratorProperties
 import java.util.*
 import kotlinx.parcelize.Parcelize
+import javax.inject.Inject
 
 @Parcelize
 @Stable
-data class MorseCodeLettersInfoTextConfiguration(
+data class MorseCodeLettersInfoTextConfiguration @Inject constructor(
     val overview: String,
     val wordsPerMinute: String,
     val example: String
