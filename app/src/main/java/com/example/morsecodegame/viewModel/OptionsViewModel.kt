@@ -16,13 +16,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 interface PersistData {
     suspend fun save()
     suspend fun load()
 }
 
-class OptionsViewModel : ViewModel(), PersistData {
+class OptionsViewModel @Inject constructor(): ViewModel(), PersistData {
 
     private val db = AppDatabase.getOptionsDao()
 

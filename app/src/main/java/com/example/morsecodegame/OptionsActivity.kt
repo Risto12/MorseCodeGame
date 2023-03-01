@@ -23,25 +23,22 @@ import com.example.morsecodegame.composables.SharedComposable
 import com.example.morsecodegame.composables.SharedComposable.DefaultButton
 import com.example.morsecodegame.configurations.ConfigurationsFactory
 import com.example.morsecodegame.configurations.OptionsConfigurations
+import com.example.morsecodegame.di.components.OptionsComponent
 import com.example.morsecodegame.model.Options
 import com.example.morsecodegame.ui.theme.MorseCodeGameTheme
 import com.example.morsecodegame.utility.DifficultLevels
 import com.example.morsecodegame.utility.launchIOCoroutine
 import com.example.morsecodegame.viewModel.OptionsViewModel
+import javax.inject.Inject
 import kotlin.math.roundToInt
 
 class OptionsActivity : ComponentActivity() {
 
-    private val optionsViewModel: OptionsViewModel by viewModels()
+    @Inject
+    lateinit var optionsViewModel: OptionsViewModel
 
-    private val optionsConfigurations: OptionsConfigurations by lazy {
-        ConfigurationsFactory.configurationsFactory(
-            context = this,
-            configurationBuilder = OptionsConfigurations
-                .MorseCodeLetterFactoryConfigurationsBuilder,
-            resourceId = R.raw.options
-        )
-    }
+    @Inject
+    lateinit var optionsConfigurations: OptionsConfigurations
 
     private fun saveChanges() = launchIOCoroutine {
         optionsViewModel.save()
@@ -49,6 +46,7 @@ class OptionsActivity : ComponentActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        (application as MorseCodeGameApplication).optionsComponent.inject(this)
         super.onCreate(savedInstanceState)
         setContent {
             MorseCodeGameTheme {

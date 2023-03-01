@@ -6,10 +6,11 @@ import androidx.compose.runtime.Stable
 import com.example.morsecodegame.utility.getConfigurationBuilderPropertiesAsMap
 import java.util.*
 import kotlinx.parcelize.Parcelize
+import javax.inject.Inject
 
 @Parcelize
 @Stable
-data class OptionsConfigurations(
+data class OptionsConfigurations @Inject constructor(
     val gameTimeMin: Float,
     val gameTimeMax: Float,
     val wordsPerMinuteMin: Float,
