@@ -18,26 +18,24 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.morsecodegame.composables.SharedComposable
-import com.example.morsecodegame.configurations.ConfigurationsFactory
 import com.example.morsecodegame.configurations.MorseCodeLettersInfoTextConfiguration
 import com.example.morsecodegame.morsecode.MorseCodeLetter
 import com.example.morsecodegame.ui.theme.MorseCodeGameTheme
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+/***
+ * Activity presents information related to Morse code and all the letters in DI, DA format
+ */
 class MorseCodeLettersActivity : ComponentActivity() {
 
     // This value is only used once for remember saveable that has mutable state of strings.
-    // so lazy takes care of that this is not instantiated with every orientation change.
-    private val configurations: MorseCodeLettersInfoTextConfiguration by lazy {
-        ConfigurationsFactory.configurationsFactory(
-            context = this,
-            configurationGenerator = MorseCodeLettersInfoTextConfiguration
-                .MorseCodeLetterFactoryConfigurationsBuilder,
-            resourceId = R.raw.morseletter
-        )
-    }
+    // so lazy takes care of that this is not instantiated with every orientation change. <- NOTE preseve this functionality
+    @Inject
+    lateinit var configurations: MorseCodeLettersInfoTextConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        (application as MorseCodeGameApplication).optionsComponent.inject(this)
         super.onCreate(savedInstanceState)
         val back = { finish() }
         setContent {

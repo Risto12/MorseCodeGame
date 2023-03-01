@@ -2,6 +2,7 @@ package com.example.morsecodegame.di.components
 
 import android.content.Context
 import com.example.morsecodegame.MainActivity
+import com.example.morsecodegame.MorseCodeLettersActivity
 import com.example.morsecodegame.OptionsActivity
 import com.example.morsecodegame.di.modules.ConfigurationsModule
 import dagger.BindsInstance
@@ -19,4 +20,5 @@ interface OptionsComponent {
 
     fun inject(optionsActivity: OptionsActivity)
     fun inject(mainActivity: MainActivity)
+    fun inject(morseCodeLettersActivity: MorseCodeLettersActivity)
 }
