@@ -8,13 +8,18 @@ import com.example.morsecodegame.configurations.MorseCodeLettersInfoTextConfigur
 import com.example.morsecodegame.configurations.OptionsConfigurations
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ActivityContext
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Qualifier
 
+@InstallIn(SingletonComponent::class)
 @Module
-class ConfigurationsModule {
+class ConfigurationsModule  {
 
     @Provides
-    fun morseCodeLettersInfoTextConfiguration(context: Context): MorseCodeLettersInfoTextConfiguration {
+    fun morseCodeLettersInfoTextConfiguration(@ApplicationContext context: Context): MorseCodeLettersInfoTextConfiguration {
         return ConfigurationsFactory.configurationsFactory(
             context = context,
             configurationGenerator = MorseCodeLettersInfoTextConfiguration
@@ -24,7 +29,7 @@ class ConfigurationsModule {
     }
 
     @Provides
-    fun mainInfoTextConfigurations(context: Context): MainInfoTextConfigurations {
+    fun mainInfoTextConfigurations(@ApplicationContext context: Context): MainInfoTextConfigurations {
         return ConfigurationsFactory.configurationsFactory(
             context = context,
             configurationGenerator = MainInfoTextConfigurations.MainInfoTextConfigurationsGenerator,
@@ -33,7 +38,7 @@ class ConfigurationsModule {
     }
 
     @Provides
-    fun optionsConfigurations(context: Context): OptionsConfigurations {
+    fun optionsConfigurations(@ApplicationContext context: Context): OptionsConfigurations { // TODO Chck ApplicationContext
         return ConfigurationsFactory.configurationsFactory(
             context = context,
             configurationGenerator = OptionsConfigurations

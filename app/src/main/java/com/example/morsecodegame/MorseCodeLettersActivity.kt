@@ -35,7 +35,6 @@ class MorseCodeLettersActivity : ComponentActivity() {
     lateinit var configurations: MorseCodeLettersInfoTextConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (application as MorseCodeGameApplication).configurationsComponent.inject(this)
         super.onCreate(savedInstanceState)
         val back = { finish() }
         setContent {

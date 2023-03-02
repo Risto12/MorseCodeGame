@@ -2,7 +2,6 @@ package com.example.morsecodegame
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -30,6 +29,7 @@ import com.example.morsecodegame.ui.theme.MorseCodeGameTheme
 import com.example.morsecodegame.utility.ToastGenerator
 import com.example.morsecodegame.viewModel.OptionsViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.EntryPointAccessors
 import javax.inject.Inject
 
 private enum class GameType {
@@ -43,42 +43,6 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var infoTextConfigurations: MainInfoTextConfigurations
-
-    // TODO create logger delegate for this kind of stuff
-    private fun debugInfo(onAny: String) {
-        val line = "--------------------------------"
-        Log.d("MainActivityDebug", "On $onAny launched\n$line")
-    }
-
-    override fun onStart() {
-        super.onStart()
-        debugInfo("start")
-    }
-
-    override fun onRestart() {
-        super.onRestart()
-        debugInfo("restart")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        debugInfo("resume")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        debugInfo("stop")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        debugInfo("destroyed")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        debugInfo("pause")
-    }
 
     private val flashLightActivityResultContract =
         registerForActivityResult(
@@ -114,9 +78,8 @@ class MainActivity : ComponentActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (application as MorseCodeGameApplication).optionsComponent.inject(this)
         super.onCreate(savedInstanceState)
-        debugInfo("create")
+
         testViewModel.load()
         val singlePlayer = { type: GameType ->
             if (type == GameType.LIGHT) {
