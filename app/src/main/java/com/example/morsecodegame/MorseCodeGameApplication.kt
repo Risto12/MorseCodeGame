@@ -6,8 +6,9 @@ import com.example.morsecodegame.di.components.ConfigurationsComponent
 import com.example.morsecodegame.di.components.DaggerConfigurationsComponent
 import com.example.morsecodegame.di.components.DaggerOptionsComponent
 import com.example.morsecodegame.di.components.OptionsComponent
+import dagger.hilt.android.HiltAndroidApp
 
-
+@HiltAndroidApp
 open class MorseCodeGameApplication : Application() {
 
     val optionsComponent: OptionsComponent by lazy {

@@ -29,12 +29,14 @@ import com.example.morsecodegame.configurations.MainInfoTextConfigurations
 import com.example.morsecodegame.ui.theme.MorseCodeGameTheme
 import com.example.morsecodegame.utility.ToastGenerator
 import com.example.morsecodegame.viewModel.OptionsViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 private enum class GameType {
     LIGHT, SOUND, BLUETOOTH, FLASHLIGHT
 }
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private val testViewModel: OptionsViewModel by viewModels()
@@ -42,7 +44,7 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var infoTextConfigurations: MainInfoTextConfigurations
 
-    // TODO remove these onStart and so on methods after experimenting
+    // TODO create logger delegate for this kind of stuff
     private fun debugInfo(onAny: String) {
         val line = "--------------------------------"
         Log.d("MainActivityDebug", "On $onAny launched\n$line")

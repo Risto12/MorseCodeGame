@@ -3,6 +3,7 @@ package com.example.morsecodegame.viewModel
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.morsecodegame.model.Options
 import com.example.morsecodegame.repository.OptionsRepository
@@ -80,4 +81,15 @@ class OptionsConfigurationsViewModel @Inject constructor(private val optionsRepo
             )
         }
     }
+
+    companion object {
+        class OptionsConfigurationsViewModelFactory(
+            private val optionsRepository: OptionsRepository,
+        ) : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return OptionsConfigurationsViewModel(optionsRepository) as T
+            }
+        }
+    }
+
 }

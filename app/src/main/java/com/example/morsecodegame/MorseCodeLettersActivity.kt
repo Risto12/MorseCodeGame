@@ -21,12 +21,14 @@ import com.example.morsecodegame.composables.SharedComposable
 import com.example.morsecodegame.configurations.MorseCodeLettersInfoTextConfiguration
 import com.example.morsecodegame.morsecode.MorseCodeLetter
 import com.example.morsecodegame.ui.theme.MorseCodeGameTheme
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /***
  * Activity presents information related to Morse code and all the letters in DI, DA format
  */
+@AndroidEntryPoint
 class MorseCodeLettersActivity : ComponentActivity() {
 
     @Inject
