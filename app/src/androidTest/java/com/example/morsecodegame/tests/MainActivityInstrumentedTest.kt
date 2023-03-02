@@ -6,15 +6,22 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.morsecodegame.MainActivity
 import com.example.morsecodegame.onNodeWithTextAndSubStringIgnore
 import com.example.morsecodegame.onNodeWithTextIgnore
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
+// TODO test are failing because mock is missing from viewModel
 @RunWith(AndroidJUnit4::class)
+@HiltAndroidTest
 class MainActivityInstrumentedTest {
 
     @get:Rule
     val rule = createAndroidComposeRule<MainActivity>()
+
+    @get:Rule
+    val hiltRule = HiltAndroidRule(this)
 
     /**
      * Testing that route from Start of the app to morse code letters screen and back to start
