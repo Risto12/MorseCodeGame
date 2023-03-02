@@ -5,8 +5,9 @@ import com.example.morsecodegame.db.entity.OptionsEntity
 import com.example.morsecodegame.model.Options
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.transform
+import javax.inject.Inject
 
-class OptionsRepositoryImpl : OptionsRepository {
+class OptionsRepositoryImpl @Inject constructor() : OptionsRepository {
 
     private val repository = AppDatabase.getOptionsDao()
 

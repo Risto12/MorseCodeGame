@@ -4,22 +4,23 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.morsecodegame.db.AppDatabase
 import com.example.morsecodegame.model.Options
-import com.example.morsecodegame.repository.OptionsRepositoryImpl
+import com.example.morsecodegame.repository.OptionsRepository
 import com.example.morsecodegame.utility.DifficultLevels
 import com.example.morsecodegame.utility.Learning
 import com.example.morsecodegame.utility.ToastGenerator
 import kotlin.reflect.KMutableProperty0
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
-class OptionsConfigurationsViewModel @Inject constructor(private val optionsRepositoryImpl: OptionsRepositoryImpl) : ViewModel() {
+class OptionsConfigurationsViewModel @Inject constructor(private val optionsRepository: OptionsRepository) : ViewModel() {
 
     private val _optionsViewModelData: MutableStateFlow<Options> = MutableStateFlow(
         Options(
@@ -36,10 +37,14 @@ class OptionsConfigurationsViewModel @Inject constructor(private val optionsRepo
         viewModelScope.launch(Dispatchers.IO) { load() }
     }
 
-    suspend fun save() = optionsRepositoryImpl.update(optionsViewModelData.value.toOptionsEntity())
+    suspend fun save() = coroutineScope {
+        launch(Dispatchers.IO) {
+            optionsRepository.update(optionsViewModelData.value.toOptionsEntity())
+        }
+    }
 
     private suspend fun load() {
-        optionsRepositoryImpl.get(1).collect { optionsEntity ->
+        optionsRepository.get(1).collectLatest { optionsEntity ->
             _optionsViewModelData.update { optionsEntity!!.toOptions() }
         }
     }

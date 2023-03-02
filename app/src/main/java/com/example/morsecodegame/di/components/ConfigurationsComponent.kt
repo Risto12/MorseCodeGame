@@ -5,23 +5,18 @@ import com.example.morsecodegame.MainActivity
 import com.example.morsecodegame.MorseCodeLettersActivity
 import com.example.morsecodegame.OptionsActivity
 import com.example.morsecodegame.di.modules.ConfigurationsModule
-import com.example.morsecodegame.di.modules.OptionsModule
 import dagger.BindsInstance
 import dagger.Component
-import javax.inject.Singleton
 
 
-@Component(modules = [
-    ConfigurationsModule::class,
-    OptionsModule::class
-])
-interface OptionsComponent {
+@Component(modules = [ConfigurationsModule::class])
+interface ConfigurationsComponent {
 
     @Component.Factory
     interface Factory {
-        fun create(@BindsInstance context: Context): OptionsComponent
+        fun create(@BindsInstance context: Context): ConfigurationsComponent
     }
 
-    fun inject(optionsActivity: OptionsActivity)
-    fun inject(mainActivity: MainActivity)
+    fun inject(mainActivity: MainActivity) // TODO move this to OptionsModule when
+    fun inject(morseCodeLettersActivity: MorseCodeLettersActivity)
 }
