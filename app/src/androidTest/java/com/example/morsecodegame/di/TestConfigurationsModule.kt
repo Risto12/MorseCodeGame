@@ -1,15 +1,20 @@
 package com.example.morsecodegame.di
 
-
 import com.example.morsecodegame.configurations.MainInfoTextConfigurations
 import com.example.morsecodegame.configurations.MorseCodeLettersInfoTextConfiguration
 import com.example.morsecodegame.configurations.OptionsConfigurations
+import com.example.morsecodegame.di.modules.ConfigurationsModule
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.components.SingletonComponent
+import dagger.hilt.testing.TestInstallIn
 
+@TestInstallIn(
+    components = [SingletonComponent::class],
+    replaces = [ConfigurationsModule::class]
+)
 @Module
 class TestConfigurationsModule {
-
     @Provides
     fun morseCodeLettersInfoTextConfiguration(): MorseCodeLettersInfoTextConfiguration {
         return MorseCodeLettersInfoTextConfiguration(

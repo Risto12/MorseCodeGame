@@ -27,9 +27,11 @@ import com.example.morsecodegame.ui.theme.MorseCodeGameTheme
 import com.example.morsecodegame.utility.DifficultLevels
 import com.example.morsecodegame.utility.launchIOCoroutine
 import com.example.morsecodegame.viewModel.OptionsConfigurationsViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
+@AndroidEntryPoint
 class OptionsActivity : ComponentActivity() {
 
     private val optionsConfigurationsViewModel: OptionsConfigurationsViewModel by viewModels()
@@ -43,7 +45,6 @@ class OptionsActivity : ComponentActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (application as MorseCodeGameApplication).optionsComponent.inject(this)
         super.onCreate(savedInstanceState)
         setContent {
             MorseCodeGameTheme {

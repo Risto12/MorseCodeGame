@@ -39,7 +39,7 @@ abstract class AppDatabase : RoomDatabase() {
                 numberOfQuestions = 10,
                 wordsPerMinute = 10
             )
-            options.setOptions(defaultOptions.toOptionsEntity())
+            options.createOptions(defaultOptions.toOptionsEntity())
         }
 
         fun getOptionsDao(): OptionsDao = INSTANCE!!.optionsDao()

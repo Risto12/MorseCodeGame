@@ -21,19 +21,20 @@ import com.example.morsecodegame.composables.SharedComposable
 import com.example.morsecodegame.configurations.MorseCodeLettersInfoTextConfiguration
 import com.example.morsecodegame.morsecode.MorseCodeLetter
 import com.example.morsecodegame.ui.theme.MorseCodeGameTheme
-import kotlinx.coroutines.launch
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 /***
  * Activity presents information related to Morse code and all the letters in DI, DA format
  */
+@AndroidEntryPoint
 class MorseCodeLettersActivity : ComponentActivity() {
 
     @Inject
     lateinit var configurations: MorseCodeLettersInfoTextConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (application as MorseCodeGameApplication).optionsComponent.inject(this)
         super.onCreate(savedInstanceState)
         val back = { finish() }
         setContent {

@@ -4,26 +4,26 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.morsecodegame.db.AppDatabase
 import com.example.morsecodegame.model.Options
+import com.example.morsecodegame.repository.OptionsRepository
 import com.example.morsecodegame.utility.DifficultLevels
 import com.example.morsecodegame.utility.Learning
 import com.example.morsecodegame.utility.ToastGenerator
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlin.reflect.KMutableProperty0
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-interface PersistData {
-    suspend fun save()
-    suspend fun load()
-}
-
-class OptionsConfigurationsViewModel : ViewModel(), PersistData {
-
-    private val db = AppDatabase.getOptionsDao()
+@HiltViewModel
+class OptionsConfigurationsViewModel @Inject constructor(
+    private val optionsRepository: OptionsRepository
+) : ViewModel() {
 
     private val _optionsViewModelData: MutableStateFlow<Options> = MutableStateFlow(
         Options(
@@ -40,10 +40,14 @@ class OptionsConfigurationsViewModel : ViewModel(), PersistData {
         viewModelScope.launch(Dispatchers.IO) { load() }
     }
 
-    override suspend fun save() = db.updateOptions(optionsViewModelData.value.toOptionsEntity())
+    suspend fun save() = coroutineScope {
+        launch(Dispatchers.IO) {
+            optionsRepository.update(optionsViewModelData.value.toOptionsEntity())
+        }
+    }
 
-    override suspend fun load() {
-        db.getOptions().collect { optionsEntity ->
+    private suspend fun load() {
+        optionsRepository.get(1).collectLatest { optionsEntity ->
             _optionsViewModelData.update { optionsEntity!!.toOptions() }
         }
     }

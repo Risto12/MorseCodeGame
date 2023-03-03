@@ -5,8 +5,8 @@ import android.util.Log
 import androidx.compose.runtime.Stable
 import com.example.morsecodegame.utility.getConfigurationGeneratorPropertiesAsMap
 import java.util.*
-import kotlinx.parcelize.Parcelize
 import javax.inject.Inject
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @Stable

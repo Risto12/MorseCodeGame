@@ -2,7 +2,6 @@ package com.example.morsecodegame
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -29,54 +28,20 @@ import com.example.morsecodegame.configurations.MainInfoTextConfigurations
 import com.example.morsecodegame.ui.theme.MorseCodeGameTheme
 import com.example.morsecodegame.utility.ToastGenerator
 import com.example.morsecodegame.viewModel.OptionsViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 private enum class GameType {
     LIGHT, SOUND, BLUETOOTH, FLASHLIGHT
 }
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    private val testViewModel: OptionsViewModel by viewModels()
+    private val optionsViewModel: OptionsViewModel by viewModels()
 
     @Inject
     lateinit var infoTextConfigurations: MainInfoTextConfigurations
-
-    // TODO remove these onStart and so on methods after experimenting
-    private fun debugInfo(onAny: String) {
-        val line = "--------------------------------"
-        Log.d("MainActivityDebug", "On $onAny launched\n$line")
-    }
-
-    override fun onStart() {
-        super.onStart()
-        debugInfo("start")
-    }
-
-    override fun onRestart() {
-        super.onRestart()
-        debugInfo("restart")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        debugInfo("resume")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        debugInfo("stop")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        debugInfo("destroyed")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        debugInfo("pause")
-    }
 
     private val flashLightActivityResultContract =
         registerForActivityResult(
@@ -100,22 +65,21 @@ class MainActivity : ComponentActivity() {
                 startActivity(
                     Intent(this@MainActivity, activity).putExtra(
                         CommonIntentExtraKeys.OPTIONS,
-                        testViewModel.getOptions()
+                        optionsViewModel.getOptions()
                     )
                 )
             }
             FlashlightActivity::class.java -> {
-                flashLightActivityResultContract.launch(testViewModel.getOptions())
+                flashLightActivityResultContract.launch(optionsViewModel.getOptions())
             }
             else -> startActivity(Intent(this@MainActivity, activity))
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (application as MorseCodeGameApplication).optionsComponent.inject(this)
         super.onCreate(savedInstanceState)
-        debugInfo("create")
-        testViewModel.load()
+
+        optionsViewModel.load()
         val singlePlayer = { type: GameType ->
             if (type == GameType.LIGHT) {
                 initStartActivity(SinglePlayerActivity::class.java)
@@ -319,7 +283,7 @@ private fun MainMenu(
     onClickMorseCode: () -> Unit,
     version: String
 ) = MorseCodeGameTheme {
-    Box(modifier = Modifier.background(color = Color.White)){
+    Box(modifier = Modifier.background(color = Color.White)) {
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,

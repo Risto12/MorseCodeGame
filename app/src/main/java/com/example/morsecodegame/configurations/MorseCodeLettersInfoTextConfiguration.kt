@@ -7,8 +7,8 @@ import androidx.compose.runtime.saveable.mapSaver
 import com.example.morsecodegame.utility.Learning
 import com.example.morsecodegame.utility.getConfigurationGeneratorProperties
 import java.util.*
-import kotlinx.parcelize.Parcelize
 import javax.inject.Inject
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @Stable
