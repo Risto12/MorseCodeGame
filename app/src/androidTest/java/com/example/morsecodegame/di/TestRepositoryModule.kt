@@ -28,7 +28,7 @@ class FakeOptionsRepositoryImpl @Inject constructor() : OptionsRepository {
     }
 
     override fun update(entity: OptionsEntity) {
-        fakeDb[0] = entity
+        // TODO not implemented yet
     }
 
     override fun delete(entity: OptionsEntity) {
