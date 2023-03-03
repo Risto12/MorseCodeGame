@@ -1,6 +1,5 @@
 package com.example.morsecodegame.di
 
-
 import com.example.morsecodegame.configurations.MainInfoTextConfigurations
 import com.example.morsecodegame.configurations.MorseCodeLettersInfoTextConfiguration
 import com.example.morsecodegame.configurations.OptionsConfigurations

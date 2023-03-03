@@ -4,8 +4,8 @@ import android.os.Parcelable
 import androidx.compose.runtime.Stable
 import com.example.morsecodegame.utility.getConfigurationGeneratorProperties
 import java.util.*
-import kotlinx.parcelize.Parcelize
 import javax.inject.Inject
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @Stable

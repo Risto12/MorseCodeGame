@@ -9,14 +9,12 @@ import com.example.morsecodegame.configurations.OptionsConfigurations
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Qualifier
 
 @InstallIn(SingletonComponent::class)
 @Module
-class ConfigurationsModule  {
+class ConfigurationsModule {
 
     @Provides
     fun morseCodeLettersInfoTextConfiguration(@ApplicationContext context: Context): MorseCodeLettersInfoTextConfiguration {

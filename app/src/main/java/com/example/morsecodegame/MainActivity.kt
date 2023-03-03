@@ -29,7 +29,6 @@ import com.example.morsecodegame.ui.theme.MorseCodeGameTheme
 import com.example.morsecodegame.utility.ToastGenerator
 import com.example.morsecodegame.viewModel.OptionsViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.EntryPointAccessors
 import javax.inject.Inject
 
 private enum class GameType {
@@ -39,7 +38,7 @@ private enum class GameType {
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    private val testViewModel: OptionsViewModel by viewModels()
+    private val optionsViewModel: OptionsViewModel by viewModels()
 
     @Inject
     lateinit var infoTextConfigurations: MainInfoTextConfigurations
@@ -66,12 +65,12 @@ class MainActivity : ComponentActivity() {
                 startActivity(
                     Intent(this@MainActivity, activity).putExtra(
                         CommonIntentExtraKeys.OPTIONS,
-                        testViewModel.getOptions()
+                        optionsViewModel.getOptions()
                     )
                 )
             }
             FlashlightActivity::class.java -> {
-                flashLightActivityResultContract.launch(testViewModel.getOptions())
+                flashLightActivityResultContract.launch(optionsViewModel.getOptions())
             }
             else -> startActivity(Intent(this@MainActivity, activity))
         }
@@ -80,7 +79,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        testViewModel.load()
+        optionsViewModel.load()
         val singlePlayer = { type: GameType ->
             if (type == GameType.LIGHT) {
                 initStartActivity(SinglePlayerActivity::class.java)
@@ -284,7 +283,7 @@ private fun MainMenu(
     onClickMorseCode: () -> Unit,
     version: String
 ) = MorseCodeGameTheme {
-    Box(modifier = Modifier.background(color = Color.White)){
+    Box(modifier = Modifier.background(color = Color.White)) {
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,

@@ -5,13 +5,12 @@ import com.example.morsecodegame.repository.OptionsRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
+import dagger.hilt.android.components.ViewModelComponent
 
-@InstallIn(SingletonComponent::class)
 @Module
-abstract class OptionsModule {
+@InstallIn(ViewModelComponent::class)
+abstract class OptionsRepositoryModule {
 
     @Binds
     abstract fun optionsRepository(optionsRepositoryImpl: OptionsRepositoryImpl): OptionsRepository
-
 }

@@ -12,7 +12,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
-// TODO test are failing because mock is missing from viewModel
 @RunWith(AndroidJUnit4::class)
 @HiltAndroidTest
 class MainActivityInstrumentedTest {
@@ -29,7 +28,7 @@ class MainActivityInstrumentedTest {
      */
     @Test
     fun testRouteToMorseCodeLettersAndBack() {
-        //rule.onRoot().printToLog("TAG")
+        // rule.onRoot().printToLog("TAG")
         rule.onNodeWithText("Morse Code")
             .performClick()
         rule.onNodeWithText("Overview")
@@ -98,4 +97,3 @@ class MainActivityInstrumentedTest {
         rule.onNodeWithTextIgnore("v1.0").assertExists()
     }
 }
-

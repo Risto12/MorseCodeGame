@@ -3,13 +3,14 @@ package com.example.morsecodegame.viewModel
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.morsecodegame.model.Options
 import com.example.morsecodegame.repository.OptionsRepository
 import com.example.morsecodegame.utility.DifficultLevels
 import com.example.morsecodegame.utility.Learning
 import com.example.morsecodegame.utility.ToastGenerator
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlin.reflect.KMutableProperty0
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
@@ -18,10 +19,11 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-
-class OptionsConfigurationsViewModel @Inject constructor(private val optionsRepository: OptionsRepository) : ViewModel() {
+@HiltViewModel
+class OptionsConfigurationsViewModel @Inject constructor(
+    private val optionsRepository: OptionsRepository
+) : ViewModel() {
 
     private val _optionsViewModelData: MutableStateFlow<Options> = MutableStateFlow(
         Options(
@@ -81,15 +83,4 @@ class OptionsConfigurationsViewModel @Inject constructor(private val optionsRepo
             )
         }
     }
-
-    companion object {
-        class OptionsConfigurationsViewModelFactory(
-            private val optionsRepository: OptionsRepository,
-        ) : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return OptionsConfigurationsViewModel(optionsRepository) as T
-            }
-        }
-    }
-
 }

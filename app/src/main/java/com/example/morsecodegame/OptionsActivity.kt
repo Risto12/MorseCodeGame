@@ -23,23 +23,18 @@ import com.example.morsecodegame.composables.SharedComposable
 import com.example.morsecodegame.composables.SharedComposable.DefaultButton
 import com.example.morsecodegame.configurations.OptionsConfigurations
 import com.example.morsecodegame.model.Options
-import com.example.morsecodegame.repository.OptionsRepositoryImpl
 import com.example.morsecodegame.ui.theme.MorseCodeGameTheme
 import com.example.morsecodegame.utility.DifficultLevels
 import com.example.morsecodegame.utility.launchIOCoroutine
 import com.example.morsecodegame.viewModel.OptionsConfigurationsViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.EntryPointAccessors
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
 @AndroidEntryPoint
 class OptionsActivity : ComponentActivity() {
 
-    // TODO move this to hilt
-    private val optionsConfigurationsViewModel: OptionsConfigurationsViewModel by viewModels {
-        OptionsConfigurationsViewModel.Companion.OptionsConfigurationsViewModelFactory(OptionsRepositoryImpl())
-    }
+    private val optionsConfigurationsViewModel: OptionsConfigurationsViewModel by viewModels()
 
     @Inject
     lateinit var optionsConfigurations: OptionsConfigurations
