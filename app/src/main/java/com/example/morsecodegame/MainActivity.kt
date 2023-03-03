@@ -26,6 +26,8 @@ import com.example.morsecodegame.components.ExceptionActivityResult
 import com.example.morsecodegame.composables.SharedComposable
 import com.example.morsecodegame.configurations.MainInfoTextConfigurations
 import com.example.morsecodegame.ui.theme.MorseCodeGameTheme
+import com.example.morsecodegame.utility.DebugLifecycleObserver
+import com.example.morsecodegame.utility.LifecycleDebugLogger
 import com.example.morsecodegame.utility.ToastGenerator
 import com.example.morsecodegame.viewModel.OptionsViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,7 +38,9 @@ private enum class GameType {
 }
 
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+class MainActivity :
+    ComponentActivity(),
+    DebugLifecycleObserver by LifecycleDebugLogger("MainActivityDebugLogger") {
 
     private val optionsViewModel: OptionsViewModel by viewModels()
 
@@ -78,7 +82,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        addDebugLifecycleObserver(this)
         optionsViewModel.load()
         val singlePlayer = { type: GameType ->
             if (type == GameType.LIGHT) {
