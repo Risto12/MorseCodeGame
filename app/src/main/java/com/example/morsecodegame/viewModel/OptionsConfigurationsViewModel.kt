@@ -41,9 +41,7 @@ class OptionsConfigurationsViewModel @Inject constructor(
     }
 
     suspend fun save() = coroutineScope {
-        launch(Dispatchers.IO) {
-            optionsRepository.update(optionsViewModelData.value.toOptionsEntity())
-        }
+        optionsRepository.update(optionsViewModelData.value.toOptionsEntity())
     }
 
     private suspend fun load() {
