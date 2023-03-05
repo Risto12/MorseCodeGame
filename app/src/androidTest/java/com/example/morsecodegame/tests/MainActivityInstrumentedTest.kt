@@ -89,7 +89,7 @@ class MainActivityInstrumentedTest {
 
     @Test
     fun testLatestOptionsChangesAreApplied() {
-        // TODO
+
     }
 
     @Test

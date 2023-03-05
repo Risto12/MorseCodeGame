@@ -15,6 +15,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -111,35 +112,41 @@ private fun OptionsScreen(
         modifier = Modifier.background(color = Color.White)
     ) {
         item {
+            val sliderName = "Game time"
             TextWithSlider(
-                headerText = "Game time",
+                headerText = sliderName,
                 sliderText = "${(options.gameTimeInMinutes)} minutes",
                 sliderValue = options.gameTimeInMinutes.toFloat(),
                 onSliderValueChange = onGameTimeSliderValueChange,
-                sliderValueRange = configurations.gameTimeMin..configurations.gameTimeMax
+                sliderValueRange = configurations.gameTimeMin..configurations.gameTimeMax,
+                sliderTestTag = sliderName
             )
         }
         item {
+            val sliderName = "Words per minute"
             TextWithSlider(
-                headerText = "words per minute",
+                headerText = sliderName,
                 sliderText = "${(options.wordsPerMinute)}",
                 sliderValue = options.wordsPerMinute.toFloat(),
                 onSliderValueChange = onWordsPerMinuteSliderValueChange,
-                sliderValueRange = configurations.wordsPerMinuteMin..configurations.wordsPerMinuteMax
+                sliderValueRange = configurations.wordsPerMinuteMin..configurations.wordsPerMinuteMax,
+                sliderTestTag = sliderName
             )
         }
         item {
+            val sliderName = "Number of questions"
             TextWithSlider(
-                headerText = "Number of questions",
+                headerText = sliderName,
                 sliderText = "${(options.numberOfQuestions)}",
                 sliderValue = options.numberOfQuestions.toFloat(),
                 onSliderValueChange = onNumberOfQuestionsSliderValueChange,
-                sliderValueRange = configurations.numberOfQuestionsMin..configurations.numberOfQuestionsMax
+                sliderValueRange = configurations.numberOfQuestionsMin..configurations.numberOfQuestionsMax,
+                sliderTestTag = sliderName
             )
         }
         item {
             DifficultLevelRadioButtonsWithText(
-                headerText = "Difficult level:",
+                headerText = "Difficult level",
                 onClickRadioButton = onDifficultLevelRadioButtonChange,
                 defaultDifficultLevel = options.difficultLevel.name
             )
@@ -162,7 +169,8 @@ private fun TextWithSlider(
     sliderText: String,
     sliderValue: Float,
     onSliderValueChange: (Float) -> Unit,
-    sliderValueRange: ClosedFloatingPointRange<Float>
+    sliderValueRange: ClosedFloatingPointRange<Float>,
+    sliderTestTag: String,
 ) {
     SharedComposable.DefaultHeaderText(
         text = headerText,
@@ -179,7 +187,7 @@ private fun TextWithSlider(
             activeTrackColor = DEFAULT_THEME_COLOR,
             thumbColor = DEFAULT_THEME_COLOR
         ),
-        modifier = Modifier.padding(bottom = 30.dp)
+        modifier = Modifier.padding(bottom = 30.dp).testTag(sliderTestTag)
     )
 }
 

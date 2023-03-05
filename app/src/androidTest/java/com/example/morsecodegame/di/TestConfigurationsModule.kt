@@ -38,12 +38,12 @@ class TestConfigurationsModule {
     @Provides
     fun optionsConfigurations(): OptionsConfigurations {
         return OptionsConfigurations(
-            gameTimeMax = 2.0f,
+            gameTimeMax = 30.0f,
             gameTimeMin = 1.0f,
-            wordsPerMinuteMax = 2.0f,
+            wordsPerMinuteMax = 10.0f,
             wordsPerMinuteMin = 1.0f,
-            numberOfQuestionsMax = 2.0f,
-            numberOfQuestionsMin = 1.0f
+            numberOfQuestionsMax = 10.0f,
+            numberOfQuestionsMin = 2.0f
         )
     }
 }
