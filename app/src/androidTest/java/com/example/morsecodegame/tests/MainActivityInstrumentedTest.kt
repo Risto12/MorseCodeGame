@@ -4,10 +4,13 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.morsecodegame.MainActivity
+import com.example.morsecodegame.di.FakeDb
 import com.example.morsecodegame.onNodeWithTextAndSubStringIgnore
 import com.example.morsecodegame.onNodeWithTextIgnore
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -22,6 +25,10 @@ class MainActivityInstrumentedTest {
     @get:Rule
     val hiltRule = HiltAndroidRule(this)
 
+    @After
+    fun cleaning() {
+        FakeDb.resetDb()
+    }
     /**
      * Testing that route from Start of the app to morse code letters screen and back to start
      * works

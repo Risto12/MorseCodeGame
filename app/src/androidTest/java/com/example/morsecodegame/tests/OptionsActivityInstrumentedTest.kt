@@ -4,11 +4,13 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.morsecodegame.OptionsActivity
+import com.example.morsecodegame.di.FakeDb
 import com.example.morsecodegame.onNodeWithTextIgnore
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
+import org.junit.After
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -22,6 +24,11 @@ class OptionsActivityInstrumentedTest {
 
     @get:Rule
     val hiltRule = HiltAndroidRule(this)
+
+    @After
+    fun cleaning() {
+        FakeDb.resetDb()
+    }
 
     @Test
     fun testLabelsExists() {
@@ -45,7 +52,7 @@ class OptionsActivityInstrumentedTest {
         data class SliderValues(val name: String, val maxValue: String, val minValue: String)
         for (slider in listOf(
             SliderValues("Game time", "30 Minutes", "1 Minutes"),
-            SliderValues("Words per minute", "10", "1"),
+            SliderValues("Words per minute", "11", "1"),
             SliderValues("Number of questions", "10", "2")
         )) {
             rule.onNodeWithTag(slider.name).performTouchInput {

@@ -22,26 +22,6 @@ abstract class AppDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: AppDatabase? = null
 
-        @Deprecated("Coupled with deprecated insertDefaultOptions")
-        @Learning
-        private var defaultOptionsCheckDone: Boolean = false
-
-        @Deprecated("In favor of create from asset")
-        @Learning
-        fun insertDefaultOptions() {
-            if (defaultOptionsCheckDone) return else defaultOptionsCheckDone = true
-            val options = INSTANCE!!.optionsDao()
-
-            if (options.getOptions() != null) return
-            val defaultOptions = Options(
-                gameTimeInMinutes = 5,
-                difficultLevel = DifficultLevels.EASY,
-                numberOfQuestions = 10,
-                wordsPerMinute = 10
-            )
-            options.createOptions(defaultOptions.toOptionsEntity())
-        }
-
         fun getOptionsDao(): OptionsDao = INSTANCE!!.optionsDao()
 
         fun setDatabase(context: Context) {

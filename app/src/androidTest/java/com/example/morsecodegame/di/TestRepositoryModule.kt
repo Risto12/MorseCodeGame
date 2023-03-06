@@ -1,10 +1,17 @@
 package com.example.morsecodegame.di
 
+import android.content.Context
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import androidx.test.core.app.ApplicationProvider
+import com.example.morsecodegame.db.AppDatabase
+import com.example.morsecodegame.db.DATABASE_NAME
 import com.example.morsecodegame.db.entity.OptionsEntity
 import com.example.morsecodegame.di.modules.OptionsRepositoryModule
 import com.example.morsecodegame.model.Options
 import com.example.morsecodegame.repository.OptionsRepository
 import com.example.morsecodegame.utility.DifficultLevels
+import com.example.morsecodegame.utility.Learning
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.android.components.ViewModelComponent
@@ -14,37 +21,45 @@ import kotlinx.coroutines.flow.*
 
 object FakeDb {
 
-    private val default = Options(
-        gameTimeInMinutes = 2,
-        difficultLevel = DifficultLevels.EASY,
-        numberOfQuestions = 2,
-        wordsPerMinute = 2
-    ).toOptionsEntity()
+    private val defaultOptions = Options(
+            gameTimeInMinutes = 2,
+            difficultLevel = DifficultLevels.EASY,
+            numberOfQuestions = 2,
+            wordsPerMinute = 2
+        ).toOptionsEntity()
 
-    val fakeDb = MutableStateFlow(default.copy())
+    val db: AppDatabase = initDatabase()
+
+    private fun initDatabase(): AppDatabase {
+        synchronized(this) {
+            val context = ApplicationProvider.getApplicationContext<Context>()
+            val room = Room.inMemoryDatabaseBuilder(
+                context, AppDatabase::class.java).build()
+            room.optionsDao().createOptions(defaultOptions)
+            return room
+        }
+    }
 
     fun resetDb() {
-        fakeDb.update { default.copy() }
+        db.optionsDao().updateOptions(defaultOptions)
     }
 }
 
 class FakeOptionsRepositoryImpl @Inject constructor() : OptionsRepository {
-
-    private val fakeDb = FakeDb.fakeDb
 
     override fun create(entity: OptionsEntity) {
         error("Not needed")
     }
 
     override fun update(entity: OptionsEntity) {
-        fakeDb.update { entity }
+        FakeDb.db.optionsDao().updateOptions(entity)
     }
 
     override fun delete(entity: OptionsEntity) {
         error("Not needed")
     }
 
-    override fun get(id: Int): Flow<OptionsEntity?> = fakeDb
+    override fun get(id: Int): Flow<OptionsEntity?> = FakeDb.db.optionsDao().getOptions()
 }
 
 @TestInstallIn(
