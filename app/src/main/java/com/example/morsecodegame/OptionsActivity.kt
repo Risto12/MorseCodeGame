@@ -170,7 +170,7 @@ private fun TextWithSlider(
     sliderValue: Float,
     onSliderValueChange: (Float) -> Unit,
     sliderValueRange: ClosedFloatingPointRange<Float>,
-    sliderTestTag: String,
+    sliderTestTag: String
 ) {
     SharedComposable.DefaultHeaderText(
         text = headerText,

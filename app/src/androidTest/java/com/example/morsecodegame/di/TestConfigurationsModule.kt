@@ -40,7 +40,7 @@ class TestConfigurationsModule {
         return OptionsConfigurations(
             gameTimeMax = 30.0f,
             gameTimeMin = 1.0f,
-            wordsPerMinuteMax = 10.0f,
+            wordsPerMinuteMax = 11.0f,
             wordsPerMinuteMin = 1.0f,
             numberOfQuestionsMax = 10.0f,
             numberOfQuestionsMin = 2.0f

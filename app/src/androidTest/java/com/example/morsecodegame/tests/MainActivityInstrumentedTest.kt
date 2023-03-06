@@ -88,11 +88,6 @@ class MainActivityInstrumentedTest {
     }
 
     @Test
-    fun testLatestOptionsChangesAreApplied() {
-
-    }
-
-    @Test
     fun testVersionNumberExists() {
         rule.onNodeWithTextIgnore("v1.0").assertExists()
     }

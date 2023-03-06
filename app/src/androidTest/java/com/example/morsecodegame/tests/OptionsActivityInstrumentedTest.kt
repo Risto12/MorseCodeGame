@@ -25,11 +25,13 @@ class OptionsActivityInstrumentedTest {
 
     @Test
     fun testLabelsExists() {
-        for (label in listOf(
+        for (
+        label in listOf(
             "Game time",
             "words per minute",
             "number of questions",
-            "Difficult level")
+            "Difficult level"
+        )
         ) {
             rule.onNodeWithTextIgnore(label)
                 .assertExists()

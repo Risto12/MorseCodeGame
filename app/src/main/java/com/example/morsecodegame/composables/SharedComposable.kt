@@ -9,7 +9,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -62,7 +61,7 @@ object SharedComposable {
     fun DefaultText(
         text: String,
         modifier: Modifier = Modifier.padding(bottom = 5.dp),
-        fontSize: TextUnit = 15.sp,
+        fontSize: TextUnit = 15.sp
     ) {
         Text(
             text = text,

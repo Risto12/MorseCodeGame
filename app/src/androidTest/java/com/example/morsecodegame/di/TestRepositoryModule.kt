@@ -10,32 +10,41 @@ import dagger.Module
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.testing.TestInstallIn
 import javax.inject.Inject
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.*
+
+object FakeDb {
+
+    private val default = Options(
+        gameTimeInMinutes = 2,
+        difficultLevel = DifficultLevels.EASY,
+        numberOfQuestions = 2,
+        wordsPerMinute = 2
+    ).toOptionsEntity()
+
+    val fakeDb = MutableStateFlow(default.copy())
+
+    fun resetDb() {
+        fakeDb.update { default.copy() }
+    }
+}
 
 class FakeOptionsRepositoryImpl @Inject constructor() : OptionsRepository {
-    private val fakeDb = mutableListOf(
-        Options(
-            gameTimeInMinutes = 2,
-            difficultLevel = DifficultLevels.EASY,
-            numberOfQuestions = 2,
-            wordsPerMinute = 2
-        ).toOptionsEntity()
-    )
+
+    private val fakeDb = FakeDb.fakeDb
 
     override fun create(entity: OptionsEntity) {
         error("Not needed")
     }
 
     override fun update(entity: OptionsEntity) {
-        // TODO not implemented yet
+        fakeDb.update { entity }
     }
 
     override fun delete(entity: OptionsEntity) {
         error("Not needed")
     }
 
-    override fun get(id: Int): Flow<OptionsEntity?> = fakeDb.asFlow()
+    override fun get(id: Int): Flow<OptionsEntity?> = fakeDb
 }
 
 @TestInstallIn(
