@@ -4,9 +4,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.TabRowDefaults.Divider
 import androidx.compose.runtime.*
 import androidx.compose.runtime.Composable
@@ -67,7 +69,9 @@ fun MorseCodeLetters(
 
     val morseCodeLetterScope = rememberCoroutineScope() // TODO check this scope
 
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .background(color = MaterialTheme.colors.background)) {
         AnimatedVisibility(visible = showButton) {
             SharedComposable.DefaultButton(
                 configurations = SharedComposable.DefaultButtonConfigurations(
@@ -117,7 +121,7 @@ fun MorseCodeLetters(
             item {
                 Divider(
                     modifier = Modifier.padding(top = 40.dp),
-                    color = Color.Magenta,
+                    color = MaterialTheme.colors.onPrimary,
                     thickness = 1.dp
                 )
             }
@@ -143,16 +147,18 @@ fun TextWithDividerOnBottom(
             fontSize = 25.sp,
             modifier = Modifier
                 .padding(start = 10.dp, end = 10.dp, bottom = 10.dp)
-                .align(Alignment.CenterHorizontally)
+                .align(Alignment.CenterHorizontally),
+            color = MaterialTheme.colors.onPrimary
         )
         SharedComposable.DefaultText(
             text = text,
             fontSize = 18.sp,
-            modifier = Modifier.padding(start = 10.dp, end = 10.dp)
+            modifier = Modifier.padding(start = 10.dp, end = 10.dp),
+            color = MaterialTheme.colors.onPrimary
         )
         Divider(
             modifier = Modifier.padding(top = 25.dp, bottom = 35.dp),
-            color = Color.Magenta,
+            color = MaterialTheme.colors.onPrimary,
             thickness = 1.dp
         )
     }
