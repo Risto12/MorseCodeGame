@@ -206,7 +206,7 @@ fun SendMorseBox(
                     )
                 )
             }
-        } 
+        }
     }
 }
 

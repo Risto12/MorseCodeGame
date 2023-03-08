@@ -251,14 +251,15 @@ fun ButtonWithInfoBox(
     Row {
         if (infoPopUp) {
             Popup(
-                onDismissRequest = { infoPopUp = false }
+                onDismissRequest = { infoPopUp = false },
+                alignment = Alignment.Center
             ) {
                 Surface(
                     elevation = 9.dp,
                     color = MaterialTheme.colors.onPrimary,
                     border = BorderStroke(2.dp, color = MaterialTheme.colors.secondary),
                     contentColor = MaterialTheme.colors.secondary,
-                    modifier = Modifier.defaultMinSize(240.dp, 250.dp)
+                    modifier = Modifier.defaultMinSize(100.dp, 100.dp).sizeIn(maxWidth = 350.dp)
                 ) {
                     Column(
                         verticalArrangement = Arrangement.Center,
@@ -266,7 +267,12 @@ fun ButtonWithInfoBox(
                     ) {
                         SharedComposable.DefaultText(
                             text = infoText,
-                            modifier = Modifier.padding(bottom = 20.dp)
+                            modifier = Modifier.padding(
+                                start = 5.dp,
+                                top = 5.dp,
+                                bottom = 20.dp,
+                                end = 5.dp
+                            )
                         )
                     }
                 }
