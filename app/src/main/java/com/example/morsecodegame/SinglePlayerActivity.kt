@@ -26,7 +26,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.morsecodegame.composables.GameScreen
 import com.example.morsecodegame.composables.SharedComposable
-import com.example.morsecodegame.ui.theme.MorseCodeGameTheme
+import com.example.morsecodegame.ui.theme.*
 import com.example.morsecodegame.utility.*
 import com.example.morsecodegame.viewModel.GameTimeViewModel
 import com.example.morsecodegame.viewModel.GameViewModel
@@ -122,7 +122,6 @@ class SinglePlayerActivity : ComponentActivity() {
                             }
                         }
                     }
-
                     Column(
                         modifier = Modifier.background(color = Color.Black)
                     ) {
@@ -163,7 +162,7 @@ class SinglePlayerActivity : ComponentActivity() {
                 } else {
                     Column(
                         modifier = Modifier
-                            .background(Color.Black)
+                            .background(MaterialTheme.colors.onBackground)
                             .fillMaxSize()
                     ) {
                         if (isGameOver) {
@@ -195,22 +194,23 @@ fun StatusBar(
     right: String
 ) {
     Row(Modifier.heightIn(max = 30.dp)) {
+        val textColor = MaterialTheme.colors.onPrimary
         Text(
             text = left,
             modifier = Modifier
                 .padding(start = 8.dp)
                 .weight(1.6f),
-            color = Color.White
+            color = textColor
         )
         Text(
             text = middle,
             modifier = Modifier.weight(1.2f),
-            color = Color.White
+            color = textColor
         )
         Text(
             text = right,
             modifier = Modifier.weight(0.7f),
-            color = Color.White
+            color = textColor
         )
     }
 }
@@ -246,10 +246,14 @@ private fun BoxScope.AnswerBox(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             question.possibleAnswers.forEach { possibleAnswer ->
-                val buttonColor = if (showCorrectAnswer) {
-                    if (question.isAnswerCorrect(possibleAnswer)) Color.Green else Color.Red
+                val (buttonColor, textColor) = if (showCorrectAnswer) {
+                    val correctAnswer = if (question.isAnswerCorrect(possibleAnswer))
+                        Color.Green
+                    else
+                        Color.Red
+                    Pair(correctAnswer, MaterialTheme.colors.onPrimary)
                 } else {
-                    Color.Magenta
+                    Pair(MaterialTheme.colors.onPrimary, MaterialTheme.colors.secondary)
                 }
                 Button(
                     colors = ButtonDefaults.textButtonColors(
@@ -261,7 +265,7 @@ private fun BoxScope.AnswerBox(
                         .padding(top = 2.dp, bottom = 2.dp),
                     enabled = !showCorrectAnswer
                 ) {
-                    Text(possibleAnswer, color = Color.White, fontWeight = FontWeight.Bold)
+                    Text(possibleAnswer, color = textColor, fontWeight = FontWeight.Bold)
                 }
             }
         }

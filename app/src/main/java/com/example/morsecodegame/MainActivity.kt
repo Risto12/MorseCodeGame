@@ -353,7 +353,8 @@ private fun MainMenu(
             fontSize = 15.sp,
             modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .padding(bottom = 10.dp)
+                .padding(bottom = 10.dp),
+            color = MaterialTheme.colors.onPrimary
         )
     }
 }

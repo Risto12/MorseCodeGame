@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import com.example.morsecodegame.components.ExceptionActivityResult.Companion.EXTRA_KEY_EXCEPTION_MESSAGE
 import com.example.morsecodegame.components.ExceptionActivityResult.Companion.REQUEST_CODE_EXCEPTION
@@ -126,38 +127,30 @@ class FlashlightActivity : ComponentActivity() {
         }
 
         setContent {
-            MorseCodeGameTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = Color.Black
-                ) {
-                    val isFlashing by flashViewModel.isFlashing.collectAsState()
-                    GameScreen(imageId = R.drawable.sea_red_moon) {
-                        SendMorseBox(
-                            onClickSend = {
-                                sendMorse(it)
-                            },
-                            onClickCancel = cancel,
-                            sendingMorse = isFlashing
-                        )
-                    }
-                }
+            val isFlashing by flashViewModel.isFlashing.collectAsState()
+            SendMorseBox(
+                onClickSend = {
+                    sendMorse(it)
+                },
+                onClickCancel = cancel,
+                sendingMorse = isFlashing
+            )
             }
         }
     }
-}
 
 @Composable
-fun BoxScope.SendMorseBox(
+fun SendMorseBox(
     onClickSend: (text: String) -> Unit,
     onClickCancel: () -> Unit,
     sendingMorse: Boolean = false
 ) {
+    MorseCodeGameTheme {
+    Box(modifier = Modifier.fillMaxSize().background(color = MaterialTheme.colors.background)) {
     Column(
         modifier = Modifier
-            .align(Alignment.BottomCenter)
-            .fillMaxWidth()
-            .background(Color.Black),
+            .align(Alignment.Center)
+            .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         val insertText = LocalContext.current.getString(R.string.flash_light_insert_text)
@@ -171,9 +164,12 @@ fun BoxScope.SendMorseBox(
         OutlinedTextField(
             value = inputText,
             onValueChange = { text -> inputText = text },
-            placeholder = @Composable { Text(text = placeHolderText, color = Color.Magenta) },
-            modifier = Modifier.background(Color.White.copy(alpha = 0.1f)),
-            colors = TextFieldDefaults.textFieldColors(textColor = Color.Magenta)
+            placeholder = @Composable { Text(text = placeHolderText, color = MaterialTheme.colors.secondary) },
+            modifier = Modifier.background(MaterialTheme.colors.onPrimary),
+            colors = TextFieldDefaults.textFieldColors(
+                backgroundColor = MaterialTheme.colors.onPrimary,
+                textColor = MaterialTheme.colors.secondary
+            )
         )
         SharedComposable.DefaultButton(
             configurations = SharedComposable.DefaultButtonConfigurations(
@@ -186,8 +182,8 @@ fun BoxScope.SendMorseBox(
                     }
                 },
                 enabled = !sendingMorse,
-                available = !sendingMorse
-            )
+                available = !sendingMorse),
+                modifier = Modifier.padding(bottom = 15.dp, top = 15.dp)
         )
         SharedComposable.DefaultButton(
             configurations = SharedComposable.DefaultButtonConfigurations(
@@ -196,22 +192,15 @@ fun BoxScope.SendMorseBox(
             )
         )
     }
+    }}
 }
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    MorseCodeGameTheme {
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = Color.Black
-        ) {
-            GameScreen(imageId = R.drawable.sea_red_moon) {
-                SendMorseBox(
-                    onClickSend = { },
-                    onClickCancel = { }
-                )
-            }
-        }
-    }
+    SendMorseBox(
+        onClickSend = { },
+        onClickCancel = { }
+    )
 }
+
