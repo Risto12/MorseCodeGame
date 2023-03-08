@@ -43,7 +43,7 @@ class FlashlightActivity : ComponentActivity() {
     private lateinit var legendaryTorch: LegendaryTorch
     private val wordsPerMinute: Int by lazy {
         // Prevent the light flashing too fast.
-        val maxWordsPerMinute = 20
+        val maxWordsPerMinute = 10
         val wordsPerMinute = intent.getOptions().wordsPerMinute
         if(wordsPerMinute <= maxWordsPerMinute) wordsPerMinute else maxWordsPerMinute
     }
