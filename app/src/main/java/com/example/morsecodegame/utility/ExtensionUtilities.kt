@@ -1,12 +1,17 @@
 package com.example.morsecodegame.utility
 
+import android.content.Context
 import android.content.Intent
 import android.util.Log
+import androidx.annotation.IdRes
+import androidx.annotation.StringRes
 import com.example.morsecodegame.CommonIntentExtraKeys
 import com.example.morsecodegame.model.Options
 import java.util.*
 
 private const val CONFIGURATION_LOG_TAG = "Configurations builder"
+
+fun Context.getStringUpper(@StringRes id: Int): String = getString(id).uppercase()
 
 fun Intent.getOptions() = getParcelableExtra<Options>(CommonIntentExtraKeys.OPTIONS)!!
 

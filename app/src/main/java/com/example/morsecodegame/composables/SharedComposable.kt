@@ -5,6 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -16,8 +17,10 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.morsecodegame.ui.theme.MorseCodeGameTheme
+import com.example.morsecodegame.ui.theme.VintageBlack
+import com.example.morsecodegame.ui.theme.VintageWhite
 
-val DEFAULT_THEME_COLOR = Color.Magenta
 
 object SharedComposable {
 
@@ -48,7 +51,7 @@ object SharedComposable {
     ) {
         Text(
             text = text,
-            color = DEFAULT_THEME_COLOR,
+            color = MaterialTheme.colors.onPrimary,
             fontSize = fontSize,
             fontWeight = FontWeight.Black,
             fontStyle = FontStyle.Italic,
@@ -61,11 +64,12 @@ object SharedComposable {
     fun DefaultText(
         text: String,
         modifier: Modifier = Modifier.padding(bottom = 5.dp),
-        fontSize: TextUnit = 15.sp
+        fontSize: TextUnit = 15.sp,
+        color: Color = MaterialTheme.colors.secondary
     ) {
         Text(
             text = text,
-            color = DEFAULT_THEME_COLOR,
+            color = color,
             fontSize = fontSize,
             fontWeight = FontWeight.Black,
             fontStyle = FontStyle.Italic,
@@ -80,13 +84,13 @@ object SharedComposable {
         modifier: Modifier = Modifier.padding(bottom = 15.dp)
     ) {
         val (color, textDecoration) = if (configurations.available) {
-            Pair(DEFAULT_THEME_COLOR, null)
+            Pair(MaterialTheme.colors.secondaryVariant, null)
         } else {
-            Pair(Color.Gray, TextDecoration.LineThrough)
+            Pair(MaterialTheme.colors.secondaryVariant, TextDecoration.LineThrough)
         }
         Button(
             colors = ButtonDefaults.textButtonColors(
-                backgroundColor = color
+                backgroundColor = MaterialTheme.colors.onPrimary
             ),
             modifier = modifier,
             onClick = configurations.click,
@@ -94,7 +98,7 @@ object SharedComposable {
         ) {
             Text(
                 text = configurations.text,
-                color = Color.White,
+                color = color,
                 fontSize = 20.sp,
                 textDecoration = textDecoration
             )
@@ -107,7 +111,11 @@ object SharedComposable {
         configurations: DefaultButtonComposableConfigurations,
         modifier: Modifier = Modifier.fillMaxWidth()
     ) {
-        val color = if (configurations.available) DEFAULT_THEME_COLOR else Color.Gray
+        val color = if (configurations.available)
+            MaterialTheme.colors.onPrimary
+        else
+            MaterialTheme.colors.onPrimary // maybe light color here ?
+
         Button(
             colors = ButtonDefaults.textButtonColors(
                 backgroundColor = color

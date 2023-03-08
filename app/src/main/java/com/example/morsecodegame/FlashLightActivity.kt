@@ -29,6 +29,7 @@ import com.example.morsecodegame.morsecode.MorseCodeLetter
 import com.example.morsecodegame.ui.theme.MorseCodeGameTheme
 import com.example.morsecodegame.utility.ToastGenerator
 import com.example.morsecodegame.utility.getOptions
+import com.example.morsecodegame.utility.getStringUpper
 import com.example.morsecodegame.viewModel.*
 import kotlinx.coroutines.*
 
@@ -69,7 +70,7 @@ class FlashlightActivity : ComponentActivity() {
         if (!this@FlashlightActivity.packageManager
             .hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)
         ) {
-            finishWithExceptionMsg(getString(R.string.flash_light_not_supported))
+            finishWithExceptionMsg(getStringUpper(R.string.flash_light_not_supported))
         }
 
         // Leak Canary notified camera service leaking when using activity context
@@ -87,7 +88,7 @@ class FlashlightActivity : ComponentActivity() {
 
         val sendMorse = { text: String ->
             if (!MorseCodeLetter.containsNotSupportedCharacters(text)) {
-                val unknownIssueText = getString(R.string.flash_light_unknown_issue)
+                val unknownIssueText = getStringUpper(R.string.flash_light_unknown_issue)
                 flashingJob = lifecycleScope.launch {
                     try {
                         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
@@ -119,7 +120,7 @@ class FlashlightActivity : ComponentActivity() {
                 val supportedCharacters = MorseCodeLetter.supportedCharacters()
                 ToastGenerator.showLongText(
                     this,
-                    getString(R.string.flash_light_not_supported_characters) + supportedCharacters
+                    getStringUpper(R.string.flash_light_not_supported_characters) + supportedCharacters
                 )
             }
         }
@@ -159,11 +160,13 @@ fun BoxScope.SendMorseBox(
             .background(Color.Black),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        var inputText by rememberSaveable { mutableStateOf("") }
-        var placeHolderText by remember { mutableStateOf("Insert text") }
+        val insertText = LocalContext.current.getString(R.string.flash_light_insert_text)
         val cantBeEmpty = LocalContext.current.getString(R.string.flash_light_empty_value)
-        val cancel = LocalContext.current.getString(R.string.common_cancel)
-        val send = LocalContext.current.getString(R.string.common_send)
+        val cancel = LocalContext.current.getStringUpper(R.string.common_cancel)
+        val send = LocalContext.current.getStringUpper(R.string.common_send)
+
+        var inputText by rememberSaveable { mutableStateOf("") }
+        var placeHolderText by remember { mutableStateOf(insertText) }
 
         OutlinedTextField(
             value = inputText,

@@ -12,4 +12,15 @@
     <string name="flash_light_not_supported">Your phone doesn\'t support flashlight</string>
     <string name="flash_light_not_supported_characters">Input contains not supported characters. Supported characters are </string>
     <string name="flash_light_empty_value">This value can\'t be empty. Please insert text</string>
+    <string name="flash_light_insert_text">Insert text</string>
+
+    <string name="start_screen_sound">SOUND</string>
+    <string name="start_screen_single_player">SINGLE PLAYER</string>
+    <string name="start_screen_multiplayer">MULTIPLAYER</string>
+    <string name="start_screen_blinking_light">BLINKING LIGHT</string>
+    <string name="start_screen_bluetooth">BLUETOOTH</string>
+    <string name="start_screen_flashlight">FLASHLIGHT</string>
+    <string name="start_screen_morse_code">MORSE CODE</string>
+    <string name="start_screen_exit">EXIT</string>
+    <string name="start_screen_options">OPTIONS</string>
 </resources>
