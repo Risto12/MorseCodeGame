@@ -4,4 +4,12 @@
     <string name="title_activity_singlePlayer">SinglePlayerActivity</string>
     <string name="title_activity_flashlight">FlashlightActivity</string>
     <string name="title_activity_morse_code_letters">MorseCodeLettersActivity</string>
+
+    <string name="common_send">SEND</string>
+    <string name="common_cancel">CANCEL</string>
+
+    <string name="flash_light_unknown_issue">Unknown issue occurred. Returning to menu</string>
+    <string name="flash_light_not_supported">Your phone doesn\'t support flashlight</string>
+    <string name="flash_light_not_supported_characters">Input contains not supported characters. Supported characters are </string>
+    <string name="flash_light_empty_value">This value can\'t be empty. Please insert text</string>
 </resources>

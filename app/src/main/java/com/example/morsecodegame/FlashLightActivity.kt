@@ -1,6 +1,7 @@
 package com.example.morsecodegame
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.hardware.camera2.CameraManager
 import android.os.Bundle
@@ -17,6 +18,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.lifecycleScope
 import com.example.morsecodegame.components.ExceptionActivityResult.Companion.EXTRA_KEY_EXCEPTION_MESSAGE
@@ -32,12 +34,20 @@ import kotlinx.coroutines.*
 
 private const val FLASH_ACTIVITY_LOG_TAG = "flash activity"
 
+class TorchCancelledException(message: String?) : java.util.concurrent.CancellationException(message)
+
+// TODO
+// Adjust brightness
+// max light speed
+// Unknown issue - fix - Happens only on emulator but
+
 class FlashlightActivity : ComponentActivity() {
 
     private val flashViewModel: FlashViewModel by viewModels()
     private lateinit var cameraManager: CameraManager
     private lateinit var legendaryTorch: LegendaryTorch
     private val wordsPerMinute: Int by lazy { intent.getOptions().wordsPerMinute }
+    private var flashingJob: Job? = null
 
     @Suppress("SameParameterValue") // Suppressing false positive
     private fun finishWithExceptionMsg(text: String) {
@@ -48,11 +58,18 @@ class FlashlightActivity : ComponentActivity() {
         finish()
     }
 
+    override fun onPause() {
+        super.onPause()
+        if(flashingJob != null && flashingJob!!.isActive) flashingJob?.cancel(
+            TorchCancelledException("Torch cancelled due to on pause called")
+        )
+    }
+
     private fun initSettings() {
         if (!this@FlashlightActivity.packageManager
             .hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)
         ) {
-            finishWithExceptionMsg("Your phone doesn't support camera")
+            finishWithExceptionMsg(getString(R.string.flash_light_not_supported))
         }
 
         // Leak Canary notified camera service leaking when using activity context
@@ -70,31 +87,38 @@ class FlashlightActivity : ComponentActivity() {
 
         val sendMorse = { text: String ->
             if (!MorseCodeLetter.containsNotSupportedCharacters(text)) {
-                val unknownIssueText = "Unknown issue occurred. Returning to menu"
-                lifecycleScope.launch(Dispatchers.Default) { // TODO test
+                val unknownIssueText = getString(R.string.flash_light_unknown_issue)
+                flashingJob = lifecycleScope.launch {
                     try {
+                        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
+                        flashViewModel.flashingOn()
                         legendaryTorch.sendMorse(
                             text,
                             wordsPerMinute
                         )
-                        flashViewModel.flashingOff()
                     } catch (e: TorchException) {
-                        finishWithExceptionMsg(e.message ?: unknownIssueText)
+                        ToastGenerator.showLongText(this@FlashlightActivity, e.message ?: unknownIssueText)
+                    } catch(e: TorchCancelledException) {
+                      Log.d(FLASH_ACTIVITY_LOG_TAG, e.message ?: "Torch cancelled didn't have message")
                     } catch (e: Exception) {
                         Log.e(
                             FLASH_ACTIVITY_LOG_TAG,
                             "Exception when accessing camera",
                             e
                         )
-                        finishWithExceptionMsg(unknownIssueText)
+                        ToastGenerator.showLongText(this@FlashlightActivity, unknownIssueText)
+                    } finally {
+                        legendaryTorch.torchOff()
+                        flashViewModel.flashingOff()
+                        flashingJob = null
+                        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
                     }
                 }
             } else {
                 val supportedCharacters = MorseCodeLetter.supportedCharacters()
                 ToastGenerator.showLongText(
                     this,
-                    "Input contains not supported characters. " +
-                        "Supported characters are $supportedCharacters"
+                    getString(R.string.flash_light_not_supported_characters) + supportedCharacters
                 )
             }
         }
@@ -109,7 +133,6 @@ class FlashlightActivity : ComponentActivity() {
                     GameScreen(imageId = R.drawable.sea_red_moon) {
                         SendMorseBox(
                             onClickSend = {
-                                flashViewModel.flashingOn()
                                 sendMorse(it)
                             },
                             onClickCancel = cancel,
@@ -137,6 +160,10 @@ fun BoxScope.SendMorseBox(
     ) {
         var inputText by rememberSaveable { mutableStateOf("") }
         var placeHolderText by remember { mutableStateOf("Insert text") }
+        val cantBeEmpty = LocalContext.current.getString(R.string.flash_light_empty_value)
+        val cancel = LocalContext.current.getString(R.string.common_cancel)
+        val send = LocalContext.current.getString(R.string.common_send)
+
         OutlinedTextField(
             value = inputText,
             onValueChange = { text -> inputText = text },
@@ -146,10 +173,10 @@ fun BoxScope.SendMorseBox(
         )
         SharedComposable.DefaultButton(
             configurations = SharedComposable.DefaultButtonConfigurations(
-                text = "Send",
+                text = send,
                 click = {
                     if (inputText.isBlank()) {
-                        placeHolderText = "This value can't be empty. Please insert text"
+                        placeHolderText = cantBeEmpty
                     } else {
                         onClickSend(inputText.trim())
                     }
@@ -160,7 +187,7 @@ fun BoxScope.SendMorseBox(
         )
         SharedComposable.DefaultButton(
             configurations = SharedComposable.DefaultButtonConfigurations(
-                text = "Cancel",
+                text = cancel,
                 click = onClickCancel
             )
         )
