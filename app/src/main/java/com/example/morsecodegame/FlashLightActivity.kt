@@ -36,17 +36,17 @@ private const val FLASH_ACTIVITY_LOG_TAG = "flash activity"
 
 class TorchCancelledException(message: String?) : java.util.concurrent.CancellationException(message)
 
-// TODO
-// Adjust brightness
-// max light speed
-// Unknown issue - fix - Happens only on emulator but
-
 class FlashlightActivity : ComponentActivity() {
 
     private val flashViewModel: FlashViewModel by viewModels()
     private lateinit var cameraManager: CameraManager
     private lateinit var legendaryTorch: LegendaryTorch
-    private val wordsPerMinute: Int by lazy { intent.getOptions().wordsPerMinute }
+    private val wordsPerMinute: Int by lazy {
+        // Prevent the light flashing too fast.
+        val maxWordsPerMinute = 20
+        val wordsPerMinute = intent.getOptions().wordsPerMinute
+        if(wordsPerMinute <= maxWordsPerMinute) wordsPerMinute else maxWordsPerMinute
+    }
     private var flashingJob: Job? = null
 
     @Suppress("SameParameterValue") // Suppressing false positive
@@ -61,7 +61,7 @@ class FlashlightActivity : ComponentActivity() {
     override fun onPause() {
         super.onPause()
         if(flashingJob != null && flashingJob!!.isActive) flashingJob?.cancel(
-            TorchCancelledException("Torch cancelled due to on pause called")
+            TorchCancelledException("Torch cancelled due to onPause called")
         )
     }
 
@@ -92,6 +92,7 @@ class FlashlightActivity : ComponentActivity() {
                     try {
                         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
                         flashViewModel.flashingOn()
+                        Log.d(FLASH_ACTIVITY_LOG_TAG, "Flashing light speed - wps:$wordsPerMinute")
                         legendaryTorch.sendMorse(
                             text,
                             wordsPerMinute

@@ -13,13 +13,13 @@ ktlint {
 }
 
 android {
-    compileSdk 32
+    compileSdk 33 // bumped this to 33 because there is possibility to adjust torch brightness
 
     defaultConfig {
         applicationId "com.example.morsecodegame"
         minSdk 31
         //noinspection OldTargetApi
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
