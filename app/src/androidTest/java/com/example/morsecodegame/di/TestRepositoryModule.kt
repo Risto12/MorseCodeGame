@@ -2,16 +2,13 @@ package com.example.morsecodegame.di
 
 import android.content.Context
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import androidx.test.core.app.ApplicationProvider
 import com.example.morsecodegame.db.AppDatabase
-import com.example.morsecodegame.db.DATABASE_NAME
 import com.example.morsecodegame.db.entity.OptionsEntity
 import com.example.morsecodegame.di.modules.OptionsRepositoryModule
 import com.example.morsecodegame.model.Options
 import com.example.morsecodegame.repository.OptionsRepository
 import com.example.morsecodegame.utility.DifficultLevels
-import com.example.morsecodegame.utility.Learning
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.android.components.ViewModelComponent
@@ -22,11 +19,11 @@ import kotlinx.coroutines.flow.*
 object FakeDb {
 
     private val defaultOptions = Options(
-            gameTimeInMinutes = 2,
-            difficultLevel = DifficultLevels.EASY,
-            numberOfQuestions = 2,
-            wordsPerMinute = 2
-        ).toOptionsEntity()
+        gameTimeInMinutes = 2,
+        difficultLevel = DifficultLevels.EASY,
+        numberOfQuestions = 2,
+        wordsPerMinute = 2
+    ).toOptionsEntity()
 
     val db: AppDatabase = initDatabase()
 
@@ -34,7 +31,9 @@ object FakeDb {
         synchronized(this) {
             val context = ApplicationProvider.getApplicationContext<Context>()
             val room = Room.inMemoryDatabaseBuilder(
-                context, AppDatabase::class.java).build()
+                context,
+                AppDatabase::class.java
+            ).build()
             room.optionsDao().createOptions(defaultOptions)
             return room
         }

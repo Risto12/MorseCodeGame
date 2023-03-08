@@ -17,10 +17,6 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.morsecodegame.ui.theme.MorseCodeGameTheme
-import com.example.morsecodegame.ui.theme.VintageBlack
-import com.example.morsecodegame.ui.theme.VintageWhite
-
 
 object SharedComposable {
 
@@ -111,10 +107,11 @@ object SharedComposable {
         configurations: DefaultButtonComposableConfigurations,
         modifier: Modifier = Modifier.fillMaxWidth()
     ) {
-        val color = if (configurations.available)
+        val color = if (configurations.available) {
             MaterialTheme.colors.onPrimary
-        else
+        } else {
             MaterialTheme.colors.onPrimary // maybe light color here ?
+        }
 
         Button(
             colors = ButtonDefaults.textButtonColors(

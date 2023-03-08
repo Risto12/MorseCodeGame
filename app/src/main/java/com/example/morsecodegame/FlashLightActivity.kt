@@ -17,14 +17,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import com.example.morsecodegame.components.ExceptionActivityResult.Companion.EXTRA_KEY_EXCEPTION_MESSAGE
 import com.example.morsecodegame.components.ExceptionActivityResult.Companion.REQUEST_CODE_EXCEPTION
-import com.example.morsecodegame.composables.GameScreen
 import com.example.morsecodegame.composables.SharedComposable
 import com.example.morsecodegame.morsecode.MorseCodeLetter
 import com.example.morsecodegame.ui.theme.MorseCodeGameTheme
@@ -36,7 +34,9 @@ import kotlinx.coroutines.*
 
 private const val FLASH_ACTIVITY_LOG_TAG = "flash activity"
 
-class TorchCancelledException(message: String?) : java.util.concurrent.CancellationException(message)
+class TorchCancelledException(message: String?) : java.util.concurrent.CancellationException(
+    message
+)
 
 class FlashlightActivity : ComponentActivity() {
 
@@ -47,7 +47,7 @@ class FlashlightActivity : ComponentActivity() {
         // Prevent the light flashing too fast.
         val maxWordsPerMinute = 10
         val wordsPerMinute = intent.getOptions().wordsPerMinute
-        if(wordsPerMinute <= maxWordsPerMinute) wordsPerMinute else maxWordsPerMinute
+        if (wordsPerMinute <= maxWordsPerMinute) wordsPerMinute else maxWordsPerMinute
     }
     private var flashingJob: Job? = null
 
@@ -62,9 +62,11 @@ class FlashlightActivity : ComponentActivity() {
 
     override fun onPause() {
         super.onPause()
-        if(flashingJob != null && flashingJob!!.isActive) flashingJob?.cancel(
-            TorchCancelledException("Torch cancelled due to onPause called")
-        )
+        if (flashingJob != null && flashingJob!!.isActive) {
+            flashingJob?.cancel(
+                TorchCancelledException("Torch cancelled due to onPause called")
+            )
+        }
     }
 
     private fun initSettings() {
@@ -100,9 +102,15 @@ class FlashlightActivity : ComponentActivity() {
                             wordsPerMinute
                         )
                     } catch (e: TorchException) {
-                        ToastGenerator.showLongText(this@FlashlightActivity, e.message ?: unknownIssueText)
-                    } catch(e: TorchCancelledException) {
-                      Log.d(FLASH_ACTIVITY_LOG_TAG, e.message ?: "Torch cancelled didn't have message")
+                        ToastGenerator.showLongText(
+                            this@FlashlightActivity,
+                            e.message ?: unknownIssueText
+                        )
+                    } catch (e: TorchCancelledException) {
+                        Log.d(
+                            FLASH_ACTIVITY_LOG_TAG,
+                            e.message ?: "Torch cancelled didn't have message"
+                        )
                     } catch (e: Exception) {
                         Log.e(
                             FLASH_ACTIVITY_LOG_TAG,
@@ -135,9 +143,9 @@ class FlashlightActivity : ComponentActivity() {
                 onClickCancel = cancel,
                 sendingMorse = isFlashing
             )
-            }
         }
     }
+}
 
 @Composable
 fun SendMorseBox(
@@ -146,53 +154,60 @@ fun SendMorseBox(
     sendingMorse: Boolean = false
 ) {
     MorseCodeGameTheme {
-    Box(modifier = Modifier.fillMaxSize().background(color = MaterialTheme.colors.background)) {
-    Column(
-        modifier = Modifier
-            .align(Alignment.Center)
-            .fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        val insertText = LocalContext.current.getString(R.string.flash_light_insert_text)
-        val cantBeEmpty = LocalContext.current.getString(R.string.flash_light_empty_value)
-        val cancel = LocalContext.current.getStringUpper(R.string.common_cancel)
-        val send = LocalContext.current.getStringUpper(R.string.common_send)
+        Box(modifier = Modifier.fillMaxSize().background(color = MaterialTheme.colors.background)) {
+            Column(
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                val insertText = LocalContext.current.getString(R.string.flash_light_insert_text)
+                val cantBeEmpty = LocalContext.current.getString(R.string.flash_light_empty_value)
+                val cancel = LocalContext.current.getStringUpper(R.string.common_cancel)
+                val send = LocalContext.current.getStringUpper(R.string.common_send)
 
-        var inputText by rememberSaveable { mutableStateOf("") }
-        var placeHolderText by remember { mutableStateOf(insertText) }
+                var inputText by rememberSaveable { mutableStateOf("") }
+                var placeHolderText by remember { mutableStateOf(insertText) }
 
-        OutlinedTextField(
-            value = inputText,
-            onValueChange = { text -> inputText = text },
-            placeholder = @Composable { Text(text = placeHolderText, color = MaterialTheme.colors.secondary) },
-            modifier = Modifier.background(MaterialTheme.colors.onPrimary),
-            colors = TextFieldDefaults.textFieldColors(
-                backgroundColor = MaterialTheme.colors.onPrimary,
-                textColor = MaterialTheme.colors.secondary
-            )
-        )
-        SharedComposable.DefaultButton(
-            configurations = SharedComposable.DefaultButtonConfigurations(
-                text = send,
-                click = {
-                    if (inputText.isBlank()) {
-                        placeHolderText = cantBeEmpty
-                    } else {
-                        onClickSend(inputText.trim())
-                    }
-                },
-                enabled = !sendingMorse,
-                available = !sendingMorse),
-                modifier = Modifier.padding(bottom = 15.dp, top = 15.dp)
-        )
-        SharedComposable.DefaultButton(
-            configurations = SharedComposable.DefaultButtonConfigurations(
-                text = cancel,
-                click = onClickCancel
-            )
-        )
+                OutlinedTextField(
+                    value = inputText,
+                    onValueChange = { text -> inputText = text },
+                    placeholder = @Composable {
+                        Text(
+                            text = placeHolderText,
+                            color = MaterialTheme.colors.secondary
+                        )
+                    },
+                    modifier = Modifier.background(MaterialTheme.colors.onPrimary),
+                    colors = TextFieldDefaults.textFieldColors(
+                        backgroundColor = MaterialTheme.colors.onPrimary,
+                        textColor = MaterialTheme.colors.secondary
+                    )
+                )
+                SharedComposable.DefaultButton(
+                    configurations = SharedComposable.DefaultButtonConfigurations(
+                        text = send,
+                        click = {
+                            if (inputText.isBlank()) {
+                                placeHolderText = cantBeEmpty
+                            } else {
+                                onClickSend(inputText.trim())
+                            }
+                        },
+                        enabled = !sendingMorse,
+                        available = !sendingMorse
+                    ),
+                    modifier = Modifier.padding(bottom = 15.dp, top = 15.dp)
+                )
+                SharedComposable.DefaultButton(
+                    configurations = SharedComposable.DefaultButtonConfigurations(
+                        text = cancel,
+                        click = onClickCancel
+                    )
+                )
+            }
+        } 
     }
-    }}
 }
 
 @Preview(showBackground = true)
@@ -203,4 +218,3 @@ fun DefaultPreview() {
         onClickCancel = { }
     )
 }
-

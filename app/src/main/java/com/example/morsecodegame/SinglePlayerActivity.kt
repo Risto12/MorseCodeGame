@@ -247,10 +247,11 @@ private fun BoxScope.AnswerBox(
         ) {
             question.possibleAnswers.forEach { possibleAnswer ->
                 val (buttonColor, textColor) = if (showCorrectAnswer) {
-                    val correctAnswer = if (question.isAnswerCorrect(possibleAnswer))
+                    val correctAnswer = if (question.isAnswerCorrect(possibleAnswer)) {
                         Color.Green
-                    else
+                    } else {
                         Color.Red
+                    }
                     Pair(correctAnswer, MaterialTheme.colors.onPrimary)
                 } else {
                     Pair(MaterialTheme.colors.onPrimary, MaterialTheme.colors.secondary)

@@ -6,9 +6,6 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.morsecodegame.db.dao.OptionsDao
 import com.example.morsecodegame.db.entity.OptionsEntity
-import com.example.morsecodegame.model.Options
-import com.example.morsecodegame.utility.DifficultLevels
-import com.example.morsecodegame.utility.Learning
 
 const val DATABASE_NAME = "morseCodeGame.db"
 

@@ -10,7 +10,6 @@ import com.example.morsecodegame.onNodeWithTextIgnore
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.After
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -29,6 +28,7 @@ class MainActivityInstrumentedTest {
     fun cleaning() {
         FakeDb.resetDb()
     }
+
     /**
      * Testing that route from Start of the app to morse code letters screen and back to start
      * works

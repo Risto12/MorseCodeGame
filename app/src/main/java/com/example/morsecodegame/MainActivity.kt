@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.annotation.IdRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -18,7 +17,6 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,7 +27,6 @@ import com.example.morsecodegame.components.ExceptionActivityResult
 import com.example.morsecodegame.composables.SharedComposable
 import com.example.morsecodegame.configurations.MainInfoTextConfigurations
 import com.example.morsecodegame.ui.theme.MorseCodeGameTheme
-import com.example.morsecodegame.ui.theme.VintageRed
 import com.example.morsecodegame.utility.DebugLifecycleObserver
 import com.example.morsecodegame.utility.LifecycleDebugLogger
 import com.example.morsecodegame.utility.ToastGenerator
@@ -37,7 +34,6 @@ import com.example.morsecodegame.utility.getStringUpper
 import com.example.morsecodegame.viewModel.OptionsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-
 
 private enum class GameType {
     LIGHT, SOUND, BLUETOOTH, FLASHLIGHT
@@ -156,7 +152,6 @@ class MainActivity :
                         SharedComposable.DefaultText(text = "Loading ...")
                     }
                 }
-
             }
         }
     }
