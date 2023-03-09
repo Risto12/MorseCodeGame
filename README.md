@@ -14,15 +14,21 @@ Flashing light mode were one person can use phones flashlight to send morse code
 
 1vs1 with bluetooth (Not yet implemented)
 
+### Themes
+There are two color themes:
+    Dark theme(Vintage blue rusty) and bright theme (Vintage strawberry cupcake). See pictures below.
+
 ### Note
 Check the MEMO file for the current situation and future development ideas
 
 ___
+Bright theme - Vintage strawberry cupcake
 ![alt text](https://github.com/Risto12/MorseCodeGame/blob/main/menu.png "Picture of main menu")
 ___
 ![alt text](https://github.com/Risto12/MorseCodeGame/blob/main/singleplayer.png "Picture of singleplayer screen")
 ___
 ![alt text](https://github.com/Risto12/MorseCodeGame/blob/main/dialog.png "Picture of dialog")
 ___
-![alt text](https://github.com/Risto12/MorseCodeGame/blob/main/dialog.png "Dark theme")
+Dark theme - Vintage blue rusty
+![alt text](https://github.com/Risto12/MorseCodeGame/blob/main/darktheme.png "Dark theme")
 ---
