@@ -185,13 +185,13 @@ fun SendMorseBox(
                         color = MaterialTheme.colors.onPrimary
                     )
                 },
-                modifier = Modifier.background(MaterialTheme.colors.primary).weight(0.7f),
+                modifier = Modifier.background(MaterialTheme.colors.primary).weight(weight = 1f),
                 colors = TextFieldDefaults.textFieldColors(
                     backgroundColor = MaterialTheme.colors.primary,
                     textColor = MaterialTheme.colors.onPrimary
                 )
             )
-            Row(modifier = Modifier.weight(0.5f).padding(bottom = 5.dp, top = 10.dp)) {
+            Row(modifier = Modifier.weight(weight = 1f).padding(bottom = 5.dp, top = 10.dp).wrapContentSize(unbounded = true)) {
                 SharedComposable.DefaultButton(
                     configurations = SharedComposable.DefaultButtonConfigurations(
                         text = send,
