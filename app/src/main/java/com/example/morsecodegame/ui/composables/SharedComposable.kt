@@ -43,15 +43,18 @@ object SharedComposable {
         text: String,
         @SuppressLint("ModifierParameter")
         modifier: Modifier = Modifier.padding(bottom = 40.dp),
-        fontSize: TextUnit = 20.sp
+        fontSize: TextUnit = 20.sp,
+        color: Color = MaterialTheme.colors.primary,
+        textDecoration: TextDecoration = TextDecoration.None
     ) {
         Text(
             text = text,
-            color = MaterialTheme.colors.primary,
+            color = color,
             fontSize = fontSize,
             fontWeight = FontWeight.Black,
             fontStyle = FontStyle.Italic,
-            modifier = modifier
+            modifier = modifier,
+            textDecoration = textDecoration
         )
     }
 
@@ -61,7 +64,8 @@ object SharedComposable {
         text: String,
         modifier: Modifier = Modifier.padding(bottom = 5.dp),
         fontSize: TextUnit = 15.sp,
-        color: Color = MaterialTheme.colors.onPrimary
+        color: Color = MaterialTheme.colors.onPrimary,
+        textDecoration: TextDecoration = TextDecoration.None
     ) {
         Text(
             text = text,
@@ -69,7 +73,8 @@ object SharedComposable {
             fontSize = fontSize,
             fontWeight = FontWeight.Black,
             fontStyle = FontStyle.Italic,
-            modifier = modifier
+            modifier = modifier,
+            textDecoration = textDecoration
         )
     }
 
