@@ -192,23 +192,23 @@ fun StatusBar(
     middle: String,
     right: String
 ) {
-    Row(Modifier.heightIn(max = 30.dp).background(color = VintageRedDark)) {
+    Box(Modifier.heightIn(max = 30.dp).background(color = VintageRedDark).fillMaxWidth()) {
         val textColor = MaterialTheme.colors.primary
         Text(
             text = left,
             modifier = Modifier
                 .padding(start = 8.dp)
-                .weight(1.6f),
+                .align(Alignment.CenterStart),
             color = textColor
         )
         Text(
             text = middle,
-            modifier = Modifier.weight(1.2f),
+            modifier = Modifier.align(Alignment.BottomCenter),
             color = textColor
         )
         Text(
             text = right,
-            modifier = Modifier.weight(0.7f),
+            modifier = Modifier.align(Alignment.BottomEnd).padding(end = 5.dp),
             color = textColor
         )
     }
