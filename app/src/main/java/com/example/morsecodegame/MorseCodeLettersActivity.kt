@@ -30,7 +30,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 
-// TODO BUG when scrolling down
 /***
  * Activity presents information related to Morse code and all the letters in DI, DA format
  */
@@ -141,7 +140,11 @@ fun MorseCodeLetters(
                 item {
                     SharedComposable.DefaultHeaderText(
                         text = it.name + " " + units,
-                        color = MaterialTheme.colors.onPrimary
+                        color = MaterialTheme.colors.onPrimary,
+                        modifier = Modifier
+                            .padding(bottom = 20.dp)
+                            .fillMaxWidth()
+                            .wrapContentWidth()
                     )
                 }
             }
