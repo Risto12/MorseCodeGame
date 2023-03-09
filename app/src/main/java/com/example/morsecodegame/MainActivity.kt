@@ -163,7 +163,7 @@ private fun SinglePlayerMenu(
     onClickCancel: () -> Unit,
     infoTexts: MainInfoTextConfigurations
 ) = MorseCodeGameTheme {
-    LocalContext.current.getStringUpper(R.string.start_screen_sound)
+    val localContext = LocalContext.current
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -175,7 +175,7 @@ private fun SinglePlayerMenu(
         )
         ButtonWithInfoBox(
             defaultButtonConfigurations = SharedComposable.DefaultButtonConfigurations(
-                text = "Blinking light",
+                text = localContext.getStringUpper(R.string.start_screen_blinking_light),
                 click = { onClickSinglePlayerType(GameType.LIGHT) }
             ),
             iconContentDescription = "Blinking light game mode info",
@@ -183,7 +183,7 @@ private fun SinglePlayerMenu(
         )
         ButtonWithInfoBox(
             defaultButtonConfigurations = SharedComposable.DefaultButtonConfigurations(
-                text = "Sound",
+                text = localContext.getStringUpper(R.string.start_screen_sound),
                 click = { },
                 available = false,
                 enabled = false
@@ -193,7 +193,7 @@ private fun SinglePlayerMenu(
         )
         SharedComposable.DefaultButton(
             configurations = SharedComposable.DefaultButtonConfigurations(
-                text = "Cancel",
+                text = localContext.getStringUpper(R.string.common_cancel),
                 click = onClickCancel
             )
         )
@@ -207,6 +207,7 @@ private fun MultiplayerMenu(
     onClickFlashLight: (type: GameType) -> Unit,
     infoTexts: MainInfoTextConfigurations
 ) = MorseCodeGameTheme {
+    val localContext = LocalContext.current
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -214,7 +215,7 @@ private fun MultiplayerMenu(
     ) {
         ButtonWithInfoBox(
             defaultButtonConfigurations = SharedComposable.DefaultButtonConfigurations(
-                text = "Flashlight",
+                text = localContext.getStringUpper(R.string.start_screen_flashlight),
                 click = { onClickFlashLight(GameType.FLASHLIGHT) }
             ),
             iconContentDescription = "Flash game mode info",
@@ -222,7 +223,7 @@ private fun MultiplayerMenu(
         )
         ButtonWithInfoBox(
             defaultButtonConfigurations = SharedComposable.DefaultButtonConfigurations(
-                text = "Bluetooth",
+                text = localContext.getStringUpper(R.string.start_screen_bluetooth),
                 click = { },
                 available = false,
                 enabled = false
@@ -232,7 +233,7 @@ private fun MultiplayerMenu(
         )
         SharedComposable.DefaultButton(
             configurations = SharedComposable.DefaultButtonConfigurations(
-                text = "Cancel",
+                text = localContext.getStringUpper(R.string.common_cancel),
                 click = onClickCancel
             )
         )
