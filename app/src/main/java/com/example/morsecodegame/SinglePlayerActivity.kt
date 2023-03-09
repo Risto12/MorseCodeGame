@@ -230,8 +230,7 @@ private fun AnswerBox(
             color = MaterialTheme.colors.background,
             modifier = Modifier.weight(0.1f)
         )
-        if (!answerBoxOn) {
-            val lightColor = if (lightOn) VintageYellow else MaterialTheme.colors.background
+        val lightColor = if (lightOn) VintageYellow else MaterialTheme.colors.background
             Box(
                 modifier = Modifier
                     .clip(RectangleShape)
@@ -240,7 +239,6 @@ private fun AnswerBox(
                     .weight(1f)
                     .align(Alignment.CenterHorizontally)
             )
-        }
         Box(modifier = Modifier.weight(2f)) {
             Image(
                 painterResource(R.drawable.baseline_flashlight_on_24),
@@ -252,7 +250,7 @@ private fun AnswerBox(
             visible = answerBoxOn,
             enter = fadeIn(),
             exit = fadeOut(),
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1.7f)
         ) {
             Column(
                 modifier = Modifier
