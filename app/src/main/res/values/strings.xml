@@ -8,6 +8,7 @@
     <string name="common_send">SEND</string>
     <string name="common_cancel">CANCEL</string>
     <string name="common_back">BACK</string>
+    <string name="common_save">SAVE</string>
 
     <string name="single_player_answer">Correct answer is</string>
 
