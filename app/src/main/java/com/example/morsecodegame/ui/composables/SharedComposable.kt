@@ -1,7 +1,6 @@
 package com.example.morsecodegame.ui.composables
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
@@ -10,7 +9,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
@@ -139,22 +137,5 @@ object SharedComposable {
             text = text,
             fontSize = fontSize
         )
-    }
-}
-
-@Composable
-fun GameScreen(
-    imageId: Int,
-    content: @Composable ColumnScope.() -> Unit
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-    ) {
-        Image(
-            painterResource(imageId),
-            contentDescription = "Stormy sea"
-        )
-        content()
     }
 }

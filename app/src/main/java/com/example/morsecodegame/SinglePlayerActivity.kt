@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -27,6 +28,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.morsecodegame.ui.composables.SharedComposable
+import com.example.morsecodegame.ui.composables.SharedComposable.DefaultHeaderText
 import com.example.morsecodegame.ui.theme.*
 import com.example.morsecodegame.utility.*
 import com.example.morsecodegame.viewModel.GameTimeViewModel
@@ -159,7 +161,7 @@ class SinglePlayerActivity : ComponentActivity() {
                 } else {
                     Column(
                         modifier = Modifier
-                            .background(MaterialTheme.colors.onBackground)
+                            .background(MaterialTheme.colors.background)
                             .fillMaxSize()
                     ) {
                         if (isGameOver) {
@@ -256,10 +258,13 @@ private fun SinglePlayerScreen(
         ) {
             Column(
                 modifier = Modifier
-                    // .align(Alignment.BottomCenter)
                     .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                DefaultHeaderText(
+                    text = LocalContext.current.getString(R.string.single_player_answer),
+                    modifier = Modifier.padding(top = 5.dp, bottom = 5.dp)
+                )
                 question.possibleAnswers.forEach { possibleAnswer ->
                     val (buttonColor, textColor) = if (showCorrectAnswer) {
                         val correctAnswer = if (question.isAnswerCorrect(possibleAnswer)) {
@@ -285,7 +290,7 @@ private fun SinglePlayerScreen(
                     }
                 }
             }
-        } 
+        }
     }
 }
 
