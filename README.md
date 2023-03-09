@@ -23,4 +23,6 @@ ___
 ![alt text](https://github.com/Risto12/MorseCodeGame/blob/main/singleplayer.png "Picture of singleplayer screen")
 ___
 ![alt text](https://github.com/Risto12/MorseCodeGame/blob/main/dialog.png "Picture of dialog")
+___
+![alt text](https://github.com/Risto12/MorseCodeGame/blob/main/dialog.png "Dark theme")
 ---

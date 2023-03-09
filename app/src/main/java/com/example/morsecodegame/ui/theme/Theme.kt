@@ -6,21 +6,21 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
-
+//TODO these colors look so good that need to extract them to color package for re-use in new applications
 @SuppressLint("ConflictingOnColor")
-private val DarkColorPalette = darkColors(
-    primary = VintageWhite,
-    primaryVariant = VintageWhiteDark,
-    onPrimary = VintageBlack,
-    secondary = VintageRed,
-    secondaryVariant = VintageRedDark,
+private val VintageBlueColorPalette = darkColors(
+    primary = VintageRedDeep,
+    primaryVariant = VintageWhiteWorn,
+    onPrimary = VintageWhiteWorn,
+    secondary = VintageBlueDeep,
+    secondaryVariant = VintageBlue,
     onSecondary = VintageWhite,
-    background = VintageRed
+    background = VintageBlueDeep
 )
 
 // Well these are copies but maybe in future there be differences
 @SuppressLint("ConflictingOnColor")
-private val LightColorPalette = lightColors(
+val VintageRedColorPalette = lightColors(
     primary = VintageWhite,
     primaryVariant = VintageWhiteDark,
     onPrimary = VintageBlack,
@@ -36,9 +36,9 @@ fun MorseCodeGameTheme(
     content: @Composable () -> Unit
 ) {
     val colors = if (darkTheme) {
-        DarkColorPalette
+        VintageBlueColorPalette
     } else {
-        LightColorPalette
+        VintageRedColorPalette
     }
 
     MaterialTheme(

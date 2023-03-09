@@ -11,10 +11,15 @@ val VintageWhite = Color(0xFFF5E9CF)
 val VintageWhiteBright = Color(0xFFF7EFE0)
 val VintageWhiteDark = Color(0xFFE4D6B8)
 
+val VintageWhiteWorn = Color(0xFFE7E6E1) // maybe gray ?
+
 val VintageRed = Color(0xFFE46479)
 val VintageRedBright = Color(0xFFD87988)
 val VintageRedDark = Color(0xFFE45067)
-val VintageRedDeep = Color(0xFFE91E43)
+val VintageRedDeep = Color(0xFFA84448) // for my garage
+
+val VintageBlueDeep = Color(0xFF1A3263)
+val VintageBlue = Color(0xFF223D74)
 
 val VintageBlack = Color(0xFF4D455D)
 val VintageBlackDark = Color(0xFF453E53)

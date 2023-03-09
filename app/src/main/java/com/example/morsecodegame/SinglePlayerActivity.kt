@@ -192,7 +192,7 @@ fun StatusBar(
     middle: String,
     right: String
 ) {
-    Box(Modifier.heightIn(max = 30.dp).background(color = VintageRedDark).fillMaxWidth()) {
+    Box(Modifier.heightIn(max = 30.dp).background(color = MaterialTheme.colors.secondaryVariant).fillMaxWidth()) {
         val textColor = MaterialTheme.colors.primary
         Text(
             text = left,
@@ -253,7 +253,7 @@ private fun SinglePlayerScreen(
             enter = fadeIn(),
             exit = fadeOut(),
             modifier = Modifier.align(Alignment.BottomCenter).background(
-                color = MaterialTheme.colors.background
+                color = MaterialTheme.colors.secondaryVariant
             )
         ) {
             Column(
