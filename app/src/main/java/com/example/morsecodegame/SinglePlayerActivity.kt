@@ -7,6 +7,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.animation.*
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -17,6 +18,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -122,15 +126,12 @@ class SinglePlayerActivity : ComponentActivity() {
                             }
                         }
                     }
-                    Column(
-                        modifier = Modifier.background(color = Color.Black)
-                    ) {
+                    Column {
                         StatusBar(
                             left = gameTimeLeft,
                             middle = "$gameQuestionCount/${gameViewModel.getAmountOfQuestions()}",
                             right = "wpm: ${gameViewModel.getWordsPerMinute()}"
                         )
-                        GameScreen(R.drawable.sea_red_moon) {
                             AnswerBox(
                                 lightOn = lightOn,
                                 answerBoxOn = answerBoxOn,
@@ -157,7 +158,6 @@ class SinglePlayerActivity : ComponentActivity() {
                                 question = gameQuestion,
                                 showCorrectAnswer = showCorrectAnswer
                             )
-                        }
                     }
                 } else {
                     Column(
@@ -193,7 +193,7 @@ fun StatusBar(
     middle: String,
     right: String
 ) {
-    Row(Modifier.heightIn(max = 30.dp)) {
+    Row(Modifier.heightIn(max = 30.dp).background(color = VintageRedDark)) {
         val textColor = MaterialTheme.colors.primary
         Text(
             text = left,
@@ -216,33 +216,49 @@ fun StatusBar(
 }
 
 @Composable
-private fun BoxScope.AnswerBox(
+private fun AnswerBox(
     lightOn: Boolean,
     answerBoxOn: Boolean,
     onClickAnswer: (String) -> Unit,
     question: Question,
-    showCorrectAnswer: Boolean
+    showCorrectAnswer: Boolean,
 ) {
-    if (lightOn) {
+    Column (modifier = Modifier
+        .fillMaxSize()
+        .background(color = MaterialTheme.colors.background)){
+        Divider(
+            color = MaterialTheme.colors.background,
+            modifier = Modifier.weight(0.1f)
+        )
+        if (!answerBoxOn) {
+            val lightColor = if(lightOn) VintageYellow else MaterialTheme.colors.background
         Box(
             modifier = Modifier
-                .align(Alignment.Center)
-                .clip(CircleShape)
-                .background(Color.Yellow.copy(alpha = 0.9f))
-                .size(13.dp)
+                .clip(RectangleShape)
+                .background(lightColor)
+                .size(100.dp)
+                .weight(1f)
+                .align(Alignment.CenterHorizontally)
         )
     }
+        Box (modifier = Modifier.weight(2f)){
+            Image(
+                painterResource(R.drawable.baseline_flashlight_on_24),
+                contentDescription = "Flashlight",
+                modifier = Modifier.fillMaxSize()
+            )
+        }
     AnimatedVisibility(
         visible = answerBoxOn,
-        modifier = Modifier.align(Alignment.BottomCenter),
         enter = fadeIn(),
-        exit = fadeOut()
+        exit = fadeOut(),
+        modifier = Modifier.weight(1f)
     ) {
         Column(
             modifier = Modifier
                 // .align(Alignment.BottomCenter)
                 .fillMaxWidth()
-                .background(Color.Black),
+            ,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             question.possibleAnswers.forEach { possibleAnswer ->
@@ -270,7 +286,7 @@ private fun BoxScope.AnswerBox(
                 }
             }
         }
-    }
+    }}
 }
 
 @Composable
@@ -281,8 +297,7 @@ fun SinglePlayerActivityPreview() {
             modifier = Modifier.background(color = Color.Black)
         ) {
             StatusBar(left = "5:00", middle = "1/10", right = "wpm: 20")
-            GameScreen(R.drawable.sea_red_moon) {
-                AnswerBox(
+            AnswerBox(
                     lightOn = true,
                     answerBoxOn = true,
                     onClickAnswer = {},
@@ -290,7 +305,7 @@ fun SinglePlayerActivityPreview() {
                         .generateQuestions(1, DifficultLevels.HARD).first(),
                     showCorrectAnswer = true
                 )
-            }
+
         }
     }
 }

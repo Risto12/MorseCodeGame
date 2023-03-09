@@ -39,10 +39,6 @@ private enum class GameType {
     LIGHT, SOUND, BLUETOOTH, FLASHLIGHT
 }
 
-// TODO
-// Make the popup windows respect their boundaries
-// Buttons texts should be upper case
-
 @AndroidEntryPoint
 class MainActivity :
     ComponentActivity(),

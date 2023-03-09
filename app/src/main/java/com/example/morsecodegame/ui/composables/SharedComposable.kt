@@ -145,16 +145,15 @@ object SharedComposable {
 @Composable
 fun GameScreen(
     imageId: Int,
-    content: @Composable BoxScope.() -> Unit
+    content: @Composable ColumnScope.() -> Unit
 ) {
-    Box(
+    Column(
         modifier = Modifier
             .fillMaxSize()
     ) {
         Image(
             painterResource(imageId),
             contentDescription = "Stormy sea",
-            modifier = Modifier.matchParentSize()
         )
         content()
     }
