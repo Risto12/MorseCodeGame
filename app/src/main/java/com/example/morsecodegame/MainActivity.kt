@@ -145,7 +145,6 @@ class MainActivity :
                             )
                         }
                     } else {
-                        // TODO create shareable composable for this loading functionality
                         SharedComposable.DefaultText(text = "Loading ...")
                     }
                 }

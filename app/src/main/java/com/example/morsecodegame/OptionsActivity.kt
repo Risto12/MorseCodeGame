@@ -228,7 +228,7 @@ fun DifficultLevelRadioButtonsWithText(
                 val radioButtonsColor = MaterialTheme.colors.primary
                 RadioButton(
                     selected = (difficultLevel.name == defaultDifficultLevel),
-                    onClick = { // TODO get the medium button on the same vertical level as the other difficulties
+                    onClick = {
                         onOptionSelected(difficultLevel.name)
                         onClickRadioButton(difficultLevel)
                     },

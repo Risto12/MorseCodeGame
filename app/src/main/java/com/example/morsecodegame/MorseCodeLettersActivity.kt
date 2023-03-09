@@ -71,8 +71,7 @@ fun MorseCodeLetters(
         }
     }
 
-    val morseCodeLetterScope = rememberCoroutineScope() // TODO check this scope
-
+    val morseCodeLetterScope = rememberCoroutineScope()
     Column(
         modifier = Modifier
             .fillMaxSize()
