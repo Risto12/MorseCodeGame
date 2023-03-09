@@ -50,9 +50,9 @@ object SharedComposable {
             color = color,
             fontSize = fontSize,
             fontWeight = FontWeight.Black,
-            fontStyle = FontStyle.Italic,
             modifier = modifier,
-            textDecoration = textDecoration
+            textDecoration = textDecoration,
+            style = MaterialTheme.typography.h1,
         )
     }
 
@@ -70,9 +70,9 @@ object SharedComposable {
             color = color,
             fontSize = fontSize,
             fontWeight = FontWeight.Black,
-            fontStyle = FontStyle.Italic,
             modifier = modifier,
-            textDecoration = textDecoration
+            textDecoration = textDecoration,
+            style = MaterialTheme.typography.body1
         )
     }
 
@@ -99,7 +99,8 @@ object SharedComposable {
                 text = configurations.text,
                 color = color,
                 fontSize = 20.sp,
-                textDecoration = textDecoration
+                textDecoration = textDecoration,
+                style = MaterialTheme.typography.body2
             )
         }
     }
@@ -135,7 +136,7 @@ object SharedComposable {
     ) {
         DefaultHeaderText(
             text = text,
-            fontSize = fontSize
+            fontSize = fontSize,
         )
     }
 }
