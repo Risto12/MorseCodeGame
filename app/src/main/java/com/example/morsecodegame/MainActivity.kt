@@ -27,6 +27,9 @@ import com.example.morsecodegame.components.ExceptionActivityResult
 import com.example.morsecodegame.configurations.MainInfoTextConfigurations
 import com.example.morsecodegame.ui.composables.SharedComposable
 import com.example.morsecodegame.ui.theme.MorseCodeGameTheme
+import com.example.morsecodegame.ui.theme.VintageGreen
+import com.example.morsecodegame.ui.theme.VintageWhiteBright
+import com.example.morsecodegame.ui.theme.VintageYellow
 import com.example.morsecodegame.utility.DebugLifecycleObserver
 import com.example.morsecodegame.utility.LifecycleDebugLogger
 import com.example.morsecodegame.utility.ToastGenerator
@@ -281,7 +284,7 @@ fun ButtonWithInfoBox(
                     Icon(
                         imageVector = Icons.Default.Info,
                         contentDescription = iconContentDescription,
-                        tint = MaterialTheme.colors.secondary
+                        tint = VintageGreen
                     )
                 },
                 click = {
