@@ -18,10 +18,10 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.morsecodegame.ui.composables.SharedComposable
-import com.example.morsecodegame.ui.composables.SharedComposable.DefaultButton
 import com.example.morsecodegame.configurations.OptionsConfigurations
 import com.example.morsecodegame.model.Options
+import com.example.morsecodegame.ui.composables.SharedComposable
+import com.example.morsecodegame.ui.composables.SharedComposable.DefaultButton
 import com.example.morsecodegame.ui.theme.MorseCodeGameTheme
 import com.example.morsecodegame.utility.DifficultLevels
 import com.example.morsecodegame.utility.launchIOCoroutine
@@ -235,12 +235,12 @@ fun DifficultLevelRadioButtonsWithText(
                     colors = RadioButtonDefaults.colors(
                         radioButtonsColor,
                         radioButtonsColor,
-                        radioButtonsColor,
+                        radioButtonsColor
                     )
                 )
                 Text(
                     text = difficultLevel.name,
-                    color = radioButtonsColor,
+                    color = radioButtonsColor
                 )
             }
         }

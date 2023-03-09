@@ -153,7 +153,7 @@ fun GameScreen(
     ) {
         Image(
             painterResource(imageId),
-            contentDescription = "Stormy sea",
+            contentDescription = "Stormy sea"
         )
         content()
     }

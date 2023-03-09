@@ -21,9 +21,9 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.morsecodegame.ui.composables.SharedComposable
 import com.example.morsecodegame.configurations.MorseCodeLettersInfoTextConfiguration
 import com.example.morsecodegame.morsecode.MorseCodeLetter
+import com.example.morsecodegame.ui.composables.SharedComposable
 import com.example.morsecodegame.ui.theme.MorseCodeGameTheme
 import com.example.morsecodegame.utility.getStringUpper
 import dagger.hilt.android.AndroidEntryPoint
@@ -94,7 +94,10 @@ fun MorseCodeLetters(
             state = listState,
             modifier = Modifier
                 .weight(2.5f)
-                .background(color = MaterialTheme.colors.primary).border(10.dp, MaterialTheme.colors.background),
+                .background(color = MaterialTheme.colors.primary).border(
+                    10.dp,
+                    MaterialTheme.colors.background
+                ),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             item {
@@ -135,9 +138,10 @@ fun MorseCodeLetters(
                     .replace("[", " = ")
                     .replace("]", " ")
                     .trimEnd()
-                item { SharedComposable.DefaultHeaderText(
-                    text = it.name + " " + units,
-                    color = MaterialTheme.colors.onPrimary
+                item {
+                    SharedComposable.DefaultHeaderText(
+                        text = it.name + " " + units,
+                        color = MaterialTheme.colors.onPrimary
                     )
                 }
             }

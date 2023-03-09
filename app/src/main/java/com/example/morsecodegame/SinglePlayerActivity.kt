@@ -10,7 +10,6 @@ import androidx.compose.animation.*
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -28,7 +27,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.example.morsecodegame.ui.composables.GameScreen
 import com.example.morsecodegame.ui.composables.SharedComposable
 import com.example.morsecodegame.ui.theme.*
 import com.example.morsecodegame.utility.*
@@ -132,32 +130,32 @@ class SinglePlayerActivity : ComponentActivity() {
                             middle = "$gameQuestionCount/${gameViewModel.getAmountOfQuestions()}",
                             right = "wpm: ${gameViewModel.getWordsPerMinute()}"
                         )
-                            AnswerBox(
-                                lightOn = lightOn,
-                                answerBoxOn = answerBoxOn,
-                                onClickAnswer = {
-                                    showCorrectAnswer = true
-                                    launchIOCoroutine {
-                                        // Next question logic after answer
-                                        delay(WAIT_BEFORE_CLEARING_ANSWERS)
-                                        answerBoxOn = false
-                                        // With out this wait player would see next answer because
-                                        // fading takes time but new answers are already drawn
-                                        delay(WAIT_BEFORE_NEXT_QUESTION)
-                                        if (
-                                            !gameViewModel.hasNextQuestion() ||
-                                            !gameTimeViewModel.hasTimeLeft()
-                                        ) {
-                                            isGameOver = true
-                                            gameOver()
-                                        } else {
-                                            gameViewModel.nextQuestion()
-                                        }
+                        AnswerBox(
+                            lightOn = lightOn,
+                            answerBoxOn = answerBoxOn,
+                            onClickAnswer = {
+                                showCorrectAnswer = true
+                                launchIOCoroutine {
+                                    // Next question logic after answer
+                                    delay(WAIT_BEFORE_CLEARING_ANSWERS)
+                                    answerBoxOn = false
+                                    // With out this wait player would see next answer because
+                                    // fading takes time but new answers are already drawn
+                                    delay(WAIT_BEFORE_NEXT_QUESTION)
+                                    if (
+                                        !gameViewModel.hasNextQuestion() ||
+                                        !gameTimeViewModel.hasTimeLeft()
+                                    ) {
+                                        isGameOver = true
+                                        gameOver()
+                                    } else {
+                                        gameViewModel.nextQuestion()
                                     }
-                                },
-                                question = gameQuestion,
-                                showCorrectAnswer = showCorrectAnswer
-                            )
+                                }
+                            },
+                            question = gameQuestion,
+                            showCorrectAnswer = showCorrectAnswer
+                        )
                     }
                 } else {
                     Column(
@@ -221,72 +219,74 @@ private fun AnswerBox(
     answerBoxOn: Boolean,
     onClickAnswer: (String) -> Unit,
     question: Question,
-    showCorrectAnswer: Boolean,
+    showCorrectAnswer: Boolean
 ) {
-    Column (modifier = Modifier
-        .fillMaxSize()
-        .background(color = MaterialTheme.colors.background)){
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = MaterialTheme.colors.background)
+    ) {
         Divider(
             color = MaterialTheme.colors.background,
             modifier = Modifier.weight(0.1f)
         )
         if (!answerBoxOn) {
-            val lightColor = if(lightOn) VintageYellow else MaterialTheme.colors.background
-        Box(
-            modifier = Modifier
-                .clip(RectangleShape)
-                .background(lightColor)
-                .size(100.dp)
-                .weight(1f)
-                .align(Alignment.CenterHorizontally)
-        )
-    }
-        Box (modifier = Modifier.weight(2f)){
+            val lightColor = if (lightOn) VintageYellow else MaterialTheme.colors.background
+            Box(
+                modifier = Modifier
+                    .clip(RectangleShape)
+                    .background(lightColor)
+                    .size(100.dp)
+                    .weight(1f)
+                    .align(Alignment.CenterHorizontally)
+            )
+        }
+        Box(modifier = Modifier.weight(2f)) {
             Image(
                 painterResource(R.drawable.baseline_flashlight_on_24),
                 contentDescription = "Flashlight",
                 modifier = Modifier.fillMaxSize()
             )
         }
-    AnimatedVisibility(
-        visible = answerBoxOn,
-        enter = fadeIn(),
-        exit = fadeOut(),
-        modifier = Modifier.weight(1f)
-    ) {
-        Column(
-            modifier = Modifier
-                // .align(Alignment.BottomCenter)
-                .fillMaxWidth()
-            ,
-            horizontalAlignment = Alignment.CenterHorizontally
+        AnimatedVisibility(
+            visible = answerBoxOn,
+            enter = fadeIn(),
+            exit = fadeOut(),
+            modifier = Modifier.weight(1f)
         ) {
-            question.possibleAnswers.forEach { possibleAnswer ->
-                val (buttonColor, textColor) = if (showCorrectAnswer) {
-                    val correctAnswer = if (question.isAnswerCorrect(possibleAnswer)) {
-                        Color.Green
+            Column(
+                modifier = Modifier
+                    // .align(Alignment.BottomCenter)
+                    .fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                question.possibleAnswers.forEach { possibleAnswer ->
+                    val (buttonColor, textColor) = if (showCorrectAnswer) {
+                        val correctAnswer = if (question.isAnswerCorrect(possibleAnswer)) {
+                            Color.Green
+                        } else {
+                            Color.Red
+                        }
+                        Pair(correctAnswer, MaterialTheme.colors.onPrimary)
                     } else {
-                        Color.Red
+                        Pair(MaterialTheme.colors.primary, MaterialTheme.colors.onPrimary)
                     }
-                    Pair(correctAnswer, MaterialTheme.colors.onPrimary)
-                } else {
-                    Pair(MaterialTheme.colors.primary, MaterialTheme.colors.onPrimary)
-                }
-                Button(
-                    colors = ButtonDefaults.textButtonColors(
-                        backgroundColor = buttonColor
-                    ),
-                    onClick = { onClickAnswer(possibleAnswer) },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 2.dp, bottom = 2.dp),
-                    enabled = !showCorrectAnswer
-                ) {
-                    Text(possibleAnswer, color = textColor, fontWeight = FontWeight.Bold)
+                    Button(
+                        colors = ButtonDefaults.textButtonColors(
+                            backgroundColor = buttonColor
+                        ),
+                        onClick = { onClickAnswer(possibleAnswer) },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 2.dp, bottom = 2.dp),
+                        enabled = !showCorrectAnswer
+                    ) {
+                        Text(possibleAnswer, color = textColor, fontWeight = FontWeight.Bold)
+                    }
                 }
             }
-        }
-    }}
+        } 
+    }
 }
 
 @Composable
@@ -298,14 +298,13 @@ fun SinglePlayerActivityPreview() {
         ) {
             StatusBar(left = "5:00", middle = "1/10", right = "wpm: 20")
             AnswerBox(
-                    lightOn = true,
-                    answerBoxOn = true,
-                    onClickAnswer = {},
-                    question = QuestionGenerator
-                        .generateQuestions(1, DifficultLevels.HARD).first(),
-                    showCorrectAnswer = true
-                )
-
+                lightOn = true,
+                answerBoxOn = true,
+                onClickAnswer = {},
+                question = QuestionGenerator
+                    .generateQuestions(1, DifficultLevels.HARD).first(),
+                showCorrectAnswer = true
+            )
         }
     }
 }

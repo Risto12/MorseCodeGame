@@ -24,8 +24,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
 import com.example.morsecodegame.components.ExceptionActivityResult
-import com.example.morsecodegame.ui.composables.SharedComposable
 import com.example.morsecodegame.configurations.MainInfoTextConfigurations
+import com.example.morsecodegame.ui.composables.SharedComposable
 import com.example.morsecodegame.ui.theme.MorseCodeGameTheme
 import com.example.morsecodegame.utility.DebugLifecycleObserver
 import com.example.morsecodegame.utility.LifecycleDebugLogger
