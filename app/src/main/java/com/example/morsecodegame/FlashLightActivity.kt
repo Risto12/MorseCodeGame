@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import com.example.morsecodegame.components.ExceptionActivityResult.Companion.EXTRA_KEY_EXCEPTION_MESSAGE
 import com.example.morsecodegame.components.ExceptionActivityResult.Companion.REQUEST_CODE_EXCEPTION
-import com.example.morsecodegame.composables.SharedComposable
+import com.example.morsecodegame.ui.composables.SharedComposable
 import com.example.morsecodegame.morsecode.MorseCodeLetter
 import com.example.morsecodegame.ui.theme.MorseCodeGameTheme
 import com.example.morsecodegame.utility.ToastGenerator
@@ -175,13 +175,13 @@ fun SendMorseBox(
                     placeholder = @Composable {
                         Text(
                             text = placeHolderText,
-                            color = MaterialTheme.colors.secondary
+                            color = MaterialTheme.colors.onPrimary
                         )
                     },
-                    modifier = Modifier.background(MaterialTheme.colors.onPrimary),
+                    modifier = Modifier.background(MaterialTheme.colors.primary),
                     colors = TextFieldDefaults.textFieldColors(
-                        backgroundColor = MaterialTheme.colors.onPrimary,
-                        textColor = MaterialTheme.colors.secondary
+                        backgroundColor = MaterialTheme.colors.primary,
+                        textColor = MaterialTheme.colors.onPrimary
                     )
                 )
                 SharedComposable.DefaultButton(

@@ -1,4 +1,4 @@
-package com.example.morsecodegame.composables
+package com.example.morsecodegame.ui.composables
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
@@ -47,7 +47,7 @@ object SharedComposable {
     ) {
         Text(
             text = text,
-            color = MaterialTheme.colors.onPrimary,
+            color = MaterialTheme.colors.primary,
             fontSize = fontSize,
             fontWeight = FontWeight.Black,
             fontStyle = FontStyle.Italic,
@@ -61,7 +61,7 @@ object SharedComposable {
         text: String,
         modifier: Modifier = Modifier.padding(bottom = 5.dp),
         fontSize: TextUnit = 15.sp,
-        color: Color = MaterialTheme.colors.secondary
+        color: Color = MaterialTheme.colors.onPrimary
     ) {
         Text(
             text = text,
@@ -80,13 +80,13 @@ object SharedComposable {
         modifier: Modifier = Modifier.padding(bottom = 15.dp)
     ) {
         val (color, textDecoration) = if (configurations.available) {
-            Pair(MaterialTheme.colors.secondaryVariant, null)
+            Pair(MaterialTheme.colors.onPrimary, null)
         } else {
-            Pair(MaterialTheme.colors.secondaryVariant, TextDecoration.LineThrough)
+            Pair(MaterialTheme.colors.onPrimary, TextDecoration.LineThrough)
         }
         Button(
             colors = ButtonDefaults.textButtonColors(
-                backgroundColor = MaterialTheme.colors.onPrimary
+                backgroundColor = MaterialTheme.colors.primary
             ),
             modifier = modifier,
             onClick = configurations.click,
@@ -108,9 +108,9 @@ object SharedComposable {
         modifier: Modifier = Modifier.fillMaxWidth()
     ) {
         val color = if (configurations.available) {
-            MaterialTheme.colors.onPrimary
+            MaterialTheme.colors.primary
         } else {
-            MaterialTheme.colors.onPrimary // maybe light color here ?
+            MaterialTheme.colors.primary // maybe light color here ?
         }
 
         Button(

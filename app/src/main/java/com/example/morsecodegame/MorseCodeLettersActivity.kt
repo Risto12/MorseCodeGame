@@ -18,7 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.morsecodegame.composables.SharedComposable
+import com.example.morsecodegame.ui.composables.SharedComposable
 import com.example.morsecodegame.configurations.MorseCodeLettersInfoTextConfiguration
 import com.example.morsecodegame.morsecode.MorseCodeLetter
 import com.example.morsecodegame.ui.theme.MorseCodeGameTheme
@@ -122,7 +122,7 @@ fun MorseCodeLetters(
             item {
                 Divider(
                     modifier = Modifier.padding(top = 40.dp),
-                    color = MaterialTheme.colors.onPrimary,
+                    color = MaterialTheme.colors.primary,
                     thickness = 1.dp
                 )
             }
@@ -149,17 +149,17 @@ fun TextWithDividerOnBottom(
             modifier = Modifier
                 .padding(start = 10.dp, end = 10.dp, bottom = 10.dp)
                 .align(Alignment.CenterHorizontally),
-            color = MaterialTheme.colors.onPrimary
+            color = MaterialTheme.colors.primary
         )
         SharedComposable.DefaultText(
             text = text,
             fontSize = 18.sp,
             modifier = Modifier.padding(start = 10.dp, end = 10.dp),
-            color = MaterialTheme.colors.onPrimary
+            color = MaterialTheme.colors.primary
         )
         Divider(
             modifier = Modifier.padding(top = 25.dp, bottom = 35.dp),
-            color = MaterialTheme.colors.onPrimary,
+            color = MaterialTheme.colors.primary,
             thickness = 1.dp
         )
     }

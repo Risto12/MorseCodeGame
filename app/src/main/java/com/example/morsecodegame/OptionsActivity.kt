@@ -18,8 +18,8 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.morsecodegame.composables.SharedComposable
-import com.example.morsecodegame.composables.SharedComposable.DefaultButton
+import com.example.morsecodegame.ui.composables.SharedComposable
+import com.example.morsecodegame.ui.composables.SharedComposable.DefaultButton
 import com.example.morsecodegame.configurations.OptionsConfigurations
 import com.example.morsecodegame.model.Options
 import com.example.morsecodegame.ui.theme.MorseCodeGameTheme
@@ -176,15 +176,15 @@ private fun TextWithSlider(
     )
     SharedComposable.DefaultText(
         text = sliderText,
-        color = MaterialTheme.colors.onPrimary
+        color = MaterialTheme.colors.primary
     )
     Slider(
         value = sliderValue,
         onValueChange = onSliderValueChange,
         valueRange = sliderValueRange,
         colors = SliderDefaults.colors(
-            activeTrackColor = MaterialTheme.colors.onPrimary,
-            thumbColor = MaterialTheme.colors.secondary
+            activeTrackColor = MaterialTheme.colors.primary,
+            thumbColor = MaterialTheme.colors.primaryVariant
         ),
         modifier = Modifier
             .padding(bottom = 30.dp)
@@ -225,6 +225,7 @@ fun DifficultLevelRadioButtonsWithText(
                     )
                     .fillMaxWidth()
             ) {
+                val radioButtonsColor = MaterialTheme.colors.primary
                 RadioButton(
                     selected = (difficultLevel.name == defaultDifficultLevel),
                     onClick = { // TODO get the medium button on the same vertical level as the other difficulties
@@ -232,14 +233,14 @@ fun DifficultLevelRadioButtonsWithText(
                         onClickRadioButton(difficultLevel)
                     },
                     colors = RadioButtonDefaults.colors(
-                        MaterialTheme.colors.onPrimary,
-                        MaterialTheme.colors.onPrimary,
-                        MaterialTheme.colors.onPrimary
+                        radioButtonsColor,
+                        radioButtonsColor,
+                        radioButtonsColor,
                     )
                 )
                 Text(
                     text = difficultLevel.name,
-                    color = MaterialTheme.colors.onPrimary
+                    color = radioButtonsColor,
                 )
             }
         }

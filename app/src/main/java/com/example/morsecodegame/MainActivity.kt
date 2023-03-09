@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
 import com.example.morsecodegame.components.ExceptionActivityResult
-import com.example.morsecodegame.composables.SharedComposable
+import com.example.morsecodegame.ui.composables.SharedComposable
 import com.example.morsecodegame.configurations.MainInfoTextConfigurations
 import com.example.morsecodegame.ui.theme.MorseCodeGameTheme
 import com.example.morsecodegame.utility.DebugLifecycleObserver
@@ -212,7 +212,6 @@ private fun MultiplayerMenu(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val localContext = LocalContext.current
         ButtonWithInfoBox(
             defaultButtonConfigurations = SharedComposable.DefaultButtonConfigurations(
                 text = "Flashlight",
@@ -256,9 +255,9 @@ fun ButtonWithInfoBox(
             ) {
                 Surface(
                     elevation = 9.dp,
-                    color = MaterialTheme.colors.onPrimary,
-                    border = BorderStroke(2.dp, color = MaterialTheme.colors.secondary),
-                    contentColor = MaterialTheme.colors.secondary,
+                    color = MaterialTheme.colors.primary,
+                    border = BorderStroke(2.dp, color = MaterialTheme.colors.onPrimary),
+                    contentColor = MaterialTheme.colors.onPrimary,
                     modifier = Modifier.defaultMinSize(100.dp, 100.dp).sizeIn(maxWidth = 350.dp)
                 ) {
                     Column(
@@ -285,7 +284,7 @@ fun ButtonWithInfoBox(
                     Icon(
                         imageVector = Icons.Default.Info,
                         contentDescription = iconContentDescription,
-                        tint = MaterialTheme.colors.primary
+                        tint = MaterialTheme.colors.secondary
                     )
                 },
                 click = {
@@ -355,7 +354,7 @@ private fun MainMenu(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .padding(bottom = 10.dp),
-            color = MaterialTheme.colors.onPrimary
+            color = MaterialTheme.colors.primary
         )
     }
 }

@@ -24,8 +24,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.example.morsecodegame.composables.GameScreen
-import com.example.morsecodegame.composables.SharedComposable
+import com.example.morsecodegame.ui.composables.GameScreen
+import com.example.morsecodegame.ui.composables.SharedComposable
 import com.example.morsecodegame.ui.theme.*
 import com.example.morsecodegame.utility.*
 import com.example.morsecodegame.viewModel.GameTimeViewModel
@@ -194,7 +194,7 @@ fun StatusBar(
     right: String
 ) {
     Row(Modifier.heightIn(max = 30.dp)) {
-        val textColor = MaterialTheme.colors.onPrimary
+        val textColor = MaterialTheme.colors.primary
         Text(
             text = left,
             modifier = Modifier
@@ -254,7 +254,7 @@ private fun BoxScope.AnswerBox(
                     }
                     Pair(correctAnswer, MaterialTheme.colors.onPrimary)
                 } else {
-                    Pair(MaterialTheme.colors.onPrimary, MaterialTheme.colors.secondary)
+                    Pair(MaterialTheme.colors.primary, MaterialTheme.colors.onPrimary)
                 }
                 Button(
                     colors = ButtonDefaults.textButtonColors(
