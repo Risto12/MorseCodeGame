@@ -213,7 +213,7 @@ fun SendMorseBox(
                         click = onClickCancel
                     )
                 )
-            } 
+            }
         }
     }
 }

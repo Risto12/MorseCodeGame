@@ -19,7 +19,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -130,7 +129,7 @@ class SinglePlayerActivity : ComponentActivity() {
                             middle = "$gameQuestionCount/${gameViewModel.getAmountOfQuestions()}",
                             right = "wpm: ${gameViewModel.getWordsPerMinute()}"
                         )
-                        AnswerBox(
+                        SinglePlayerScreen(
                             lightOn = lightOn,
                             answerBoxOn = answerBoxOn,
                             onClickAnswer = {
@@ -214,23 +213,23 @@ fun StatusBar(
 }
 
 @Composable
-private fun AnswerBox(
+private fun SinglePlayerScreen(
     lightOn: Boolean,
     answerBoxOn: Boolean,
     onClickAnswer: (String) -> Unit,
     question: Question,
     showCorrectAnswer: Boolean
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = MaterialTheme.colors.background)
-    ) {
-        Divider(
-            color = MaterialTheme.colors.background,
-            modifier = Modifier.weight(0.1f)
-        )
-        val lightColor = if (lightOn) VintageYellow else MaterialTheme.colors.background
+    Box(modifier = Modifier.fillMaxSize().background(color = MaterialTheme.colors.background)) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+        ) {
+            Divider(
+                color = MaterialTheme.colors.background,
+                modifier = Modifier.weight(0.1f)
+            )
+            val lightColor = if (lightOn) VintageYellow else MaterialTheme.colors.background
             Box(
                 modifier = Modifier
                     .clip(RectangleShape)
@@ -239,18 +238,21 @@ private fun AnswerBox(
                     .weight(1f)
                     .align(Alignment.CenterHorizontally)
             )
-        Box(modifier = Modifier.weight(2f)) {
-            Image(
-                painterResource(R.drawable.baseline_flashlight_on_24),
-                contentDescription = "Flashlight",
-                modifier = Modifier.fillMaxSize()
-            )
+            Box(modifier = Modifier.weight(2f)) {
+                Image(
+                    painterResource(R.drawable.baseline_flashlight_on_24),
+                    contentDescription = "Flashlight",
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
         }
         AnimatedVisibility(
             visible = answerBoxOn,
             enter = fadeIn(),
             exit = fadeOut(),
-            modifier = Modifier.weight(1.7f)
+            modifier = Modifier.align(Alignment.BottomCenter).background(
+                color = MaterialTheme.colors.background
+            )
         ) {
             Column(
                 modifier = Modifier
@@ -295,7 +297,7 @@ fun SinglePlayerActivityPreview() {
             modifier = Modifier.background(color = Color.Black)
         ) {
             StatusBar(left = "5:00", middle = "1/10", right = "wpm: 20")
-            AnswerBox(
+            SinglePlayerScreen(
                 lightOn = true,
                 answerBoxOn = true,
                 onClickAnswer = {},
