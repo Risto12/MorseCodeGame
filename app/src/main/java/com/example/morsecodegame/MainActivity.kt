@@ -24,9 +24,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
 import com.example.morsecodegame.components.ExceptionActivityResult
-import com.example.morsecodegame.composables.SharedComposable
 import com.example.morsecodegame.configurations.MainInfoTextConfigurations
+import com.example.morsecodegame.ui.composables.SharedComposable
 import com.example.morsecodegame.ui.theme.MorseCodeGameTheme
+import com.example.morsecodegame.ui.theme.VintageGreen
 import com.example.morsecodegame.utility.DebugLifecycleObserver
 import com.example.morsecodegame.utility.LifecycleDebugLogger
 import com.example.morsecodegame.utility.ToastGenerator
@@ -144,7 +145,6 @@ class MainActivity :
                             )
                         }
                     } else {
-                        // TODO create shareable composable for this loading functionality
                         SharedComposable.DefaultText(text = "Loading ...")
                     }
                 }
@@ -159,7 +159,7 @@ private fun SinglePlayerMenu(
     onClickCancel: () -> Unit,
     infoTexts: MainInfoTextConfigurations
 ) = MorseCodeGameTheme {
-    LocalContext.current.getStringUpper(R.string.start_screen_sound)
+    val localContext = LocalContext.current
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -171,7 +171,7 @@ private fun SinglePlayerMenu(
         )
         ButtonWithInfoBox(
             defaultButtonConfigurations = SharedComposable.DefaultButtonConfigurations(
-                text = "Blinking light",
+                text = localContext.getStringUpper(R.string.start_screen_blinking_light),
                 click = { onClickSinglePlayerType(GameType.LIGHT) }
             ),
             iconContentDescription = "Blinking light game mode info",
@@ -179,7 +179,7 @@ private fun SinglePlayerMenu(
         )
         ButtonWithInfoBox(
             defaultButtonConfigurations = SharedComposable.DefaultButtonConfigurations(
-                text = "Sound",
+                text = localContext.getStringUpper(R.string.start_screen_sound),
                 click = { },
                 available = false,
                 enabled = false
@@ -189,7 +189,7 @@ private fun SinglePlayerMenu(
         )
         SharedComposable.DefaultButton(
             configurations = SharedComposable.DefaultButtonConfigurations(
-                text = "Cancel",
+                text = localContext.getStringUpper(R.string.common_cancel),
                 click = onClickCancel
             )
         )
@@ -203,15 +203,15 @@ private fun MultiplayerMenu(
     onClickFlashLight: (type: GameType) -> Unit,
     infoTexts: MainInfoTextConfigurations
 ) = MorseCodeGameTheme {
+    val localContext = LocalContext.current
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val localContext = LocalContext.current
         ButtonWithInfoBox(
             defaultButtonConfigurations = SharedComposable.DefaultButtonConfigurations(
-                text = "Flashlight",
+                text = localContext.getStringUpper(R.string.start_screen_flashlight),
                 click = { onClickFlashLight(GameType.FLASHLIGHT) }
             ),
             iconContentDescription = "Flash game mode info",
@@ -219,7 +219,7 @@ private fun MultiplayerMenu(
         )
         ButtonWithInfoBox(
             defaultButtonConfigurations = SharedComposable.DefaultButtonConfigurations(
-                text = "Bluetooth",
+                text = localContext.getStringUpper(R.string.start_screen_bluetooth),
                 click = { },
                 available = false,
                 enabled = false
@@ -229,7 +229,7 @@ private fun MultiplayerMenu(
         )
         SharedComposable.DefaultButton(
             configurations = SharedComposable.DefaultButtonConfigurations(
-                text = "Cancel",
+                text = localContext.getStringUpper(R.string.common_cancel),
                 click = onClickCancel
             )
         )
@@ -252,9 +252,9 @@ fun ButtonWithInfoBox(
             ) {
                 Surface(
                     elevation = 9.dp,
-                    color = MaterialTheme.colors.onPrimary,
-                    border = BorderStroke(2.dp, color = MaterialTheme.colors.secondary),
-                    contentColor = MaterialTheme.colors.secondary,
+                    color = MaterialTheme.colors.primary,
+                    border = BorderStroke(2.dp, color = MaterialTheme.colors.onPrimary),
+                    contentColor = MaterialTheme.colors.onPrimary,
                     modifier = Modifier.defaultMinSize(100.dp, 100.dp).sizeIn(maxWidth = 350.dp)
                 ) {
                     Column(
@@ -281,7 +281,7 @@ fun ButtonWithInfoBox(
                     Icon(
                         imageVector = Icons.Default.Info,
                         contentDescription = iconContentDescription,
-                        tint = MaterialTheme.colors.primary
+                        tint = VintageGreen
                     )
                 },
                 click = {
@@ -351,7 +351,7 @@ private fun MainMenu(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .padding(bottom = 10.dp),
-            color = MaterialTheme.colors.onPrimary
+            color = MaterialTheme.colors.primary
         )
     }
 }

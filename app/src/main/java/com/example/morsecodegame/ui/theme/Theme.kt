@@ -9,23 +9,23 @@ import androidx.compose.runtime.Composable
 
 @SuppressLint("ConflictingOnColor")
 private val DarkColorPalette = darkColors(
-    primary = VintageRed,
-    primaryVariant = VintageRedDark,
+    primary = VintageWhite,
+    primaryVariant = VintageWhiteDark,
     onPrimary = VintageBlack,
-    secondary = VintageWhite,
-    secondaryVariant = VintageWhiteDark,
-    onSecondary = VintageBlack,
+    secondary = VintageRed,
+    secondaryVariant = VintageRedDark,
+    onSecondary = VintageWhite,
     background = VintageRed
 )
 
 // Well these are copies but maybe in future there be differences
 @SuppressLint("ConflictingOnColor")
 private val LightColorPalette = lightColors(
-    primary = VintageRed,
-    primaryVariant = VintageRedDark,
-    onPrimary = VintageWhite,
-    secondary = VintageBlack,
-    secondaryVariant = VintageBlackDark,
+    primary = VintageWhite,
+    primaryVariant = VintageWhiteDark,
+    onPrimary = VintageBlack,
+    secondary = VintageRed,
+    secondaryVariant = VintageRedDark,
     onSecondary = VintageWhite,
     background = VintageRed
 )

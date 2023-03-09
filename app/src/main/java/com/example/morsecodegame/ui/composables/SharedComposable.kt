@@ -1,7 +1,6 @@
-package com.example.morsecodegame.composables
+package com.example.morsecodegame.ui.composables
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
@@ -10,7 +9,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
@@ -43,15 +41,18 @@ object SharedComposable {
         text: String,
         @SuppressLint("ModifierParameter")
         modifier: Modifier = Modifier.padding(bottom = 40.dp),
-        fontSize: TextUnit = 20.sp
+        fontSize: TextUnit = 20.sp,
+        color: Color = MaterialTheme.colors.primary,
+        textDecoration: TextDecoration = TextDecoration.None
     ) {
         Text(
             text = text,
-            color = MaterialTheme.colors.onPrimary,
+            color = color,
             fontSize = fontSize,
             fontWeight = FontWeight.Black,
             fontStyle = FontStyle.Italic,
-            modifier = modifier
+            modifier = modifier,
+            textDecoration = textDecoration
         )
     }
 
@@ -61,7 +62,8 @@ object SharedComposable {
         text: String,
         modifier: Modifier = Modifier.padding(bottom = 5.dp),
         fontSize: TextUnit = 15.sp,
-        color: Color = MaterialTheme.colors.secondary
+        color: Color = MaterialTheme.colors.onPrimary,
+        textDecoration: TextDecoration = TextDecoration.None
     ) {
         Text(
             text = text,
@@ -69,7 +71,8 @@ object SharedComposable {
             fontSize = fontSize,
             fontWeight = FontWeight.Black,
             fontStyle = FontStyle.Italic,
-            modifier = modifier
+            modifier = modifier,
+            textDecoration = textDecoration
         )
     }
 
@@ -80,13 +83,13 @@ object SharedComposable {
         modifier: Modifier = Modifier.padding(bottom = 15.dp)
     ) {
         val (color, textDecoration) = if (configurations.available) {
-            Pair(MaterialTheme.colors.secondaryVariant, null)
+            Pair(MaterialTheme.colors.onPrimary, null)
         } else {
-            Pair(MaterialTheme.colors.secondaryVariant, TextDecoration.LineThrough)
+            Pair(MaterialTheme.colors.onPrimary, TextDecoration.LineThrough)
         }
         Button(
             colors = ButtonDefaults.textButtonColors(
-                backgroundColor = MaterialTheme.colors.onPrimary
+                backgroundColor = MaterialTheme.colors.primary
             ),
             modifier = modifier,
             onClick = configurations.click,
@@ -108,9 +111,9 @@ object SharedComposable {
         modifier: Modifier = Modifier.fillMaxWidth()
     ) {
         val color = if (configurations.available) {
-            MaterialTheme.colors.onPrimary
+            MaterialTheme.colors.primary
         } else {
-            MaterialTheme.colors.onPrimary // maybe light color here ?
+            MaterialTheme.colors.primary // maybe light color here ?
         }
 
         Button(
@@ -134,23 +137,5 @@ object SharedComposable {
             text = text,
             fontSize = fontSize
         )
-    }
-}
-
-@Composable
-fun GameScreen(
-    imageId: Int,
-    content: @Composable BoxScope.() -> Unit
-) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-    ) {
-        Image(
-            painterResource(imageId),
-            contentDescription = "Stormy sea",
-            modifier = Modifier.matchParentSize()
-        )
-        content()
     }
 }

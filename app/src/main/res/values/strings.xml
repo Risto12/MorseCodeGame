@@ -7,6 +7,12 @@
 
     <string name="common_send">SEND</string>
     <string name="common_cancel">CANCEL</string>
+    <string name="common_back">BACK</string>
+    <string name="common_save">SAVE</string>
+
+    <string name="single_player_answer">Correct answer is</string>
+
+    <string name="morse_letters_top">BACK TO TOP</string>
 
     <string name="flash_light_unknown_issue">Unknown issue occurred. Returning to menu</string>
     <string name="flash_light_not_supported">Your phone doesn\'t support flashlight</string>

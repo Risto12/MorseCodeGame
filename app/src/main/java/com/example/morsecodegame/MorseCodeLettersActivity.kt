@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -15,13 +16,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.morsecodegame.composables.SharedComposable
 import com.example.morsecodegame.configurations.MorseCodeLettersInfoTextConfiguration
 import com.example.morsecodegame.morsecode.MorseCodeLetter
+import com.example.morsecodegame.ui.composables.SharedComposable
 import com.example.morsecodegame.ui.theme.MorseCodeGameTheme
+import com.example.morsecodegame.utility.getStringUpper
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import kotlinx.coroutines.launch
@@ -59,6 +63,7 @@ fun MorseCodeLetters(
     exampleText: String,
     onClickBack: () -> Unit
 ) {
+    val localContext = LocalContext.current
     val listState = rememberLazyListState()
     val showButton by remember {
         derivedStateOf {
@@ -66,8 +71,7 @@ fun MorseCodeLetters(
         }
     }
 
-    val morseCodeLetterScope = rememberCoroutineScope() // TODO check this scope
-
+    val morseCodeLetterScope = rememberCoroutineScope()
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -76,7 +80,7 @@ fun MorseCodeLetters(
         AnimatedVisibility(visible = showButton) {
             SharedComposable.DefaultButton(
                 configurations = SharedComposable.DefaultButtonConfigurations(
-                    text = "Back to top",
+                    text = localContext.getStringUpper(R.string.morse_letters_top),
                     click = {
                         morseCodeLetterScope.launch { listState.animateScrollToItem(0) }
                     }
@@ -87,10 +91,20 @@ fun MorseCodeLetters(
         LazyColumn(
             state = listState,
             modifier = Modifier
-                .fillMaxSize()
-                .weight(2.5f),
+                .weight(2.5f)
+                .background(color = MaterialTheme.colors.primary).border(
+                    10.dp,
+                    MaterialTheme.colors.background
+                ),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            item {
+                Divider(
+                    modifier = Modifier.padding(bottom = 10.dp),
+                    color = MaterialTheme.colors.background,
+                    thickness = 10.dp
+                )
+            }
             item {
                 TextWithDividerOnBottom(
                     topic = "Overview",
@@ -108,7 +122,12 @@ fun MorseCodeLetters(
                 )
             }
             item {
-                SharedComposable.DefaultHeaderText(text = "Morse letters", fontSize = 25.sp)
+                SharedComposable.DefaultHeaderText(
+                    text = "Morse letters",
+                    fontSize = 25.sp,
+                    color = MaterialTheme.colors.onPrimary,
+                    textDecoration = TextDecoration.Underline
+                )
             }
             MorseCodeLetter.values().forEach {
                 val units = it
@@ -117,19 +136,28 @@ fun MorseCodeLetters(
                     .replace("[", " = ")
                     .replace("]", " ")
                     .trimEnd()
-                item { SharedComposable.DefaultHeaderText(it.name + " " + units) }
+                item {
+                    SharedComposable.DefaultHeaderText(
+                        text = it.name + " " + units,
+                        color = MaterialTheme.colors.onPrimary,
+                        modifier = Modifier
+                            .padding(bottom = 20.dp)
+                            .fillMaxWidth()
+                            .wrapContentWidth()
+                    )
+                }
             }
             item {
                 Divider(
                     modifier = Modifier.padding(top = 40.dp),
-                    color = MaterialTheme.colors.onPrimary,
+                    color = MaterialTheme.colors.background,
                     thickness = 1.dp
                 )
             }
         }
         SharedComposable.DefaultButton(
             configurations = SharedComposable.DefaultButtonConfigurations(
-                text = "Back",
+                text = localContext.getStringUpper(R.string.common_back),
                 click = onClickBack
             ),
             modifier = Modifier.fillMaxWidth()
@@ -142,14 +170,15 @@ fun TextWithDividerOnBottom(
     topic: String,
     text: String
 ) {
-    Column {
+    Column(modifier = Modifier.padding(start = 5.dp, end = 5.dp)) {
         SharedComposable.DefaultText(
             text = topic,
             fontSize = 25.sp,
             modifier = Modifier
                 .padding(start = 10.dp, end = 10.dp, bottom = 10.dp)
                 .align(Alignment.CenterHorizontally),
-            color = MaterialTheme.colors.onPrimary
+            color = MaterialTheme.colors.onPrimary,
+            textDecoration = TextDecoration.Underline
         )
         SharedComposable.DefaultText(
             text = text,
@@ -158,9 +187,9 @@ fun TextWithDividerOnBottom(
             color = MaterialTheme.colors.onPrimary
         )
         Divider(
-            modifier = Modifier.padding(top = 25.dp, bottom = 35.dp),
-            color = MaterialTheme.colors.onPrimary,
-            thickness = 1.dp
+            modifier = Modifier.padding(top = 25.dp, bottom = 20.dp),
+            color = MaterialTheme.colors.background,
+            thickness = 30.dp
         )
     }
 }

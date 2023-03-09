@@ -9,6 +9,7 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -18,13 +19,14 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import com.example.morsecodegame.components.ExceptionActivityResult.Companion.EXTRA_KEY_EXCEPTION_MESSAGE
 import com.example.morsecodegame.components.ExceptionActivityResult.Companion.REQUEST_CODE_EXCEPTION
-import com.example.morsecodegame.composables.SharedComposable
 import com.example.morsecodegame.morsecode.MorseCodeLetter
+import com.example.morsecodegame.ui.composables.SharedComposable
 import com.example.morsecodegame.ui.theme.MorseCodeGameTheme
 import com.example.morsecodegame.utility.ToastGenerator
 import com.example.morsecodegame.utility.getOptions
@@ -45,7 +47,7 @@ class FlashlightActivity : ComponentActivity() {
     private lateinit var legendaryTorch: LegendaryTorch
     private val wordsPerMinute: Int by lazy {
         // Prevent the light flashing too fast.
-        val maxWordsPerMinute = 10
+        val maxWordsPerMinute = 5
         val wordsPerMinute = intent.getOptions().wordsPerMinute
         if (wordsPerMinute <= maxWordsPerMinute) wordsPerMinute else maxWordsPerMinute
     }
@@ -154,36 +156,42 @@ fun SendMorseBox(
     sendingMorse: Boolean = false
 ) {
     MorseCodeGameTheme {
-        Box(modifier = Modifier.fillMaxSize().background(color = MaterialTheme.colors.background)) {
-            Column(
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                val insertText = LocalContext.current.getString(R.string.flash_light_insert_text)
-                val cantBeEmpty = LocalContext.current.getString(R.string.flash_light_empty_value)
-                val cancel = LocalContext.current.getStringUpper(R.string.common_cancel)
-                val send = LocalContext.current.getStringUpper(R.string.common_send)
+        Column(
+            modifier = Modifier
+                .fillMaxSize().background(MaterialTheme.colors.background),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            val insertText = LocalContext.current.getString(R.string.flash_light_insert_text)
+            val cantBeEmpty = LocalContext.current.getString(R.string.flash_light_empty_value)
+            val cancel = LocalContext.current.getStringUpper(R.string.common_cancel)
+            val send = LocalContext.current.getStringUpper(R.string.common_send)
 
-                var inputText by rememberSaveable { mutableStateOf("") }
-                var placeHolderText by remember { mutableStateOf(insertText) }
+            var inputText by rememberSaveable { mutableStateOf("") }
+            var placeHolderText by remember { mutableStateOf(insertText) }
 
-                OutlinedTextField(
-                    value = inputText,
-                    onValueChange = { text -> inputText = text },
-                    placeholder = @Composable {
-                        Text(
-                            text = placeHolderText,
-                            color = MaterialTheme.colors.secondary
-                        )
-                    },
-                    modifier = Modifier.background(MaterialTheme.colors.onPrimary),
-                    colors = TextFieldDefaults.textFieldColors(
-                        backgroundColor = MaterialTheme.colors.onPrimary,
-                        textColor = MaterialTheme.colors.secondary
-                    )
+            Box(modifier = Modifier.weight(2.4f)) {
+                Image(
+                    painterResource(R.drawable.baseline_flashlight_on_24),
+                    contentDescription = "Flashlight",
+                    modifier = Modifier.fillMaxSize()
                 )
+            }
+            OutlinedTextField(
+                value = inputText,
+                onValueChange = { text -> inputText = text },
+                placeholder = @Composable {
+                    Text(
+                        text = placeHolderText,
+                        color = MaterialTheme.colors.onPrimary
+                    )
+                },
+                modifier = Modifier.background(MaterialTheme.colors.primary).weight(weight = 1f),
+                colors = TextFieldDefaults.textFieldColors(
+                    backgroundColor = MaterialTheme.colors.primary,
+                    textColor = MaterialTheme.colors.onPrimary
+                )
+            )
+            Row(modifier = Modifier.weight(weight = 1f).padding(bottom = 5.dp, top = 10.dp).wrapContentSize(unbounded = true)) {
                 SharedComposable.DefaultButton(
                     configurations = SharedComposable.DefaultButtonConfigurations(
                         text = send,
@@ -197,7 +205,7 @@ fun SendMorseBox(
                         enabled = !sendingMorse,
                         available = !sendingMorse
                     ),
-                    modifier = Modifier.padding(bottom = 15.dp, top = 15.dp)
+                    modifier = Modifier.padding(end = 10.dp)
                 )
                 SharedComposable.DefaultButton(
                     configurations = SharedComposable.DefaultButtonConfigurations(

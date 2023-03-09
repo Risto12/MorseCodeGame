@@ -36,7 +36,7 @@ class ConfigurationsModule {
     }
 
     @Provides
-    fun optionsConfigurations(@ApplicationContext context: Context): OptionsConfigurations { // TODO Chck ApplicationContext
+    fun optionsConfigurations(@ApplicationContext context: Context): OptionsConfigurations {
         return ConfigurationsFactory.configurationsFactory(
             context = context,
             configurationGenerator = OptionsConfigurations
