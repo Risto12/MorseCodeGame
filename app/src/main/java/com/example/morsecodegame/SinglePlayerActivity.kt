@@ -229,15 +229,15 @@ private fun SinglePlayerScreen(
         ) {
             Divider(
                 color = MaterialTheme.colors.background,
-                modifier = Modifier.weight(0.1f)
+                modifier = Modifier.weight(0.3f)
             )
             val lightColor = if (lightOn) VintageYellow else MaterialTheme.colors.background
             Box(
                 modifier = Modifier
                     .clip(RectangleShape)
                     .background(lightColor)
+                    .weight(1.7f)
                     .size(100.dp)
-                    .weight(1f)
                     .align(Alignment.CenterHorizontally)
             )
             Box(modifier = Modifier.weight(2f)) {
@@ -304,7 +304,7 @@ fun SinglePlayerActivityPreview() {
             StatusBar(left = "5:00", middle = "1/10", right = "wpm: 20")
             SinglePlayerScreen(
                 lightOn = true,
-                answerBoxOn = true,
+                answerBoxOn = false,
                 onClickAnswer = {},
                 question = QuestionGenerator
                     .generateQuestions(1, DifficultLevels.HARD).first(),
