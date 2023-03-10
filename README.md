@@ -29,6 +29,8 @@ ___
 ___
 ![alt text](https://github.com/Risto12/MorseCodeGame/blob/main/dialog.png "Picture of dialog")
 ___
+![alt text](https://github.com/Risto12/MorseCodeGame/blob/main/flashlight.png "Picture of multiplayer")
+___
 Dark theme - Vintage blue rusty
 ![alt text](https://github.com/Risto12/MorseCodeGame/blob/main/darktheme.png "Dark theme")
 ---
