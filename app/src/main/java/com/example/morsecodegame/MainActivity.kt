@@ -10,7 +10,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -21,7 +20,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -301,37 +299,39 @@ fun ButtonWithInfoBox(
 }
 
 @Composable
-private fun MainMenu(
+private fun BoxScope.MainMenu(
     onClickSinglePlayer: () -> Unit,
     onClickMultiplayer: () -> Unit,
     onClickOptions: () -> Unit,
     onClickExit: () -> Unit, // aka quit app
     onClickMorseCode: () -> Unit,
     version: String
-) = MorseCodeGameTheme {
+) {
     val localContext = LocalContext.current
-    Column(modifier = Modifier.background(MaterialTheme.colors.background)) {
-        Box(modifier = Modifier
-            .clip(CircleShape)
-            .background(MaterialTheme.colors.primary)
-            .fillMaxHeight()
-            .weight(0.1f)
-            .align(Alignment.CenterHorizontally)) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.background(MaterialTheme.colors.background)
+    ) {
+        Box(
+            modifier = Modifier
+                .padding(top = 30.dp)
+                .clip(CircleShape)
+                .background(MaterialTheme.colors.primary)
+        ) {
             Image(
                 painterResource(R.drawable.telegraph),
                 contentDescription = "Telegraph",
                 modifier = Modifier
                     .width(200.dp)
                     .height(200.dp)
-                    .align(Alignment.BottomCenter)
                     .padding(start = 40.dp, end = 40.dp)
             )
         }
         Column(
             modifier = Modifier
                 .wrapContentSize()
-                .weight(1f)
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .heightIn(min = 400.dp).padding(top = 30.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -341,7 +341,7 @@ private fun MainMenu(
             SharedComposable.DefaultButton(
                 configurations = SharedComposable.DefaultButtonConfigurations(
                     text = localContext.getStringUpper(R.string.start_screen_single_player),
-                    click = onClickSinglePlayer,
+                    click = onClickSinglePlayer
                 )
             )
             SharedComposable.DefaultButton(
@@ -369,15 +369,15 @@ private fun MainMenu(
                     click = onClickExit
                 )
             )
-        }/*
-        SharedComposable.DefaultText(
-            text = "v$version",
-            fontSize = 15.sp,
-            modifier = Modifier
-                .padding(bottom = 10.dp).align(Alignment.BottomCenter),
-            color = MaterialTheme.colors.primary
-        )*/
+        }
     }
+    SharedComposable.DefaultText(
+        text = "v$version",
+        fontSize = 15.sp,
+        modifier = Modifier
+            .padding(bottom = 10.dp).align(Alignment.BottomCenter),
+        color = MaterialTheme.colors.primary
+    )
 }
 
 @Composable
@@ -387,25 +387,34 @@ fun MainActivityPreview() {
     val multiplayerClicked = false
     val test = "test"
     val infoTextConfigurations = MainInfoTextConfigurations("1.0b", test, test, test, test)
-    when {
-        singlePlayerClicked -> SinglePlayerMenu(
-            onClickSinglePlayerType = { },
-            onClickCancel = { },
-            infoTexts = infoTextConfigurations
-        )
-        multiplayerClicked -> MultiplayerMenu(
-            onClickCancel = { },
-            onClickBluetooth = { },
-            onClickFlashLight = { },
-            infoTexts = infoTextConfigurations
-        )
-        else -> MainMenu(
-            onClickSinglePlayer = { },
-            onClickMultiplayer = { },
-            onClickOptions = { },
-            onClickExit = { },
-            onClickMorseCode = { },
-            "1.0a"
-        )
+
+    MorseCodeGameTheme {
+        Box(
+            modifier = Modifier
+                .background(color = MaterialTheme.colors.background)
+                .fillMaxSize()
+        ) {
+            when {
+                singlePlayerClicked -> SinglePlayerMenu(
+                    onClickSinglePlayerType = { },
+                    onClickCancel = { },
+                    infoTexts = infoTextConfigurations
+                )
+                multiplayerClicked -> MultiplayerMenu(
+                    onClickCancel = { },
+                    onClickBluetooth = { },
+                    onClickFlashLight = { },
+                    infoTexts = infoTextConfigurations
+                )
+                else -> MainMenu(
+                    onClickSinglePlayer = { },
+                    onClickMultiplayer = { },
+                    onClickOptions = { },
+                    onClickExit = { },
+                    onClickMorseCode = { },
+                    "1.0a"
+                )
+            } 
+        } 
     }
 }

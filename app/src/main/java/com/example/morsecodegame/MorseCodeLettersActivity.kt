@@ -177,7 +177,7 @@ fun TextWithDividerOnBottom(
             modifier = Modifier
                 .padding(start = 10.dp, end = 10.dp, bottom = 10.dp)
                 .align(Alignment.CenterHorizontally),
-            color = MaterialTheme.colors.onPrimary,
+            color = MaterialTheme.colors.onPrimary
         )
         SharedComposable.DefaultText(
             text = text,

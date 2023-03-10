@@ -81,7 +81,7 @@ object SharedComposable {
             textDecoration = textDecoration,
             style = textStyle,
             letterSpacing = letterSpacing,
-            fontFamily = fontFamily,
+            fontFamily = fontFamily
         )
     }
 

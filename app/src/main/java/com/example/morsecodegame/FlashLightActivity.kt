@@ -200,7 +200,7 @@ fun SendMorseBox(
                     backgroundColor = MaterialTheme.colors.primary,
                     textColor = MaterialTheme.colors.onPrimary
                 ),
-                textStyle = MaterialTheme.typography.body1,
+                textStyle = MaterialTheme.typography.body1
             )
             Row(
                 modifier = Modifier.weight(weight = 1f).padding(bottom = 5.dp, top = 10.dp).wrapContentSize(
