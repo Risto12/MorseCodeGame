@@ -10,14 +10,15 @@ import androidx.compose.animation.*
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
@@ -228,30 +229,18 @@ private fun SinglePlayerScreen(
     showCorrectAnswer: Boolean
 ) {
     Box(modifier = Modifier.fillMaxSize().background(color = MaterialTheme.colors.background)) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-        ) {
-            Divider(
-                color = MaterialTheme.colors.background,
-                modifier = Modifier.weight(0.3f)
-            )
-            val lightColor = if (lightOn) VintageYellow else MaterialTheme.colors.background
-            Box(
+        if (lightOn) {
+            Image(
+                painterResource(R.drawable.vintage_light_bulb),
+                contentDescription = "Flashlight",
                 modifier = Modifier
-                    .clip(RectangleShape)
-                    .background(lightColor)
-                    .weight(1.7f)
-                    .size(100.dp)
-                    .align(Alignment.CenterHorizontally)
+                    .heightIn(min = 200.dp)
+                    .widthIn(min = 200.dp)
+                    .clip(CircleShape)
+                    .rotate(180f)
+                    .background(MaterialTheme.colors.primary)
+                    .align(Alignment.Center)
             )
-            Box(modifier = Modifier.weight(2f)) {
-                Image(
-                    painterResource(R.drawable.baseline_flashlight_on_24),
-                    contentDescription = "Flashlight",
-                    modifier = Modifier.fillMaxSize()
-                )
-            }
         }
         AnimatedVisibility(
             visible = answerBoxOn,
@@ -313,7 +302,7 @@ fun SinglePlayerActivityPreview() {
             StatusBar(left = "5:00", middle = "1/10", right = "wpm: 20")
             SinglePlayerScreen(
                 lightOn = true,
-                answerBoxOn = false,
+                answerBoxOn = true,
                 onClickAnswer = {},
                 question = QuestionGenerator
                     .generateQuestions(1, DifficultLevels.HARD).first(),
