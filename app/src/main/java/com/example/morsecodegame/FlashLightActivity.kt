@@ -98,7 +98,7 @@ class FlashlightActivity : ComponentActivity() {
                     try {
                         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
                         flashViewModel.flashingOn()
-                        Log.d(FLASH_ACTIVITY_LOG_TAG, "Flashing light speed - wps:$wordsPerMinute")
+                        Log.d(FLASH_ACTIVITY_LOG_TAG, "Flashing light speed - wpm:$wordsPerMinute")
                         legendaryTorch.sendMorse(
                             text,
                             wordsPerMinute
@@ -189,7 +189,8 @@ fun SendMorseBox(
                 colors = TextFieldDefaults.textFieldColors(
                     backgroundColor = MaterialTheme.colors.primary,
                     textColor = MaterialTheme.colors.onPrimary
-                )
+                ),
+                textStyle = MaterialTheme.typography.body1,
             )
             Row(
                 modifier = Modifier.weight(weight = 1f).padding(bottom = 5.dp, top = 10.dp).wrapContentSize(

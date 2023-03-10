@@ -8,7 +8,7 @@ import org.junit.Test
 // TODO change to milliseconds converter
 class MorseCodeUnitsToSecondsConverterTest {
 
-    private val wps = 7
+    private val wpm = 7
     private val diAsMilliseconds = 171L
     private val daAsMilliseconds = 513L
     private val intraCharacterAsMilliseconds = -171L
@@ -43,7 +43,7 @@ class MorseCodeUnitsToSecondsConverterTest {
         )
         val morseCode = MorseCodeConverter.toMorseCode(letter)
         val converted = MorseCodeConverter
-            .morseCodeAsMillisecondsRepresentation(morseCode, wps)
+            .morseCodeAsMillisecondsRepresentation(morseCode, wpm)
         Assert.assertEquals(expected, converted)
     }
 
@@ -67,7 +67,7 @@ class MorseCodeUnitsToSecondsConverterTest {
         )
         val morseCode = MorseCodeConverter.toMorseCode(letter)
         val converted = MorseCodeConverter
-            .morseCodeAsMillisecondsRepresentation(morseCode, wps)
+            .morseCodeAsMillisecondsRepresentation(morseCode, wpm)
         Assert.assertEquals(expected, converted)
     }
 
@@ -107,7 +107,7 @@ class MorseCodeUnitsToSecondsConverterTest {
         )
         val morseCode = MorseCodeConverter.toMorseCode(letter)
         val converted = MorseCodeConverter
-            .morseCodeAsMillisecondsRepresentation(morseCode, wps)
+            .morseCodeAsMillisecondsRepresentation(morseCode, wpm)
         Assert.assertEquals(expected, converted)
     }
 }

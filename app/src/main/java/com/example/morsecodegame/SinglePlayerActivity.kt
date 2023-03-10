@@ -20,7 +20,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
@@ -291,7 +293,11 @@ private fun SinglePlayerScreen(
                             .padding(top = 2.dp, start = 5.dp, end = 5.dp, bottom = 2.dp),
                         enabled = !showCorrectAnswer
                     ) {
-                        Text(possibleAnswer, color = textColor, fontWeight = FontWeight.Bold)
+                        SharedComposable.DefaultText(
+                            possibleAnswer.uppercase(),
+                            color = textColor,
+                            fontFamily = FontFamily.Default
+                        )
                     }
                 }
             }

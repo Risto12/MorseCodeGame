@@ -137,7 +137,7 @@ fun MorseCodeLetters(
                     .replace("]", " ")
                     .trimEnd()
                 item {
-                    SharedComposable.DefaultHeaderText(
+                    SharedComposable.DefaultText(
                         text = it.name + " " + units,
                         color = MaterialTheme.colors.onPrimary,
                         modifier = Modifier
@@ -178,11 +178,10 @@ fun TextWithDividerOnBottom(
                 .padding(start = 10.dp, end = 10.dp, bottom = 10.dp)
                 .align(Alignment.CenterHorizontally),
             color = MaterialTheme.colors.onPrimary,
-            textDecoration = TextDecoration.Underline
         )
         SharedComposable.DefaultText(
             text = text,
-            fontSize = 18.sp,
+            fontSize = 15.sp,
             modifier = Modifier.padding(start = 10.dp, end = 10.dp),
             color = MaterialTheme.colors.onPrimary
         )

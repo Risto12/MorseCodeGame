@@ -67,17 +67,21 @@ object SharedComposable {
         fontSize: TextUnit = 15.sp,
         color: Color = MaterialTheme.colors.onPrimary,
         textDecoration: TextDecoration = TextDecoration.None,
-        textStyle: TextStyle = MaterialTheme.typography.body1
+        textStyle: TextStyle = MaterialTheme.typography.body1,
+        fontFamily: FontFamily = FontFamily(Font(R.font.shrikhand_regular)),
+        letterSpacing: TextUnit = 1.sp,
+        fontWeight: FontWeight = FontWeight.Black
     ) {
         Text(
             text = text,
             color = color,
             fontSize = fontSize,
-            fontWeight = FontWeight.Black,
+            fontWeight = fontWeight,
             modifier = modifier,
             textDecoration = textDecoration,
             style = textStyle,
-            letterSpacing = 0.8.sp
+            letterSpacing = letterSpacing,
+            fontFamily = fontFamily,
         )
     }
 
