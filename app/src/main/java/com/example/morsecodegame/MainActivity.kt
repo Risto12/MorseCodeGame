@@ -166,7 +166,7 @@ private fun SinglePlayerMenu(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         SharedComposable.Header6(
-            text = "Choose Morse type",
+            text = "Choose Morse type"
         )
         ButtonWithInfoBox(
             defaultButtonConfigurations = SharedComposable.DefaultButtonConfigurations(
@@ -309,7 +309,7 @@ private fun MainMenu(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             SharedComposable.Header6(
-                text = stringResource(R.string.app_name),
+                text = stringResource(R.string.app_name)
             )
             SharedComposable.DefaultButton(
                 configurations = SharedComposable.DefaultButtonConfigurations(

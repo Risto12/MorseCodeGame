@@ -192,7 +192,12 @@ fun StatusBar(
     middle: String,
     right: String
 ) {
-    Box(Modifier.heightIn(max = 30.dp).background(color = MaterialTheme.colors.secondaryVariant).fillMaxWidth()) {
+    Box(
+        Modifier
+            .heightIn(max = 30.dp)
+            .background(color = MaterialTheme.colors.secondaryVariant)
+            .fillMaxWidth()
+    ) {
         val textColor = MaterialTheme.colors.primary
         Text(
             text = left,
@@ -268,9 +273,9 @@ private fun SinglePlayerScreen(
                 question.possibleAnswers.forEach { possibleAnswer ->
                     val (buttonColor, textColor) = if (showCorrectAnswer) {
                         val correctAnswer = if (question.isAnswerCorrect(possibleAnswer)) {
-                            Color.Green
+                            VintageMint
                         } else {
-                            Color.Red
+                            VintageRedDeep
                         }
                         Pair(correctAnswer, MaterialTheme.colors.onPrimary)
                     } else {
@@ -283,7 +288,7 @@ private fun SinglePlayerScreen(
                         onClick = { onClickAnswer(possibleAnswer) },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(top = 2.dp, bottom = 2.dp),
+                            .padding(top = 2.dp, start = 5.dp, end = 5.dp, bottom = 2.dp),
                         enabled = !showCorrectAnswer
                     ) {
                         Text(possibleAnswer, color = textColor, fontWeight = FontWeight.Bold)

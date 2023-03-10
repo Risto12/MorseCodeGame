@@ -6,7 +6,6 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -16,7 +15,6 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.morsecodegame.R
-import org.intellij.lang.annotations.JdkConstants.FontStyle
 
 object SharedComposable {
 
@@ -78,7 +76,8 @@ object SharedComposable {
             fontWeight = FontWeight.Black,
             modifier = modifier,
             textDecoration = textDecoration,
-            style = textStyle
+            style = textStyle,
+            letterSpacing = 0.8.sp
         )
     }
 
@@ -103,7 +102,7 @@ object SharedComposable {
             elevation = ButtonDefaults.elevation(
                 defaultElevation = 10.dp,
                 pressedElevation = 20.dp,
-                disabledElevation = 0.dp,
+                disabledElevation = 0.dp
             )
         ) {
             Text(
@@ -139,7 +138,7 @@ object SharedComposable {
             elevation = ButtonDefaults.elevation(
                 defaultElevation = 10.dp,
                 pressedElevation = 20.dp,
-                disabledElevation = 0.dp,
+                disabledElevation = 0.dp
             )
         ) {
             configurations.content()

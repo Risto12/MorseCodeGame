@@ -2,7 +2,6 @@ package com.example.morsecodegame.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-
 val VintageWhite = Color(0xFFF5E9CF)
 val VintageWhiteBright = Color(0xFFF7EFE0)
 val VintageWhiteDark = Color(0xFFE4D6B8)

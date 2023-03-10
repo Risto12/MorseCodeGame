@@ -176,7 +176,7 @@ fun SendMorseBox(
                     modifier = Modifier.fillMaxSize()
                 )
             }
-            OutlinedTextField(
+            TextField(
                 value = inputText,
                 onValueChange = { text -> inputText = text },
                 placeholder = @Composable {
@@ -191,7 +191,11 @@ fun SendMorseBox(
                     textColor = MaterialTheme.colors.onPrimary
                 )
             )
-            Row(modifier = Modifier.weight(weight = 1f).padding(bottom = 5.dp, top = 10.dp).wrapContentSize(unbounded = true)) {
+            Row(
+                modifier = Modifier.weight(weight = 1f).padding(bottom = 5.dp, top = 10.dp).wrapContentSize(
+                    unbounded = true
+                )
+            ) {
                 SharedComposable.DefaultButton(
                     configurations = SharedComposable.DefaultButtonConfigurations(
                         text = send,
