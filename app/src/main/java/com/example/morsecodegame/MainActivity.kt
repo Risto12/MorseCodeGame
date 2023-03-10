@@ -10,6 +10,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -335,7 +336,7 @@ private fun BoxScope.MainMenu(
                 )
             }
         }
-        Column(
+        LazyColumn(
             modifier = Modifier
                 .wrapContentSize()
                 .fillMaxWidth()
@@ -343,40 +344,47 @@ private fun BoxScope.MainMenu(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            item {
             SharedComposable.Header6(
                 text = stringResource(R.string.app_name)
-            )
+            )}
+            item {
             SharedComposable.DefaultButton(
                 configurations = SharedComposable.DefaultButtonConfigurations(
                     text = localContext.getStringUpper(R.string.start_screen_single_player),
                     click = onClickSinglePlayer
                 )
             )
+            }
+            item {
             SharedComposable.DefaultButton(
                 configurations = SharedComposable.DefaultButtonConfigurations(
                     text = localContext.getStringUpper(R.string.start_screen_multiplayer),
                     click = onClickMultiplayer,
                     available = true
                 )
-            )
+            )}
+            item {
             SharedComposable.DefaultButton(
                 configurations = SharedComposable.DefaultButtonConfigurations(
                     text = localContext.getStringUpper(R.string.start_screen_morse_code),
                     click = onClickMorseCode
                 )
-            )
+            )}
+            item {
             SharedComposable.DefaultButton(
                 configurations = SharedComposable.DefaultButtonConfigurations(
                     text = localContext.getStringUpper(R.string.start_screen_options),
                     click = onClickOptions
                 )
-            )
+            )}
+            item {
             SharedComposable.DefaultButton(
                 configurations = SharedComposable.DefaultButtonConfigurations(
                     text = localContext.getStringUpper(R.string.start_screen_exit),
                     click = onClickExit
                 )
-            )
+            )}
         }
     }
     SharedComposable.DefaultText(
