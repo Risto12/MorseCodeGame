@@ -2,19 +2,21 @@ package com.example.morsecodegame.ui.composables
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.morsecodegame.R
+import org.intellij.lang.annotations.JdkConstants.FontStyle
 
 object SharedComposable {
 
@@ -43,7 +45,8 @@ object SharedComposable {
         modifier: Modifier = Modifier.padding(bottom = 40.dp),
         fontSize: TextUnit = 20.sp,
         color: Color = MaterialTheme.colors.primary,
-        textDecoration: TextDecoration = TextDecoration.None
+        textDecoration: TextDecoration = TextDecoration.None,
+        textStyle: TextStyle = MaterialTheme.typography.body1
     ) {
         Text(
             text = text,
@@ -52,7 +55,9 @@ object SharedComposable {
             fontWeight = FontWeight.Black,
             modifier = modifier,
             textDecoration = textDecoration,
-            style = MaterialTheme.typography.h1,
+            style = textStyle,
+            fontFamily = FontFamily(Font(R.font.shrikhand_regular)),
+            letterSpacing = 1.5.sp
         )
     }
 
@@ -63,7 +68,8 @@ object SharedComposable {
         modifier: Modifier = Modifier.padding(bottom = 5.dp),
         fontSize: TextUnit = 15.sp,
         color: Color = MaterialTheme.colors.onPrimary,
-        textDecoration: TextDecoration = TextDecoration.None
+        textDecoration: TextDecoration = TextDecoration.None,
+        textStyle: TextStyle = MaterialTheme.typography.body1
     ) {
         Text(
             text = text,
@@ -72,7 +78,7 @@ object SharedComposable {
             fontWeight = FontWeight.Black,
             modifier = modifier,
             textDecoration = textDecoration,
-            style = MaterialTheme.typography.body1
+            style = textStyle
         )
     }
 
@@ -93,14 +99,20 @@ object SharedComposable {
             ),
             modifier = modifier,
             onClick = configurations.click,
-            enabled = configurations.enabled
+            enabled = configurations.enabled,
+            elevation = ButtonDefaults.elevation(
+                defaultElevation = 10.dp,
+                pressedElevation = 20.dp,
+                disabledElevation = 0.dp,
+            )
         ) {
             Text(
                 text = configurations.text,
                 color = color,
                 fontSize = 20.sp,
                 textDecoration = textDecoration,
-                style = MaterialTheme.typography.body2
+                fontWeight = FontWeight.Medium,
+                style = MaterialTheme.typography.button
             )
         }
     }
@@ -123,20 +135,26 @@ object SharedComposable {
             ),
             modifier = modifier,
             onClick = configurations.click,
-            enabled = configurations.enabled
+            enabled = configurations.enabled,
+            elevation = ButtonDefaults.elevation(
+                defaultElevation = 10.dp,
+                pressedElevation = 20.dp,
+                disabledElevation = 0.dp,
+            )
         ) {
             configurations.content()
         }
     }
 
     @Composable
-    fun Header(
+    fun Header6(
         text: String,
-        fontSize: TextUnit = 40.sp
+        fontSize: TextUnit = 30.sp
     ) {
         DefaultHeaderText(
             text = text,
             fontSize = fontSize,
+            textStyle = MaterialTheme.typography.h6
         )
     }
 }
