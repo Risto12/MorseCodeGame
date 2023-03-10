@@ -1,6 +1,7 @@
 package com.example.morsecodegame
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -20,6 +21,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -212,6 +214,9 @@ private fun MultiplayerMenu(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        SharedComposable.Header6(
+            text = "Choose Morse type"
+        )
         ButtonWithInfoBox(
             defaultButtonConfigurations = SharedComposable.DefaultButtonConfigurations(
                 text = localContext.getStringUpper(R.string.start_screen_flashlight),
@@ -308,24 +313,27 @@ private fun BoxScope.MainMenu(
     version: String
 ) {
     val localContext = LocalContext.current
+    val configuration = LocalConfiguration.current
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.background(MaterialTheme.colors.background)
     ) {
-        Box(
-            modifier = Modifier
-                .padding(top = 30.dp)
-                .clip(CircleShape)
-                .background(MaterialTheme.colors.primary)
-        ) {
-            Image(
-                painterResource(R.drawable.telegraph),
-                contentDescription = "Telegraph",
+        if (LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            Box(
                 modifier = Modifier
-                    .width(200.dp)
-                    .height(200.dp)
-                    .padding(start = 40.dp, end = 40.dp)
-            )
+                    .padding(top = 30.dp)
+                    .clip(CircleShape)
+                    .background(MaterialTheme.colors.primary)
+            ) {
+                Image(
+                    painterResource(R.drawable.telegraph),
+                    contentDescription = "Telegraph",
+                    modifier = Modifier
+                        .width(200.dp)
+                        .height(200.dp)
+                        .padding(start = 40.dp, end = 40.dp)
+                )
+            }
         }
         Column(
             modifier = Modifier
@@ -414,7 +422,7 @@ fun MainActivityPreview() {
                     onClickMorseCode = { },
                     "1.0a"
                 )
-            } 
-        } 
+            }
+        }
     }
 }
