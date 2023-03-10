@@ -6,8 +6,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -17,7 +20,10 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -254,7 +260,9 @@ fun ButtonWithInfoBox(
                     color = MaterialTheme.colors.primary,
                     border = BorderStroke(2.dp, color = MaterialTheme.colors.onPrimary),
                     contentColor = MaterialTheme.colors.onPrimary,
-                    modifier = Modifier.defaultMinSize(100.dp, 100.dp).sizeIn(maxWidth = 350.dp)
+                    modifier = Modifier
+                        .defaultMinSize(100.dp, 100.dp)
+                        .sizeIn(maxWidth = 350.dp)
                 ) {
                     Column(
                         verticalArrangement = Arrangement.Center,
@@ -302,9 +310,28 @@ private fun MainMenu(
     version: String
 ) = MorseCodeGameTheme {
     val localContext = LocalContext.current
-    Box(modifier = Modifier.background(color = MaterialTheme.colors.background)) {
+    Column(modifier = Modifier.background(MaterialTheme.colors.background)) {
+        Box(modifier = Modifier
+            .clip(CircleShape)
+            .background(MaterialTheme.colors.primary)
+            .fillMaxHeight()
+            .weight(0.1f)
+            .align(Alignment.CenterHorizontally)) {
+            Image(
+                painterResource(R.drawable.telegraph),
+                contentDescription = "Telegraph",
+                modifier = Modifier
+                    .width(200.dp)
+                    .height(200.dp)
+                    .align(Alignment.BottomCenter)
+                    .padding(start = 40.dp, end = 40.dp)
+            )
+        }
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .wrapContentSize()
+                .weight(1f)
+                .fillMaxWidth(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -314,7 +341,7 @@ private fun MainMenu(
             SharedComposable.DefaultButton(
                 configurations = SharedComposable.DefaultButtonConfigurations(
                     text = localContext.getStringUpper(R.string.start_screen_single_player),
-                    click = onClickSinglePlayer
+                    click = onClickSinglePlayer,
                 )
             )
             SharedComposable.DefaultButton(
@@ -326,14 +353,14 @@ private fun MainMenu(
             )
             SharedComposable.DefaultButton(
                 configurations = SharedComposable.DefaultButtonConfigurations(
-                    text = localContext.getStringUpper(R.string.start_screen_options),
-                    click = onClickOptions
+                    text = localContext.getStringUpper(R.string.start_screen_morse_code),
+                    click = onClickMorseCode
                 )
             )
             SharedComposable.DefaultButton(
                 configurations = SharedComposable.DefaultButtonConfigurations(
-                    text = localContext.getStringUpper(R.string.start_screen_morse_code),
-                    click = onClickMorseCode
+                    text = localContext.getStringUpper(R.string.start_screen_options),
+                    click = onClickOptions
                 )
             )
             SharedComposable.DefaultButton(
@@ -342,15 +369,14 @@ private fun MainMenu(
                     click = onClickExit
                 )
             )
-        }
+        }/*
         SharedComposable.DefaultText(
             text = "v$version",
             fontSize = 15.sp,
             modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(bottom = 10.dp),
+                .padding(bottom = 10.dp).align(Alignment.BottomCenter),
             color = MaterialTheme.colors.primary
-        )
+        )*/
     }
 }
 

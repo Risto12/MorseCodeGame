@@ -12,12 +12,15 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -169,11 +172,17 @@ fun SendMorseBox(
             var inputText by rememberSaveable { mutableStateOf("") }
             var placeHolderText by remember { mutableStateOf(insertText) }
 
-            Box(modifier = Modifier.weight(2.4f)) {
+            Box(modifier = Modifier.weight(2.0f)) {
                 Image(
-                    painterResource(R.drawable.baseline_flashlight_on_24),
+                    painterResource(R.drawable.vintage_light_bulb),
                     contentDescription = "Flashlight",
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier
+                        .heightIn(min = 200.dp)
+                        .widthIn(min = 200.dp)
+                        .clip(CircleShape)
+                        .rotate(180f)
+                        .background(MaterialTheme.colors.primary)
+                        .align(Alignment.Center)
                 )
             }
             TextField(
@@ -185,7 +194,8 @@ fun SendMorseBox(
                         color = MaterialTheme.colors.onPrimary
                     )
                 },
-                modifier = Modifier.background(MaterialTheme.colors.primary).weight(weight = 1f),
+                modifier = Modifier.background(MaterialTheme.colors.primary)
+                    .weight(weight = 1f).widthIn(max = 300.dp),
                 colors = TextFieldDefaults.textFieldColors(
                     backgroundColor = MaterialTheme.colors.primary,
                     textColor = MaterialTheme.colors.onPrimary
