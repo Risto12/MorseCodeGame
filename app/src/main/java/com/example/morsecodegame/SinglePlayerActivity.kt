@@ -61,11 +61,9 @@ class SinglePlayerActivity : ComponentActivity() {
         }
     }
 
-    private fun gameOver() = lifecycleScope.launch(Dispatchers.Default) {
-        repeatOnLifecycle(Lifecycle.State.STARTED) {
-            delay(4000)
-            finish()
-        }
+    private fun gameOver() = launchIOCoroutine {
+        delay(4000)
+        finish()
     }
 
     private fun lockScreenOrientation() {
