@@ -159,12 +159,14 @@ object SharedComposable {
     @Composable
     fun Header6(
         text: String,
-        fontSize: TextUnit = 30.sp
+        fontSize: TextUnit = 30.sp,
+        paddingBottom: Dp = 40.dp
     ) {
         DefaultHeaderText(
             text = text,
             fontSize = fontSize,
-            textStyle = MaterialTheme.typography.h6
+            textStyle = MaterialTheme.typography.h6,
+            paddingBottom = paddingBottom
         )
     }
 }

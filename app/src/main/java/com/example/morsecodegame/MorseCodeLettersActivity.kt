@@ -118,8 +118,7 @@ fun MorseCodeLetters(
                 SharedComposable.DefaultHeaderText(
                     text = "Morse letters",
                     fontSize = 25.sp,
-                    color = MaterialTheme.colors.onPrimary,
-                    textDecoration = TextDecoration.Underline
+                    color = MaterialTheme.colors.onPrimary
                 )
             }
             MorseCodeLetter.values().forEach {

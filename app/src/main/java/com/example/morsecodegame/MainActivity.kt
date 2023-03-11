@@ -324,7 +324,8 @@ private fun BoxScope.MainMenu(
         ) {
             item {
                 SharedComposable.Header6(
-                    text = stringResource(R.string.app_name)
+                    text = stringResource(R.string.app_name),
+                    paddingBottom = 20.dp
                 )
             }
             item {

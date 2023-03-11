@@ -174,7 +174,7 @@ private fun TextWithSlider(
 ) {
     SharedComposable.DefaultHeaderText(
         text = headerText,
-        fontSize = 25.sp
+        fontSize = 20.sp
     )
     SharedComposable.DefaultText(
         text = sliderText,
@@ -210,7 +210,7 @@ fun DifficultLevelRadioButtonsWithText(
     ) {
         SharedComposable.DefaultHeaderText(
             text = headerText,
-            fontSize = 25.sp,
+            fontSize = 20.sp,
             paddingBottom = 5.dp
         )
         radioOptions.forEach { difficultLevel ->
