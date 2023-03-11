@@ -167,15 +167,8 @@ class SinglePlayerActivity : ComponentActivity() {
                     ) {
                         if (isGameOver) {
                             enableOrientation()
-                            val reason = if (
-                                gameViewModel.hasNextQuestion() && !gameTimeViewModel.hasTimeLeft()
-                            ) {
-                                "TIMEOUT... TAN TAN TAA...."
-                            } else {
-                                "TAN TAN TAA...."
-                            }
-                            SharedComposable.DefaultHeaderText(
-                                text = "GAME OVER... $reason"
+                            GameOver(
+                                isTimeout = gameViewModel.hasNextQuestion() && !gameTimeViewModel.hasTimeLeft()
                             )
                         } else {
                             Text("Loading...", color = Color.White)
@@ -214,7 +207,9 @@ fun StatusBar(
         )
         Text(
             text = right,
-            modifier = Modifier.align(Alignment.BottomEnd).padding(end = 5.dp),
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(end = 5.dp),
             color = textColor
         )
     }
@@ -228,7 +223,9 @@ private fun SinglePlayerScreen(
     question: Question,
     showCorrectAnswer: Boolean
 ) {
-    Box(modifier = Modifier.fillMaxSize().background(color = MaterialTheme.colors.background)) {
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .background(color = MaterialTheme.colors.background)) {
         if (lightOn) {
             Image(
                 painterResource(R.drawable.vintage_light_bulb),
@@ -246,9 +243,11 @@ private fun SinglePlayerScreen(
             visible = answerBoxOn,
             enter = fadeIn(),
             exit = fadeOut(),
-            modifier = Modifier.align(Alignment.BottomCenter).background(
-                color = MaterialTheme.colors.secondaryVariant
-            )
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .background(
+                    color = MaterialTheme.colors.secondaryVariant
+                )
         ) {
             Column(
                 modifier = Modifier
@@ -293,6 +292,26 @@ private fun SinglePlayerScreen(
 }
 
 @Composable
+fun GameOver(
+    isTimeout: Boolean
+) {
+    Column(
+        modifier = Modifier
+            .background(MaterialTheme.colors.background)
+            .fillMaxSize()
+    ) {
+            val reason = if (isTimeout) {
+                "TIMEOUT... TAN TAN TAA...."
+            } else {
+                "TAN TAN TAA...."
+            }
+            SharedComposable.DefaultHeaderText(
+                text = "GAME OVER... $reason"
+            )
+        }
+}
+
+@Composable
 @Preview
 fun SinglePlayerActivityPreview() {
     MorseCodeGameTheme {
@@ -309,5 +328,13 @@ fun SinglePlayerActivityPreview() {
                 showCorrectAnswer = true
             )
         }
+    }
+}
+
+@Composable
+@Preview
+fun SinglePlayerActivityGameOverPreview() {
+    MorseCodeGameTheme {
+        GameOver(isTimeout = true)
     }
 }

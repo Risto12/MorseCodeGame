@@ -114,7 +114,6 @@ class MainActivity :
         val morseCode = { initStartActivity(MorseCodeLettersActivity::class.java) }
 
         setContent {
-            val infoTexts by rememberSaveable { mutableStateOf(infoTextConfigurations) }
             var loadingOptions by rememberSaveable { mutableStateOf(false) }
             val setLoadingOptions = { launch: (GameType) -> Unit ->
                 loadingOptions = false
@@ -134,13 +133,11 @@ class MainActivity :
                             singlePlayerClicked -> SinglePlayerMenu(
                                 onClickSinglePlayerType = setLoadingOptions(singlePlayer),
                                 onClickCancel = { singlePlayerClicked = false },
-                                infoTexts = infoTexts
                             )
                             multiplayerClicked -> MultiplayerMenu(
                                 onClickCancel = { multiplayerClicked = false },
                                 onClickBluetooth = {},
                                 onClickFlashLight = setLoadingOptions(multiplayer),
-                                infoTexts = infoTexts
                             )
                             else -> MainMenu(
                                 onClickSinglePlayer = { singlePlayerClicked = true },
@@ -148,7 +145,7 @@ class MainActivity :
                                 onClickOptions = options,
                                 onClickMorseCode = morseCode,
                                 onClickExit = exit,
-                                version = infoTexts.appVersion
+                                version = infoTextConfigurations.appVersion
                             )
                         }
                     } else {
@@ -164,7 +161,6 @@ class MainActivity :
 private fun SinglePlayerMenu(
     onClickSinglePlayerType: (GameType) -> Unit,
     onClickCancel: () -> Unit,
-    infoTexts: MainInfoTextConfigurations
 ) = MorseCodeGameTheme {
     val localContext = LocalContext.current
     Column(
@@ -181,7 +177,7 @@ private fun SinglePlayerMenu(
                 click = { onClickSinglePlayerType(GameType.LIGHT) }
             ),
             iconContentDescription = "Blinking light game mode info",
-            infoText = infoTexts.blinkingLightInfo
+            infoText = localContext.getString(R.string.start_info_blinking_light)
         )
         ButtonWithInfoBox(
             defaultButtonConfigurations = SharedComposable.DefaultButtonConfigurations(
@@ -191,7 +187,7 @@ private fun SinglePlayerMenu(
                 enabled = false
             ),
             iconContentDescription = "Sound game mode info",
-            infoText = infoTexts.soundInfo
+            infoText = localContext.getString(R.string.start_info_sound)
         )
         SharedComposable.DefaultButton(
             configurations = SharedComposable.DefaultButtonConfigurations(
@@ -207,7 +203,6 @@ private fun MultiplayerMenu(
     onClickCancel: () -> Unit,
     onClickBluetooth: (type: GameType) -> Unit,
     onClickFlashLight: (type: GameType) -> Unit,
-    infoTexts: MainInfoTextConfigurations
 ) = MorseCodeGameTheme {
     val localContext = LocalContext.current
     Column(
@@ -224,7 +219,7 @@ private fun MultiplayerMenu(
                 click = { onClickFlashLight(GameType.FLASHLIGHT) }
             ),
             iconContentDescription = "Flash game mode info",
-            infoText = infoTexts.flashlightInfo
+            infoText = localContext.getString(R.string.start_info_flashlight)
         )
         ButtonWithInfoBox(
             defaultButtonConfigurations = SharedComposable.DefaultButtonConfigurations(
@@ -234,7 +229,7 @@ private fun MultiplayerMenu(
                 enabled = false
             ),
             iconContentDescription = "Bluetooth game mode info",
-            infoText = infoTexts.bluetoothInfo
+            infoText = localContext.getString(R.string.start_info_bluetooth)
         )
         SharedComposable.DefaultButton(
             configurations = SharedComposable.DefaultButtonConfigurations(
@@ -406,8 +401,6 @@ private fun BoxScope.MainMenu(
 fun MainActivityPreview() {
     val singlePlayerClicked = false
     val multiplayerClicked = false
-    val test = "test"
-    val infoTextConfigurations = MainInfoTextConfigurations("1.0b", test, test, test, test)
 
     MorseCodeGameTheme {
         Box(
@@ -419,13 +412,11 @@ fun MainActivityPreview() {
                 singlePlayerClicked -> SinglePlayerMenu(
                     onClickSinglePlayerType = { },
                     onClickCancel = { },
-                    infoTexts = infoTextConfigurations
                 )
                 multiplayerClicked -> MultiplayerMenu(
                     onClickCancel = { },
                     onClickBluetooth = { },
                     onClickFlashLight = { },
-                    infoTexts = infoTextConfigurations
                 )
                 else -> MainMenu(
                     onClickSinglePlayer = { },

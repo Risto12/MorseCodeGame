@@ -13,7 +13,16 @@
     <string name="single_player_answer">Correct answer is</string>
 
     <string name="morse_letters_top">BACK TO TOP</string>
-
+    <string name="morse_letters_overview">morse code is a method used in telecommunication to encode text \
+    characters as standardized sequences of two different signal durations, called dots and dashes, \
+    or dits and dahs.\n\nsource: wikipedia</string>
+    <string name="morse_letters_words_per_minute">Proficiency in Morse code is measured in how many words per \
+    minute someone can send or receive. This seems a tricky concept given that you can send more \
+    short words per minute than long ones. The work-around is to standardise on the word "PARIS" as \
+    the standard word, so if Morse is being sent at 20 words per minute (or "20 wpm") then the word \
+    "PARIS" (or, more precisely "PARIS " with a space on the end) could be sent 20 times in a \
+    minute.\n\nSource: MorseCode.world</string>
+    <string name="morse_letters_example">Coming</string>
     <string name="flash_light_unknown_issue">Unknown issue occurred. Returning to menu</string>
     <string name="flash_light_not_supported">Your phone doesn\'t support flashlight</string>
     <string name="flash_light_not_supported_characters">Input contains not supported characters. Supported characters are </string>
@@ -29,4 +38,15 @@
     <string name="start_screen_morse_code">MORSE CODE</string>
     <string name="start_screen_exit">EXIT</string>
     <string name="start_screen_options">OPTIONS</string>
+    <string name="start_info_blinking_light">Morse code is send as a blinking light. Your chosen difficult level will \
+  determine is the morse one letter, one word or multiple words.\nThe blinking speed is determined \
+  by your wpm setting. For beginners wpm: 2 is recommended.\nThe game will end when the limit of \
+  available questions is reached or timer reaches 0. You can still answer the last question after \
+  time is up.\n\nTo alter the settings go to options from the start screen -> options</string>
+    <string name="start_info_sound">Not available in this version</string>
+    <string name="start_info_flashlight">This game mode lets you send morse code with your phones flashlight. Check \
+    that no app is using the flashlight before you play e.g. camera.\n\n Speed of the flash is \
+    determined by wpm setting that you can alter from options but the max wpm is limited to 5.\n\n\
+    To alter the settings go to options from the start screen -> options</string>
+    <string name="start_info_bluetooth">Not available in this version</string>
 </resources>

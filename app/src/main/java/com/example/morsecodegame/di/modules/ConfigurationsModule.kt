@@ -17,16 +17,6 @@ import dagger.hilt.components.SingletonComponent
 class ConfigurationsModule {
 
     @Provides
-    fun morseCodeLettersInfoTextConfiguration(@ApplicationContext context: Context): MorseCodeLettersInfoTextConfiguration {
-        return ConfigurationsFactory.configurationsFactory(
-            context = context,
-            configurationGenerator = MorseCodeLettersInfoTextConfiguration
-                .MorseCodeLetterFactoryConfigurationsBuilder,
-            resourceId = R.raw.morseletter
-        )
-    }
-
-    @Provides
     fun mainInfoTextConfigurations(@ApplicationContext context: Context): MainInfoTextConfigurations {
         return ConfigurationsFactory.configurationsFactory(
             context = context,

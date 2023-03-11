@@ -36,19 +36,15 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class MorseCodeLettersActivity : ComponentActivity() {
 
-    @Inject
-    lateinit var configurations: MorseCodeLettersInfoTextConfiguration
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val back = { finish() }
         setContent {
-            val configurations by rememberSaveable { mutableStateOf(configurations) }
             MorseCodeGameTheme {
                 MorseCodeLetters(
-                    overviewText = configurations.overview,
-                    wordsPerMinuteText = configurations.wordsPerMinute,
-                    exampleText = configurations.example,
+                    overviewText = getString(R.string.morse_letters_overview),
+                    wordsPerMinuteText = getString(R.string.morse_letters_words_per_minute),
+                    exampleText = getString(R.string.morse_letters_example),
                     onClickBack = back
                 )
             }
