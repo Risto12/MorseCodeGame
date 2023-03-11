@@ -10,7 +10,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Stable
 class MainInfoTextConfigurations @Inject constructor(
-    val appVersion: String,
+    val appVersion: String
 ) : Parcelable {
 
     companion object {
@@ -21,10 +21,10 @@ class MainInfoTextConfigurations @Inject constructor(
                     val (appVersion) =
                         properties.getConfigurationGeneratorProperties(
                             keyPrefix,
-                            "app_version",
+                            "app_version"
                         )
                     return MainInfoTextConfigurations(
-                        appVersion = appVersion,
+                        appVersion = appVersion
                     )
                 }
             }

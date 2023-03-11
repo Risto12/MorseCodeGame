@@ -7,11 +7,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -21,10 +19,8 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -33,6 +29,7 @@ import androidx.compose.ui.window.Popup
 import com.example.morsecodegame.components.ExceptionActivityResult
 import com.example.morsecodegame.configurations.MainInfoTextConfigurations
 import com.example.morsecodegame.ui.composables.SharedComposable
+import com.example.morsecodegame.ui.composables.TelegraphImage
 import com.example.morsecodegame.ui.theme.MorseCodeGameTheme
 import com.example.morsecodegame.ui.theme.VintageGreen
 import com.example.morsecodegame.utility.DebugLifecycleObserver
@@ -132,12 +129,12 @@ class MainActivity :
                         when {
                             singlePlayerClicked -> SinglePlayerMenu(
                                 onClickSinglePlayerType = setLoadingOptions(singlePlayer),
-                                onClickCancel = { singlePlayerClicked = false },
+                                onClickCancel = { singlePlayerClicked = false }
                             )
                             multiplayerClicked -> MultiplayerMenu(
                                 onClickCancel = { multiplayerClicked = false },
                                 onClickBluetooth = {},
-                                onClickFlashLight = setLoadingOptions(multiplayer),
+                                onClickFlashLight = setLoadingOptions(multiplayer)
                             )
                             else -> MainMenu(
                                 onClickSinglePlayer = { singlePlayerClicked = true },
@@ -160,7 +157,7 @@ class MainActivity :
 @Composable
 private fun SinglePlayerMenu(
     onClickSinglePlayerType: (GameType) -> Unit,
-    onClickCancel: () -> Unit,
+    onClickCancel: () -> Unit
 ) = MorseCodeGameTheme {
     val localContext = LocalContext.current
     Column(
@@ -202,7 +199,7 @@ private fun SinglePlayerMenu(
 private fun MultiplayerMenu(
     onClickCancel: () -> Unit,
     onClickBluetooth: (type: GameType) -> Unit,
-    onClickFlashLight: (type: GameType) -> Unit,
+    onClickFlashLight: (type: GameType) -> Unit
 ) = MorseCodeGameTheme {
     val localContext = LocalContext.current
     Column(
@@ -309,33 +306,19 @@ private fun BoxScope.MainMenu(
     version: String
 ) {
     val localContext = LocalContext.current
-    val configuration = LocalConfiguration.current
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.background(MaterialTheme.colors.background)
     ) {
         if (LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            Box(
-                modifier = Modifier
-                    .padding(top = 30.dp)
-                    .clip(CircleShape)
-                    .background(MaterialTheme.colors.primary)
-            ) {
-                Image(
-                    painterResource(R.drawable.telegraph),
-                    contentDescription = "Telegraph",
-                    modifier = Modifier
-                        .width(200.dp)
-                        .height(200.dp)
-                        .padding(start = 40.dp, end = 40.dp)
-                )
-            }
+            TelegraphImage(modifier = Modifier.padding(top = 20.dp))
         }
         LazyColumn(
             modifier = Modifier
                 .wrapContentSize()
                 .fillMaxWidth()
-                .heightIn(min = 400.dp).padding(top = 30.dp),
+                .heightIn(min = 400.dp)
+                .padding(top = 30.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -391,7 +374,8 @@ private fun BoxScope.MainMenu(
         text = "v$version",
         fontSize = 15.sp,
         modifier = Modifier
-            .padding(bottom = 10.dp).align(Alignment.BottomCenter),
+            .padding(bottom = 10.dp)
+            .align(Alignment.BottomCenter),
         color = MaterialTheme.colors.primary
     )
 }
@@ -411,12 +395,12 @@ fun MainActivityPreview() {
             when {
                 singlePlayerClicked -> SinglePlayerMenu(
                     onClickSinglePlayerType = { },
-                    onClickCancel = { },
+                    onClickCancel = { }
                 )
                 multiplayerClicked -> MultiplayerMenu(
                     onClickCancel = { },
                     onClickBluetooth = { },
-                    onClickFlashLight = { },
+                    onClickFlashLight = { }
                 )
                 else -> MainMenu(
                     onClickSinglePlayer = { },

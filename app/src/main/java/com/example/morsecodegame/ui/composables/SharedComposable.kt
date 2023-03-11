@@ -1,16 +1,22 @@
 package com.example.morsecodegame.ui.composables
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -40,18 +46,19 @@ object SharedComposable {
     fun DefaultHeaderText(
         text: String,
         @SuppressLint("ModifierParameter")
-        modifier: Modifier = Modifier.padding(bottom = 40.dp),
+        modifier: Modifier = Modifier,
         fontSize: TextUnit = 20.sp,
         color: Color = MaterialTheme.colors.primary,
         textDecoration: TextDecoration = TextDecoration.None,
-        textStyle: TextStyle = MaterialTheme.typography.body1
+        textStyle: TextStyle = MaterialTheme.typography.body1,
+        paddingBottom: Dp = 40.dp
     ) {
         Text(
             text = text,
             color = color,
             fontSize = fontSize,
             fontWeight = FontWeight.Black,
-            modifier = modifier,
+            modifier = modifier.padding(bottom = paddingBottom),
             textDecoration = textDecoration,
             style = textStyle,
             fontFamily = FontFamily(Font(R.font.shrikhand_regular)),
@@ -158,6 +165,24 @@ object SharedComposable {
             text = text,
             fontSize = fontSize,
             textStyle = MaterialTheme.typography.h6
+        )
+    }
+}
+
+@Composable
+fun TelegraphImage(modifier: Modifier = Modifier) {
+    Box(
+        modifier = modifier
+            .clip(CircleShape)
+            .background(MaterialTheme.colors.primary)
+    ) {
+        Image(
+            painterResource(R.drawable.telegraph),
+            contentDescription = "Telegraph",
+            modifier = Modifier
+                .width(200.dp)
+                .height(200.dp)
+                .padding(start = 40.dp, end = 40.dp)
         )
     }
 }

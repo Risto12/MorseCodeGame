@@ -30,6 +30,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.morsecodegame.ui.composables.SharedComposable
 import com.example.morsecodegame.ui.composables.SharedComposable.DefaultHeaderText
+import com.example.morsecodegame.ui.composables.TelegraphImage
 import com.example.morsecodegame.ui.theme.*
 import com.example.morsecodegame.utility.*
 import com.example.morsecodegame.viewModel.GameTimeViewModel
@@ -62,7 +63,7 @@ class SinglePlayerActivity : ComponentActivity() {
 
     private fun gameOver() = lifecycleScope.launch(Dispatchers.Default) {
         repeatOnLifecycle(Lifecycle.State.STARTED) {
-            delay(8000)
+            delay(4000)
             finish()
         }
     }
@@ -160,7 +161,7 @@ class SinglePlayerActivity : ComponentActivity() {
                         )
                     }
                 } else {
-                    Column(
+                    Box(
                         modifier = Modifier
                             .background(MaterialTheme.colors.background)
                             .fillMaxSize()
@@ -171,7 +172,7 @@ class SinglePlayerActivity : ComponentActivity() {
                                 isTimeout = gameViewModel.hasNextQuestion() && !gameTimeViewModel.hasTimeLeft()
                             )
                         } else {
-                            Text("Loading...", color = Color.White)
+                            Text("Loading...", color = MaterialTheme.colors.primary)
                         }
                     }
                 }
@@ -223,9 +224,11 @@ private fun SinglePlayerScreen(
     question: Question,
     showCorrectAnswer: Boolean
 ) {
-    Box(modifier = Modifier
-        .fillMaxSize()
-        .background(color = MaterialTheme.colors.background)) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = MaterialTheme.colors.background)
+    ) {
         if (lightOn) {
             Image(
                 painterResource(R.drawable.vintage_light_bulb),
@@ -292,23 +295,28 @@ private fun SinglePlayerScreen(
 }
 
 @Composable
-fun GameOver(
+fun BoxScope.GameOver(
     isTimeout: Boolean
 ) {
     Column(
         modifier = Modifier
             .background(MaterialTheme.colors.background)
-            .fillMaxSize()
+            .wrapContentSize()
+            .align(Alignment.Center)
     ) {
-            val reason = if (isTimeout) {
-                "TIMEOUT... TAN TAN TAA...."
-            } else {
-                "TAN TAN TAA...."
-            }
-            SharedComposable.DefaultHeaderText(
-                text = "GAME OVER... $reason"
-            )
-        }
+        val reason = if (isTimeout) "TIMEOUT" else "NO MORE QUESTIONS"
+        DefaultHeaderText(
+            text = "GAME OVER",
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            paddingBottom = 5.dp
+        )
+        TelegraphImage(Modifier.align(Alignment.CenterHorizontally))
+        DefaultHeaderText(
+            text = reason,
+            modifier = Modifier.align(Alignment.CenterHorizontally).padding(top = 5.dp),
+            paddingBottom = 0.dp
+        )
+    }
 }
 
 @Composable
@@ -335,6 +343,8 @@ fun SinglePlayerActivityPreview() {
 @Preview
 fun SinglePlayerActivityGameOverPreview() {
     MorseCodeGameTheme {
-        GameOver(isTimeout = true)
+        Box(modifier = Modifier.fillMaxSize().background(color = MaterialTheme.colors.background)) {
+            GameOver(isTimeout = true)
+        }
     }
 }

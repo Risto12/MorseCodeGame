@@ -211,7 +211,7 @@ fun DifficultLevelRadioButtonsWithText(
         SharedComposable.DefaultHeaderText(
             text = headerText,
             fontSize = 25.sp,
-            modifier = Modifier.padding(bottom = 5.dp)
+            paddingBottom = 5.dp
         )
         radioOptions.forEach { difficultLevel ->
             Row(

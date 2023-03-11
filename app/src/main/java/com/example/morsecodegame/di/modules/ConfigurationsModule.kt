@@ -4,7 +4,6 @@ import android.content.Context
 import com.example.morsecodegame.R
 import com.example.morsecodegame.configurations.ConfigurationsFactory
 import com.example.morsecodegame.configurations.MainInfoTextConfigurations
-import com.example.morsecodegame.configurations.MorseCodeLettersInfoTextConfiguration
 import com.example.morsecodegame.configurations.OptionsConfigurations
 import dagger.Module
 import dagger.Provides
