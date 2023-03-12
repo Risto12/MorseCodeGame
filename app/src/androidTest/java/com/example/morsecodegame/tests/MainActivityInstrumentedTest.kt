@@ -25,9 +25,11 @@ class MainActivityInstrumentedTest {
     val hiltRule = HiltAndroidRule(this)
 
     @After
-    fun cleaning() {
+    fun after() {
         FakeDb.resetDb()
     }
+
+    private fun getString(id: Int) = rule.activity.baseContext.getString(id)
 
     /**
      * Testing that route from Start of the app to morse code letters screen and back to start
@@ -36,11 +38,11 @@ class MainActivityInstrumentedTest {
     @Test
     fun testRouteToMorseCodeLettersAndBack() {
         // rule.onRoot().printToLog("TAG")
-        rule.onNodeWithText("Morse Code")
+        rule.onNodeWithTextIgnore("Morse Code")
             .performClick()
         rule.onNodeWithText("Overview")
             .assertExists()
-        rule.onNodeWithText("Back")
+        rule.onNodeWithTextIgnore("Back")
             .performClick()
         rule.onNodeWithText("Morse Code Game")
             .assertExists()
@@ -52,12 +54,12 @@ class MainActivityInstrumentedTest {
             .performClick()
         rule.onNodeWithContentDescription("Sound game mode info")
             .performClick()
-        rule.onNodeWithTextAndSubStringIgnore("Sound info")
+        rule.onNodeWithTextAndSubStringIgnore("Not available in this version")
             .assertExists()
 
         rule.onNodeWithContentDescription("Blinking light game mode info")
             .performClick()
-        rule.onNodeWithTextAndSubStringIgnore("blinking info")
+        rule.onNodeWithTextAndSubStringIgnore("Morse code is send as a blinking light.")
             .assertExists()
     }
 
@@ -76,12 +78,14 @@ class MainActivityInstrumentedTest {
             .performClick()
         rule.onNodeWithContentDescription("Flash game mode info")
             .performClick()
-        rule.onNodeWithTextAndSubStringIgnore("flash info")
+        rule.onNodeWithTextAndSubStringIgnore(
+            "This game mode lets you send morse code with your phones flashlight."
+        )
             .assertExists()
 
         rule.onNodeWithContentDescription("Bluetooth game mode info")
             .performClick()
-        rule.onNodeWithTextAndSubStringIgnore("bluetooth info")
+        rule.onNodeWithTextAndSubStringIgnore("Not available in this version")
             .assertExists()
     }
 
