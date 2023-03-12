@@ -16,14 +16,14 @@ android {
     compileSdk 33 // bumped this to 33 because there is possibility to adjust torch brightness
 
     defaultConfig {
-        applicationId "com.example.morsecodegame"
+        applicationId "com.galaxy.morsecodegame"
         minSdk 31
         //noinspection OldTargetApi
         targetSdk 33
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "com.example.morsecodegame.MorseCodeGameTestRunner"
+        testInstrumentationRunner "com.galaxy.morsecodegame.MorseCodeGameTestRunner"
 
         vectorDrawables {
             useSupportLibrary true
