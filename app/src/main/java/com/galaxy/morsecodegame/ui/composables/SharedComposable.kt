@@ -249,8 +249,11 @@ fun InfoPopup(
 @Composable
 fun InfoWarningPopup(
     infoText: String,
-    onDismissRequest: () -> Unit
+    onDismissRequest: (Boolean) -> Unit,
 ) {
+    var onStateChange by rememberSaveable {
+        mutableStateOf(false)
+    }
     val localContext = LocalContext.current
     Popup(
         onDismissRequest = { },
@@ -295,14 +298,14 @@ fun InfoWarningPopup(
                     ),
                     fontSize = 10.sp
                 )},
-                    onStateChange = { status -> println(status)}
+                    onStateChange = { onStateChange = it }
                 )
                 SharedComposable.DefaultText(
                     text = localContext.getStringUpper(R.string.common_ok),
                     color = VintageGreen,
                     modifier = Modifier
                         .padding(top = 5.dp, bottom = 20.dp)
-                        .clickable { onDismissRequest() }
+                        .clickable { onDismissRequest(onStateChange) }
                 )
             }
         }

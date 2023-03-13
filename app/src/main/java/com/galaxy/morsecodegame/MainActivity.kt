@@ -31,11 +31,9 @@ import com.galaxy.morsecodegame.ui.composables.SharedComposable
 import com.galaxy.morsecodegame.ui.composables.TelegraphImage
 import com.galaxy.morsecodegame.ui.theme.MorseCodeGameTheme
 import com.galaxy.morsecodegame.ui.theme.VintageGreen
-import com.galaxy.morsecodegame.utility.DebugLifecycleObserver
-import com.galaxy.morsecodegame.utility.LifecycleDebugLogger
-import com.galaxy.morsecodegame.utility.ToastGenerator
-import com.galaxy.morsecodegame.utility.getStringUpper
+import com.galaxy.morsecodegame.utility.*
 import com.galaxy.morsecodegame.viewModel.OptionsViewModel
+import com.galaxy.morsecodegame.viewModel.WarningViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -52,6 +50,8 @@ class MainActivity :
 
     @Inject
     lateinit var infoTextConfigurations: MainInfoTextConfigurations
+
+    private val warningViewModel: WarningViewModel by viewModels()
 
     private val flashLightActivityResultContract =
         registerForActivityResult(
@@ -111,9 +111,8 @@ class MainActivity :
 
         setContent {
             var loadingOptions by rememberSaveable { mutableStateOf(false) }
-            var warningInfoBox  by rememberSaveable {
-                mutableStateOf(true)
-            }
+            val warningInfoBox by warningViewModel.warningStatus.collectAsState()
+
             val setLoadingOptions = { launch: (GameType) -> Unit ->
                 loadingOptions = false
                 launch
@@ -128,10 +127,13 @@ class MainActivity :
                         .fillMaxSize()
                 ) {
                     if (!loadingOptions) {
-                        if(warningInfoBox) {
+                        if(warningInfoBox.showPopup()) {
                             InfoWarningPopup(
                                 infoText = LocalContext.current.getString(R.string.start_info_warning_blinking_light),
-                                onDismissRequest = { warningInfoBox = false }
+                                onDismissRequest = { dontShowAgain ->
+                                    if(dontShowAgain) warningViewModel.disableWarning()
+                                    warningViewModel.closeWindowPopup()
+                                },
                             )
                         }
                         when {
