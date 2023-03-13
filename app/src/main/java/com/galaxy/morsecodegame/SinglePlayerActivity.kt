@@ -1,6 +1,7 @@
 package com.galaxy.morsecodegame
 
 import android.content.pm.ActivityInfo
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -19,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
@@ -63,6 +65,10 @@ class SinglePlayerActivity : ComponentActivity() {
 
     private fun gameOver() = launchIOCoroutine {
         delay(4000)
+        finish()
+    }
+
+    private fun cancel() {
         finish()
     }
 
@@ -155,7 +161,8 @@ class SinglePlayerActivity : ComponentActivity() {
                                 }
                             },
                             question = gameQuestion,
-                            showCorrectAnswer = showCorrectAnswer
+                            showCorrectAnswer = showCorrectAnswer,
+                            onClickCancel = ::cancel
                         )
                     }
                 } else {
@@ -220,7 +227,8 @@ private fun SinglePlayerScreen(
     answerBoxOn: Boolean,
     onClickAnswer: (String) -> Unit,
     question: Question,
-    showCorrectAnswer: Boolean
+    showCorrectAnswer: Boolean,
+    onClickCancel: () -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -238,6 +246,20 @@ private fun SinglePlayerScreen(
                     .rotate(180f)
                     .background(MaterialTheme.colors.primary)
                     .align(Alignment.Center)
+            )
+        }
+        if(!answerBoxOn) {
+            val modifier = if(LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                Modifier.align(Alignment.BottomCenter).padding(bottom = 100.dp)
+            } else {
+                Modifier.align(Alignment.CenterEnd).padding(end = 50.dp)
+            }
+            SharedComposable.DefaultButton(
+                configurations = SharedComposable.DefaultButtonConfigurations(
+                    text = LocalContext.current.getStringUpper(R.string.common_cancel),
+                    click = onClickCancel
+                ),
+                modifier = modifier
             )
         }
         AnimatedVisibility(
@@ -311,7 +333,9 @@ fun BoxScope.GameOver(
         TelegraphImage(Modifier.align(Alignment.CenterHorizontally))
         DefaultHeaderText(
             text = reason,
-            modifier = Modifier.align(Alignment.CenterHorizontally).padding(top = 5.dp),
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .padding(top = 5.dp),
             paddingBottom = 0.dp
         )
     }
@@ -327,11 +351,12 @@ fun SinglePlayerActivityPreview() {
             StatusBar(left = "5:00", middle = "1/10", right = "wpm: 20")
             SinglePlayerScreen(
                 lightOn = true,
-                answerBoxOn = true,
+                answerBoxOn = false,
                 onClickAnswer = {},
                 question = QuestionGenerator
                     .generateQuestions(1, DifficultLevels.HARD).first(),
-                showCorrectAnswer = true
+                showCorrectAnswer = true,
+                onClickCancel = {}
             )
         }
     }
@@ -341,7 +366,9 @@ fun SinglePlayerActivityPreview() {
 @Preview
 fun SinglePlayerActivityGameOverPreview() {
     MorseCodeGameTheme {
-        Box(modifier = Modifier.fillMaxSize().background(color = MaterialTheme.colors.background)) {
+        Box(modifier = Modifier
+            .fillMaxSize()
+            .background(color = MaterialTheme.colors.background)) {
             GameOver(isTimeout = true)
         }
     }
