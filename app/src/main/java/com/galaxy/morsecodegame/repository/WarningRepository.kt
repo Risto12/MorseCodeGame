@@ -7,6 +7,6 @@ import androidx.datastore.preferences.core.Preferences
  * toggled the "don't show again" switch for a dialog
  */
 interface WarningRepository {
-    suspend fun save(key: Preferences.Key<Boolean>)
+    suspend fun save(key: Preferences.Key<Boolean>, disable: Boolean)
     suspend fun load(key: Preferences.Key<Boolean>): Boolean
 }

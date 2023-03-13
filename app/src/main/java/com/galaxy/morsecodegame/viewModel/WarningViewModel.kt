@@ -45,9 +45,16 @@ class WarningViewModel @Inject constructor(private val popupWarningRepository: W
         }
     }
 
+    // TODO remove when testing done
+    fun activateWarning() {
+        viewModelScope.launch {
+            popupWarningRepository.save(mainWarning, false)
+        }
+    }
+
     fun disableWarning() {
         viewModelScope.launch {
-            popupWarningRepository.save(mainWarning)
+            popupWarningRepository.save(mainWarning, true)
         }
     }
 

@@ -9,9 +9,13 @@ import javax.inject.Inject
 
 class WarningRepositoryImpl @Inject constructor(private val dataStore: DataStore<Preferences>)
     : WarningRepository {
-    override suspend fun save(key: Preferences.Key<Boolean>) {
+
+    override suspend fun save(
+        key: Preferences.Key<Boolean>,
+        disable: Boolean
+    ) {
         dataStore.edit {
-            it[key] = true
+            it[key] = disable
         }
     }
 

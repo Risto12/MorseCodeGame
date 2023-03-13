@@ -130,10 +130,11 @@ class MainActivity :
                         if(warningInfoBox.showPopup()) {
                             InfoWarningPopup(
                                 infoText = LocalContext.current.getString(R.string.start_info_warning_blinking_light),
-                                onDismissRequest = { dontShowAgain ->
-                                    if(dontShowAgain) warningViewModel.disableWarning()
+                                onClickOk = { disableWarning ->
+                                    if(disableWarning) warningViewModel.disableWarning()
                                     warningViewModel.closeWindowPopup()
                                 },
+                                onClickCancel = exit
                             )
                         }
                         when {
@@ -292,9 +293,6 @@ private fun BoxScope.MainMenu(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.background(MaterialTheme.colors.background)
     ) {
-        if (LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            TelegraphImage(modifier = Modifier.padding(top = 20.dp))
-        }
         LazyColumn(
             modifier = Modifier
                 .wrapContentSize()
@@ -305,20 +303,17 @@ private fun BoxScope.MainMenu(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             item {
+                TelegraphImage(modifier = Modifier.padding(top = 20.dp, bottom = 30.dp))
                 SharedComposable.Header6(
                     text = stringResource(R.string.app_name),
                     paddingBottom = 20.dp
                 )
-            }
-            item {
                 SharedComposable.DefaultButton(
                     configurations = SharedComposable.DefaultButtonConfigurations(
                         text = localContext.getStringUpper(R.string.start_screen_single_player),
                         click = onClickSinglePlayer
                     )
                 )
-            }
-            item {
                 SharedComposable.DefaultButton(
                     configurations = SharedComposable.DefaultButtonConfigurations(
                         text = localContext.getStringUpper(R.string.start_screen_multiplayer),
@@ -326,34 +321,27 @@ private fun BoxScope.MainMenu(
                         available = true
                     )
                 )
-            }
-            item {
                 SharedComposable.DefaultButton(
                     configurations = SharedComposable.DefaultButtonConfigurations(
                         text = localContext.getStringUpper(R.string.start_screen_morse_code),
                         click = onClickMorseCode
                     )
                 )
-            }
-            item {
                 SharedComposable.DefaultButton(
                     configurations = SharedComposable.DefaultButtonConfigurations(
                         text = localContext.getStringUpper(R.string.start_screen_options),
                         click = onClickOptions
                     )
                 )
-            }
-            item {
                 SharedComposable.DefaultButton(
                     configurations = SharedComposable.DefaultButtonConfigurations(
                         text = localContext.getStringUpper(R.string.start_screen_exit),
                         click = onClickExit
                     )
                 )
-            }
-        }
-    }
-    SharedComposable.DefaultText(
+            }}}
+    if(LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT) {
+        SharedComposable.DefaultText(
         text = "v$version",
         fontSize = 15.sp,
         modifier = Modifier
@@ -361,6 +349,7 @@ private fun BoxScope.MainMenu(
             .align(Alignment.BottomCenter),
         color = MaterialTheme.colors.primary
     )
+    }
 }
 
 @Composable

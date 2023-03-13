@@ -29,7 +29,6 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
-import androidx.compose.ui.window.PopupProperties
 import com.galaxy.morsecodegame.R
 import com.galaxy.morsecodegame.ui.theme.VintageGreen
 import com.galaxy.morsecodegame.ui.theme.VintageRedDark
@@ -249,7 +248,8 @@ fun InfoPopup(
 @Composable
 fun InfoWarningPopup(
     infoText: String,
-    onDismissRequest: (Boolean) -> Unit,
+    onClickOk: (Boolean) -> Unit,
+    onClickCancel: () -> Unit
 ) {
     var onStateChange by rememberSaveable {
         mutableStateOf(false)
@@ -265,7 +265,7 @@ fun InfoWarningPopup(
             border = BorderStroke(2.dp, color = MaterialTheme.colors.onPrimary),
             contentColor = MaterialTheme.colors.onPrimary,
             modifier = Modifier
-                .defaultMinSize(100.dp, 100.dp)
+                .defaultMinSize(100.dp, 200.dp)
                 .sizeIn(maxWidth = 350.dp)
         ) {
             Column(
@@ -282,11 +282,13 @@ fun InfoWarningPopup(
                     text = infoText,
                     fontSize = 13.sp,
                     modifier = Modifier.padding(
-                        start = 5.dp,
+                        start = 20.dp,
                         top = 10.dp,
                         bottom = 20.dp,
-                        end = 5.dp
-                    )
+                        end = 20.dp
+                    ),
+                    fontFamily = FontFamily.Default,
+                    textStyle = MaterialTheme.typography.body1
                 )
                 SwitchWithText(text =
                 { SharedComposable.DefaultText(
@@ -304,8 +306,15 @@ fun InfoWarningPopup(
                     text = localContext.getStringUpper(R.string.common_ok),
                     color = VintageGreen,
                     modifier = Modifier
+                        .padding(top = 5.dp, bottom = 10.dp)
+                        .clickable { onClickOk(onStateChange) }
+                )
+                SharedComposable.DefaultText(
+                    text = localContext.getStringUpper(R.string.common_cancel),
+                    color = VintageRedDark,
+                    modifier = Modifier
                         .padding(top = 5.dp, bottom = 20.dp)
-                        .clickable { onDismissRequest(onStateChange) }
+                        .clickable { onClickCancel() }
                 )
             }
         }
