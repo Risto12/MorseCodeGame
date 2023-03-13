@@ -13,5 +13,4 @@ abstract class WarningRepositoryModule {
 
     @Binds
     abstract fun warningRepositoryModule(warningRepositoryImpl: WarningRepositoryImpl): WarningRepository
-
 }

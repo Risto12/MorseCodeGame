@@ -7,11 +7,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.galaxy.morsecodegame.repository.WarningRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @Stable
 data class WarningPopup(
@@ -22,12 +22,13 @@ data class WarningPopup(
 }
 
 @HiltViewModel
-class WarningViewModel @Inject constructor(private val popupWarningRepository: WarningRepository): ViewModel() {
+class WarningViewModel @Inject constructor(private val popupWarningRepository: WarningRepository) : ViewModel() {
 
-    private val _warningStatus = MutableStateFlow(WarningPopup(
-        isDisabled = true,
-        isClicked = false
-    )
+    private val _warningStatus = MutableStateFlow(
+        WarningPopup(
+            isDisabled = true,
+            isClicked = false
+        )
     )
     val warningStatus: StateFlow<WarningPopup> = _warningStatus
 
@@ -40,7 +41,7 @@ class WarningViewModel @Inject constructor(private val popupWarningRepository: W
     fun closeWindowPopup() {
         _warningStatus.update {
             it.copy(
-                isClicked = true,
+                isClicked = true
             )
         }
     }

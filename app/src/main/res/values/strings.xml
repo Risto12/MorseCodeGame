@@ -12,6 +12,8 @@
     <string name="common_warning">WARNING</string>
     <string name="common_ok">OK</string>
     <string name="common_switch_dont_show">Don\'t show again</string>
+    <string name="start_info_warning">Flickering screen/lights may cause epilepsy\n\n By pressing ok you accept that you are using this app on your own responsibility.</string>
+
     <string name="single_player_answer">Correct answer is</string>
 
     <string name="morse_letters_top">BACK TO TOP</string>
@@ -52,6 +54,4 @@
     determined by wpm setting that you can alter from options but the max wpm is limited to 5.\n\n\
     To alter the settings go to options from the start screen -> options</string>
     <string name="start_info_bluetooth">Not available in this version</string>
-    <string name="start_info_warning_blinking_light">Warning epilepsy wappa</string>
-    <string name="start_info_warning_flashlight">Warning epilepsy wappa</string>
 </resources>

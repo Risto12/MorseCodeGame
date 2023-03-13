@@ -121,13 +121,13 @@ fun MorseCodeLetters(
                 )
             }
             item {
-            MorseCodeLetter.values().forEach {
-                val units = it
-                    .units.map { unit -> unit.name + " " }
-                    .toString()
-                    .replace("[", " = ")
-                    .replace("]", " ")
-                    .trimEnd()
+                MorseCodeLetter.values().forEach {
+                    val units = it
+                        .units.map { unit -> unit.name + " " }
+                        .toString()
+                        .replace("[", " = ")
+                        .replace("]", " ")
+                        .trimEnd()
                     SharedComposable.DefaultText(
                         text = it.name + " " + units,
                         color = MaterialTheme.colors.onPrimary,

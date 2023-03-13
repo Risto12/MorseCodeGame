@@ -1,6 +1,7 @@
 package com.galaxy.morsecodegame.ui.composables
 
 import android.annotation.SuppressLint
+import android.content.res.Configuration
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -8,15 +9,13 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -204,12 +203,12 @@ fun TelegraphImage(modifier: Modifier = Modifier) {
 @Composable
 fun InfoPopup(
     infoText: String,
-    onDismissRequest: () -> Unit,
+    onDismissRequest: () -> Unit
 ) {
     val localContext = LocalContext.current
     Popup(
         onDismissRequest = { onDismissRequest() },
-        alignment = Alignment.Center,
+        alignment = Alignment.Center
     ) {
         Surface(
             elevation = 9.dp,
@@ -257,16 +256,23 @@ fun InfoWarningPopup(
     val localContext = LocalContext.current
     Popup(
         onDismissRequest = { },
-        alignment = Alignment.Center,
-    )  {
+        alignment = Alignment.Center
+    ) {
+        val modifier = if (LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            Modifier
+                .defaultMinSize(100.dp, 200.dp)
+                .sizeIn(maxWidth = 250.dp)
+        } else {
+            Modifier
+                .defaultMinSize(100.dp, 200.dp)
+                .sizeIn(maxWidth = 600.dp)
+        }
         Surface(
             elevation = 9.dp,
             color = MaterialTheme.colors.primary,
             border = BorderStroke(2.dp, color = MaterialTheme.colors.onPrimary),
             contentColor = MaterialTheme.colors.onPrimary,
-            modifier = Modifier
-                .defaultMinSize(100.dp, 200.dp)
-                .sizeIn(maxWidth = 350.dp)
+            modifier = modifier
         ) {
             Column(
                 verticalArrangement = Arrangement.Center,
@@ -290,16 +296,19 @@ fun InfoWarningPopup(
                     fontFamily = FontFamily.Default,
                     textStyle = MaterialTheme.typography.body1
                 )
-                SwitchWithText(text =
-                { SharedComposable.DefaultText(
-                    text = localContext.getString(R.string.common_switch_dont_show),
-                    modifier = Modifier.padding(
-                        start = 5.dp,
-                        top = 10.dp,
-                        end = 5.dp
-                    ),
-                    fontSize = 10.sp
-                )},
+                SwitchWithText(
+                    text =
+                    {
+                        SharedComposable.DefaultText(
+                            text = localContext.getString(R.string.common_switch_dont_show),
+                            modifier = Modifier.padding(
+                                start = 5.dp,
+                                top = 10.dp,
+                                end = 5.dp
+                            ),
+                            fontSize = 10.sp
+                        )
+                    },
                     onStateChange = { onStateChange = it }
                 )
                 SharedComposable.DefaultText(
@@ -313,19 +322,20 @@ fun InfoWarningPopup(
                     text = localContext.getStringUpper(R.string.common_cancel),
                     color = VintageRedDark,
                     modifier = Modifier
-                        .padding(top = 5.dp, bottom = 20.dp)
+                        .padding(top = 5.dp, bottom = 25.dp)
                         .clickable { onClickCancel() }
                 )
             }
         }
-}}
+    } 
+}
 
 @Composable
 fun SwitchWithText(
     text: @Composable() () -> Unit,
     onStateChange: (Boolean) -> Unit
 ) {
-    var checkedState by rememberSaveable { mutableStateOf(false ) }
+    var checkedState by rememberSaveable { mutableStateOf(false) }
     Row {
         text()
         Switch(
@@ -335,7 +345,7 @@ fun SwitchWithText(
                 onStateChange(it)
             },
             colors = SwitchDefaults.colors(
-               uncheckedTrackColor = MaterialTheme.colors.primaryVariant,
+                uncheckedTrackColor = MaterialTheme.colors.primaryVariant,
                 uncheckedThumbColor = MaterialTheme.colors.primaryVariant,
                 checkedTrackColor = MaterialTheme.colors.background,
                 checkedThumbColor = MaterialTheme.colors.background

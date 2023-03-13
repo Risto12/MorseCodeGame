@@ -127,11 +127,13 @@ class MainActivity :
                         .fillMaxSize()
                 ) {
                     if (!loadingOptions) {
-                        if(warningInfoBox.showPopup()) {
+                        if (warningInfoBox.showPopup()) {
                             InfoWarningPopup(
-                                infoText = LocalContext.current.getString(R.string.start_info_warning_blinking_light),
+                                infoText = LocalContext.current.getString(
+                                    R.string.start_info_warning
+                                ),
                                 onClickOk = { disableWarning ->
-                                    if(disableWarning) warningViewModel.disableWarning()
+                                    if (disableWarning) warningViewModel.disableWarning()
                                     warningViewModel.closeWindowPopup()
                                 },
                                 onClickCancel = exit
@@ -185,7 +187,7 @@ private fun SinglePlayerMenu(
                 click = { onClickSinglePlayerType(GameType.LIGHT) }
             ),
             iconContentDescription = "Blinking light game mode info",
-            infoText = localContext.getString(R.string.start_info_blinking_light),
+            infoText = localContext.getString(R.string.start_info_blinking_light)
         )
         ButtonWithInfoBox(
             defaultButtonConfigurations = SharedComposable.DefaultButtonConfigurations(
@@ -230,7 +232,7 @@ private fun MultiplayerMenu(
                 // add this to enable flashlight onClickFlashLight(GameType.FLASHLIGHT)
             ),
             iconContentDescription = "Flash game mode info",
-            infoText = localContext.getString(R.string.start_info_flashlight_not_available),
+            infoText = localContext.getString(R.string.start_info_flashlight_not_available)
         )
         ButtonWithInfoBox(
             defaultButtonConfigurations = SharedComposable.DefaultButtonConfigurations(
@@ -259,7 +261,7 @@ fun ButtonWithInfoBox(
 ) {
     var infoPopUp by rememberSaveable { mutableStateOf(false) }
     Row {
-        if(infoPopUp) InfoPopup(infoText = infoText) { infoPopUp = false }
+        if (infoPopUp) InfoPopup(infoText = infoText) { infoPopUp = false }
         SharedComposable.DefaultButton(configurations = defaultButtonConfigurations)
         SharedComposable.DefaultButton(
             configurations = SharedComposable.DefaultButtonComposableConfigurations(
@@ -339,16 +341,18 @@ private fun BoxScope.MainMenu(
                         click = onClickExit
                     )
                 )
-            }}}
-    if(LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            } 
+        } 
+    }
+    if (LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT) {
         SharedComposable.DefaultText(
-        text = "v$version",
-        fontSize = 15.sp,
-        modifier = Modifier
-            .padding(bottom = 10.dp)
-            .align(Alignment.BottomCenter),
-        color = MaterialTheme.colors.primary
-    )
+            text = "v$version",
+            fontSize = 15.sp,
+            modifier = Modifier
+                .padding(bottom = 10.dp)
+                .align(Alignment.BottomCenter),
+            color = MaterialTheme.colors.primary
+        )
     }
 }
 

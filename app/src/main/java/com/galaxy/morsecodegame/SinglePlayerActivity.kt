@@ -248,8 +248,8 @@ private fun SinglePlayerScreen(
                     .align(Alignment.Center)
             )
         }
-        if(!answerBoxOn) {
-            val modifier = if(LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT) {
+        if (!answerBoxOn) {
+            val modifier = if (LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT) {
                 Modifier.align(Alignment.BottomCenter).padding(bottom = 30.dp)
             } else {
                 Modifier.align(Alignment.CenterEnd).padding(end = 50.dp)
@@ -366,9 +366,11 @@ fun SinglePlayerActivityPreview() {
 @Preview
 fun SinglePlayerActivityGameOverPreview() {
     MorseCodeGameTheme {
-        Box(modifier = Modifier
-            .fillMaxSize()
-            .background(color = MaterialTheme.colors.background)) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(color = MaterialTheme.colors.background)
+        ) {
             GameOver(isTimeout = true)
         }
     }
