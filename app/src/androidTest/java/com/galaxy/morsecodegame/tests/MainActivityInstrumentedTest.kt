@@ -79,7 +79,7 @@ class MainActivityInstrumentedTest {
         rule.onNodeWithContentDescription("Flash game mode info")
             .performClick()
         rule.onNodeWithTextAndSubStringIgnore(
-            "This game mode lets you send morse code with your phones flashlight."
+            "Not available because the developer"
         )
             .assertExists()
 
@@ -94,6 +94,15 @@ class MainActivityInstrumentedTest {
         rule.onNodeWithTextIgnore("Multiplayer")
             .performClick()
         rule.onNodeWithTextIgnore("Bluetooth")
+            .assertExists()
+            .assertIsNotEnabled()
+    }
+
+    @Test
+    fun testMultiplayerFlashlightButtonDoesNotTrigger() {
+        rule.onNodeWithTextIgnore("Multiplayer")
+            .performClick()
+        rule.onNodeWithTextIgnore("Flashlight")
             .assertExists()
             .assertIsNotEnabled()
     }

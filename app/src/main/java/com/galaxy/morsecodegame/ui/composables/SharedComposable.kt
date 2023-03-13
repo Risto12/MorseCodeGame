@@ -1,15 +1,23 @@
 package com.galaxy.morsecodegame.ui.composables
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
@@ -20,7 +28,12 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Popup
+import androidx.compose.ui.window.PopupProperties
 import com.galaxy.morsecodegame.R
+import com.galaxy.morsecodegame.ui.theme.VintageGreen
+import com.galaxy.morsecodegame.ui.theme.VintageRedDark
+import com.galaxy.morsecodegame.utility.getStringUpper
 
 object SharedComposable {
 
@@ -185,6 +198,136 @@ fun TelegraphImage(modifier: Modifier = Modifier) {
                 .width(200.dp)
                 .height(200.dp)
                 .padding(start = 40.dp, end = 40.dp)
+        )
+    }
+}
+
+@Composable
+fun InfoPopup(
+    infoText: String,
+    onDismissRequest: () -> Unit,
+) {
+    val localContext = LocalContext.current
+    Popup(
+        onDismissRequest = { onDismissRequest() },
+        alignment = Alignment.Center,
+    ) {
+        Surface(
+            elevation = 9.dp,
+            color = MaterialTheme.colors.primary,
+            border = BorderStroke(2.dp, color = MaterialTheme.colors.onPrimary),
+            contentColor = MaterialTheme.colors.onPrimary,
+            modifier = Modifier
+                .defaultMinSize(100.dp, 100.dp)
+                .sizeIn(maxWidth = 350.dp)
+        ) {
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                SharedComposable.DefaultText(
+                    text = infoText,
+                    modifier = Modifier.padding(
+                        start = 5.dp,
+                        top = 5.dp,
+                        bottom = 20.dp,
+                        end = 5.dp
+                    )
+                )
+                SharedComposable.DefaultText(
+                    text = localContext.getStringUpper(R.string.common_ok),
+                    color = VintageGreen,
+                    modifier = Modifier
+                        .padding(top = 5.dp, bottom = 20.dp)
+                        .clickable { onDismissRequest() }
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun InfoWarningPopup(
+    infoText: String,
+    onDismissRequest: () -> Unit
+) {
+    val localContext = LocalContext.current
+    Popup(
+        onDismissRequest = { },
+        alignment = Alignment.Center,
+    )  {
+        Surface(
+            elevation = 9.dp,
+            color = MaterialTheme.colors.primary,
+            border = BorderStroke(2.dp, color = MaterialTheme.colors.onPrimary),
+            contentColor = MaterialTheme.colors.onPrimary,
+            modifier = Modifier
+                .defaultMinSize(100.dp, 100.dp)
+                .sizeIn(maxWidth = 350.dp)
+        ) {
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                SharedComposable.DefaultText(
+                    text = localContext.getString(R.string.common_warning),
+                    color = VintageRedDark,
+                    modifier = Modifier.padding(top = 5.dp),
+                    fontSize = 20.sp
+                )
+                SharedComposable.DefaultText(
+                    text = infoText,
+                    fontSize = 13.sp,
+                    modifier = Modifier.padding(
+                        start = 5.dp,
+                        top = 10.dp,
+                        bottom = 20.dp,
+                        end = 5.dp
+                    )
+                )
+                SwitchWithText(text =
+                { SharedComposable.DefaultText(
+                    text = localContext.getString(R.string.common_switch_dont_show),
+                    modifier = Modifier.padding(
+                        start = 5.dp,
+                        top = 10.dp,
+                        end = 5.dp
+                    ),
+                    fontSize = 10.sp
+                )},
+                    onStateChange = { status -> println(status)}
+                )
+                SharedComposable.DefaultText(
+                    text = localContext.getStringUpper(R.string.common_ok),
+                    color = VintageGreen,
+                    modifier = Modifier
+                        .padding(top = 5.dp, bottom = 20.dp)
+                        .clickable { onDismissRequest() }
+                )
+            }
+        }
+}}
+
+@Composable
+fun SwitchWithText(
+    text: @Composable() () -> Unit,
+    onStateChange: (Boolean) -> Unit
+) {
+    var checkedState by rememberSaveable { mutableStateOf(false ) }
+    Row {
+        text()
+        Switch(
+            checked = checkedState,
+            onCheckedChange = {
+                checkedState = it
+                onStateChange(it)
+            },
+            colors = SwitchDefaults.colors(
+               uncheckedTrackColor = MaterialTheme.colors.primaryVariant,
+                uncheckedThumbColor = MaterialTheme.colors.primaryVariant,
+                checkedTrackColor = MaterialTheme.colors.background,
+                checkedThumbColor = MaterialTheme.colors.background
+            )
         )
     }
 }

@@ -6,13 +6,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.runtime.*
@@ -25,9 +23,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.Popup
 import com.galaxy.morsecodegame.components.ExceptionActivityResult
 import com.galaxy.morsecodegame.configurations.MainInfoTextConfigurations
+import com.galaxy.morsecodegame.ui.composables.InfoPopup
+import com.galaxy.morsecodegame.ui.composables.InfoWarningPopup
 import com.galaxy.morsecodegame.ui.composables.SharedComposable
 import com.galaxy.morsecodegame.ui.composables.TelegraphImage
 import com.galaxy.morsecodegame.ui.theme.MorseCodeGameTheme
@@ -112,6 +111,9 @@ class MainActivity :
 
         setContent {
             var loadingOptions by rememberSaveable { mutableStateOf(false) }
+            var warningInfoBox  by rememberSaveable {
+                mutableStateOf(true)
+            }
             val setLoadingOptions = { launch: (GameType) -> Unit ->
                 loadingOptions = false
                 launch
@@ -126,6 +128,12 @@ class MainActivity :
                         .fillMaxSize()
                 ) {
                     if (!loadingOptions) {
+                        if(warningInfoBox) {
+                            InfoWarningPopup(
+                                infoText = LocalContext.current.getString(R.string.start_info_warning_blinking_light),
+                                onDismissRequest = { warningInfoBox = false }
+                            )
+                        }
                         when {
                             singlePlayerClicked -> SinglePlayerMenu(
                                 onClickSinglePlayerType = setLoadingOptions(singlePlayer),
@@ -174,7 +182,7 @@ private fun SinglePlayerMenu(
                 click = { onClickSinglePlayerType(GameType.LIGHT) }
             ),
             iconContentDescription = "Blinking light game mode info",
-            infoText = localContext.getString(R.string.start_info_blinking_light)
+            infoText = localContext.getString(R.string.start_info_blinking_light),
         )
         ButtonWithInfoBox(
             defaultButtonConfigurations = SharedComposable.DefaultButtonConfigurations(
@@ -213,10 +221,13 @@ private fun MultiplayerMenu(
         ButtonWithInfoBox(
             defaultButtonConfigurations = SharedComposable.DefaultButtonConfigurations(
                 text = localContext.getStringUpper(R.string.start_screen_flashlight),
-                click = { onClickFlashLight(GameType.FLASHLIGHT) }
+                click = { },
+                available = false,
+                enabled = false
+                // add this to enable flashlight onClickFlashLight(GameType.FLASHLIGHT)
             ),
             iconContentDescription = "Flash game mode info",
-            infoText = localContext.getString(R.string.start_info_flashlight)
+            infoText = localContext.getString(R.string.start_info_flashlight_not_available),
         )
         ButtonWithInfoBox(
             defaultButtonConfigurations = SharedComposable.DefaultButtonConfigurations(
@@ -243,40 +254,9 @@ fun ButtonWithInfoBox(
     iconContentDescription: String,
     infoText: String
 ) {
-    // Info popup could be promoted to its own composable.
     var infoPopUp by rememberSaveable { mutableStateOf(false) }
     Row {
-        if (infoPopUp) {
-            Popup(
-                onDismissRequest = { infoPopUp = false },
-                alignment = Alignment.Center
-            ) {
-                Surface(
-                    elevation = 9.dp,
-                    color = MaterialTheme.colors.primary,
-                    border = BorderStroke(2.dp, color = MaterialTheme.colors.onPrimary),
-                    contentColor = MaterialTheme.colors.onPrimary,
-                    modifier = Modifier
-                        .defaultMinSize(100.dp, 100.dp)
-                        .sizeIn(maxWidth = 350.dp)
-                ) {
-                    Column(
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        SharedComposable.DefaultText(
-                            text = infoText,
-                            modifier = Modifier.padding(
-                                start = 5.dp,
-                                top = 5.dp,
-                                bottom = 20.dp,
-                                end = 5.dp
-                            )
-                        )
-                    }
-                }
-            }
-        }
+        if(infoPopUp) InfoPopup(infoText = infoText) { infoPopUp = false }
         SharedComposable.DefaultButton(configurations = defaultButtonConfigurations)
         SharedComposable.DefaultButton(
             configurations = SharedComposable.DefaultButtonComposableConfigurations(
