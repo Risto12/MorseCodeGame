@@ -250,7 +250,7 @@ private fun SinglePlayerScreen(
         }
         if(!answerBoxOn) {
             val modifier = if(LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                Modifier.align(Alignment.BottomCenter).padding(bottom = 100.dp)
+                Modifier.align(Alignment.BottomCenter).padding(bottom = 30.dp)
             } else {
                 Modifier.align(Alignment.CenterEnd).padding(end = 50.dp)
             }
