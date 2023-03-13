@@ -297,8 +297,7 @@ fun InfoWarningPopup(
                     textStyle = MaterialTheme.typography.body1
                 )
                 SwitchWithText(
-                    text =
-                    {
+                    text = {
                         SharedComposable.DefaultText(
                             text = localContext.getString(R.string.common_switch_dont_show),
                             modifier = Modifier.padding(
@@ -306,7 +305,7 @@ fun InfoWarningPopup(
                                 top = 10.dp,
                                 end = 5.dp
                             ),
-                            fontSize = 10.sp
+                            fontSize = 12.sp
                         )
                     },
                     onStateChange = { onStateChange = it }
@@ -315,7 +314,7 @@ fun InfoWarningPopup(
                     text = localContext.getStringUpper(R.string.common_ok),
                     color = VintageGreen,
                     modifier = Modifier
-                        .padding(top = 5.dp, bottom = 10.dp)
+                        .padding(top = 15.dp, bottom = 10.dp)
                         .clickable { onClickOk(onStateChange) }
                 )
                 SharedComposable.DefaultText(
@@ -336,20 +335,42 @@ fun SwitchWithText(
     onStateChange: (Boolean) -> Unit
 ) {
     var checkedState by rememberSaveable { mutableStateOf(false) }
-    Row {
+    val localContext = LocalContext.current
+    Column (
+        horizontalAlignment = Alignment.CenterHorizontally
+            ){
         text()
-        Switch(
-            checked = checkedState,
-            onCheckedChange = {
-                checkedState = it
-                onStateChange(it)
-            },
-            colors = SwitchDefaults.colors(
-                uncheckedTrackColor = MaterialTheme.colors.primaryVariant,
-                uncheckedThumbColor = MaterialTheme.colors.primaryVariant,
-                checkedTrackColor = MaterialTheme.colors.background,
-                checkedThumbColor = MaterialTheme.colors.background
+        Row (
+            verticalAlignment = Alignment.CenterVertically,
+        ){
+            SharedComposable.DefaultText(
+                text = localContext.getString(R.string.common_no),
+                modifier = Modifier.padding(
+                    end = 5.dp
+                ),
+                fontSize = 8.sp
             )
-        )
-    }
+            Switch(
+                checked = checkedState,
+                onCheckedChange = {
+                    checkedState = it
+                    onStateChange(it)
+                },
+                colors = SwitchDefaults.colors(
+                    uncheckedTrackColor = MaterialTheme.colors.primaryVariant,
+                    uncheckedThumbColor = MaterialTheme.colors.primaryVariant,
+                    checkedTrackColor = MaterialTheme.colors.background,
+                    checkedThumbColor = MaterialTheme.colors.background
+                )
+            )
+            SharedComposable.DefaultText(
+                text = localContext.getString(R.string.common_yes),
+                modifier = Modifier.padding(
+                    start = 5.dp,
+                ),
+                fontSize = 8.sp
+            )
+        }
+        }
+
 }
