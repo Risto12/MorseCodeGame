@@ -2,6 +2,7 @@ package com.galaxy.morsecodegame.tests
 
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.datastore.core.DataStore
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.galaxy.morsecodegame.MainActivity
 import com.galaxy.morsecodegame.di.FakeDb
@@ -13,31 +14,37 @@ import org.junit.After
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.util.prefs.Preferences
+import javax.inject.Inject
 
 @RunWith(AndroidJUnit4::class)
 @HiltAndroidTest
 class MainActivityInstrumentedTest {
 
     @get:Rule
-    val rule = createAndroidComposeRule<MainActivity>()
+    val hiltRule = HiltAndroidRule(this)
 
     @get:Rule
-    val hiltRule = HiltAndroidRule(this)
+    val rule = createAndroidComposeRule<MainActivity>()
 
     @After
     fun after() {
         FakeDb.resetDb()
     }
 
-    private fun getString(id: Int) = rule.activity.baseContext.getString(id)
-
+    private fun clickWarningDisclaimerOk() {
+        rule.onNodeWithTextIgnore("WARNING")
+            .assertExists()
+        rule.onNodeWithTextIgnore("ok")
+            .performClick()
+    }
     /**
      * Testing that route from Start of the app to morse code letters screen and back to start
      * works
      */
     @Test
     fun testRouteToMorseCodeLettersAndBack() {
-        // rule.onRoot().printToLog("TAG")
+        clickWarningDisclaimerOk()
         rule.onNodeWithTextIgnore("Morse Code")
             .performClick()
         rule.onNodeWithText("Overview")
@@ -50,6 +57,7 @@ class MainActivityInstrumentedTest {
 
     @Test
     fun testSinglePlayerLightAndSoundInfoBoxesAppears() {
+        clickWarningDisclaimerOk()
         rule.onNodeWithTextIgnore("Single player")
             .performClick()
         rule.onNodeWithContentDescription("Sound game mode info")
@@ -65,6 +73,7 @@ class MainActivityInstrumentedTest {
 
     @Test
     fun testSinglePlayerSoundButtonDoesNotTrigger() {
+        clickWarningDisclaimerOk()
         rule.onNodeWithTextIgnore("Single Player")
             .performClick()
         rule.onNodeWithTextIgnore("Sound")
@@ -74,6 +83,7 @@ class MainActivityInstrumentedTest {
 
     @Test
     fun testMultiplayerLightAndBluetoothInfoBoxesAppears() {
+        clickWarningDisclaimerOk()
         rule.onNodeWithTextIgnore("Multiplayer")
             .performClick()
         rule.onNodeWithContentDescription("Flash game mode info")
@@ -91,6 +101,7 @@ class MainActivityInstrumentedTest {
 
     @Test
     fun testMultiplayerBluetoothButtonDoesNotTrigger() {
+        clickWarningDisclaimerOk()
         rule.onNodeWithTextIgnore("Multiplayer")
             .performClick()
         rule.onNodeWithTextIgnore("Bluetooth")
@@ -100,6 +111,7 @@ class MainActivityInstrumentedTest {
 
     @Test
     fun testMultiplayerFlashlightButtonDoesNotTrigger() {
+        clickWarningDisclaimerOk()
         rule.onNodeWithTextIgnore("Multiplayer")
             .performClick()
         rule.onNodeWithTextIgnore("Flashlight")
@@ -109,6 +121,7 @@ class MainActivityInstrumentedTest {
 
     @Test
     fun testVersionNumberExists() {
+        clickWarningDisclaimerOk()
         rule.onNodeWithTextIgnore("v1.0").assertExists()
     }
 }
