@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.galaxy.morsecodegame.model.Options
 import com.galaxy.morsecodegame.utility.Question
 import com.galaxy.morsecodegame.utility.QuestionGenerator
+import com.galaxy.morsecodegame.utility.lightMaxWordsPerMinute
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -48,7 +49,7 @@ class GameViewModel(private val options: Options) : ViewModel() {
         }
     }
 
-    fun getWordsPerMinute() = options.wordsPerMinute
+    fun getWordsPerMinute() = options.wordsPerMinute.lightMaxWordsPerMinute()
 
     fun getAmountOfQuestions() = options.numberOfQuestions
 

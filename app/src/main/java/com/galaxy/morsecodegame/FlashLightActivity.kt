@@ -34,6 +34,7 @@ import com.galaxy.morsecodegame.ui.theme.MorseCodeGameTheme
 import com.galaxy.morsecodegame.utility.ToastGenerator
 import com.galaxy.morsecodegame.utility.getOptions
 import com.galaxy.morsecodegame.utility.getStringUpper
+import com.galaxy.morsecodegame.utility.lightMaxWordsPerMinute
 import com.galaxy.morsecodegame.viewModel.*
 import kotlinx.coroutines.*
 
@@ -49,10 +50,8 @@ class FlashlightActivity : ComponentActivity() {
     private lateinit var cameraManager: CameraManager
     private lateinit var legendaryTorch: LegendaryTorch
     private val wordsPerMinute: Int by lazy {
-        // Prevent the light flashing too fast.
-        val maxWordsPerMinute = 5
         val wordsPerMinute = intent.getOptions().wordsPerMinute
-        if (wordsPerMinute <= maxWordsPerMinute) wordsPerMinute else maxWordsPerMinute
+        wordsPerMinute.lightMaxWordsPerMinute()
     }
     private var flashingJob: Job? = null
 

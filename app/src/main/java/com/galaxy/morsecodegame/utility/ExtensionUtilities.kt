@@ -14,6 +14,14 @@ fun Context.getStringUpper(@StringRes id: Int): String = getString(id).uppercase
 
 fun Intent.getOptions() = getParcelableExtra<Options>(CommonIntentExtraKeys.OPTIONS)!!
 
+/***
+ * For light or blinking images the MAX WPS is 3
+ */
+fun Int.lightMaxWordsPerMinute(): Int {
+    val maxWordsPerMinute = 3
+    return if (this <= maxWordsPerMinute) this else maxWordsPerMinute
+}
+
 /**
  * Helper function to get values by key from properties file. If value is not found and null is
  * returned it will be replaced with empty value because these values are just info related
