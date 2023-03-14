@@ -25,10 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.galaxy.morsecodegame.components.ExceptionActivityResult
 import com.galaxy.morsecodegame.configurations.MainInfoTextConfigurations
-import com.galaxy.morsecodegame.ui.composables.InfoPopup
-import com.galaxy.morsecodegame.ui.composables.InfoWarningPopup
-import com.galaxy.morsecodegame.ui.composables.SharedComposable
-import com.galaxy.morsecodegame.ui.composables.TelegraphImage
+import com.galaxy.morsecodegame.ui.composables.*
 import com.galaxy.morsecodegame.ui.theme.MorseCodeGameTheme
 import com.galaxy.morsecodegame.ui.theme.VintageGreen
 import com.galaxy.morsecodegame.utility.*
@@ -128,9 +125,9 @@ class MainActivity :
                 ) {
                     if (!loadingOptions) {
                         if (warningInfoBox.showPopup()) {
-                            InfoWarningPopup(
+                            InfoWarningDisclaimerPopup(
                                 infoText = LocalContext.current.getString(
-                                    R.string.start_info_warning
+                                    R.string.start_disclaimer_warning
                                 ),
                                 onClickOk = { disableWarning ->
                                     if (disableWarning) warningViewModel.disableWarning()
@@ -181,13 +178,14 @@ private fun SinglePlayerMenu(
         SharedComposable.Header6(
             text = "Choose Morse type"
         )
-        ButtonWithInfoBox(
+        ButtonWithWarningInfoBox(
             defaultButtonConfigurations = SharedComposable.DefaultButtonConfigurations(
                 text = localContext.getStringUpper(R.string.start_screen_blinking_light),
                 click = { onClickSinglePlayerType(GameType.LIGHT) }
             ),
             iconContentDescription = "Blinking light game mode info",
-            infoText = localContext.getString(R.string.start_info_blinking_light)
+            infoText = localContext.getString(R.string.start_info_blinking_light),
+            warningText = localContext.getString(R.string.start_blinking_info_warning),
         )
         ButtonWithInfoBox(
             defaultButtonConfigurations = SharedComposable.DefaultButtonConfigurations(
@@ -223,7 +221,7 @@ private fun MultiplayerMenu(
         SharedComposable.Header6(
             text = "Choose Morse type"
         )
-        ButtonWithInfoBox(
+        ButtonWithWarningInfoBox(
             defaultButtonConfigurations = SharedComposable.DefaultButtonConfigurations(
                 text = localContext.getStringUpper(R.string.start_screen_flashlight),
                 click = { onClickFlashLight(GameType.FLASHLIGHT) },
@@ -231,7 +229,8 @@ private fun MultiplayerMenu(
                 enabled = true
             ),
             iconContentDescription = "Flash game mode info",
-            infoText = localContext.getString(R.string.start_info_flashlight)
+            infoText = localContext.getString(R.string.start_info_flashlight),
+            warningText = localContext.getString(R.string.start_flashlight_info_warning),
         )
         ButtonWithInfoBox(
             defaultButtonConfigurations = SharedComposable.DefaultButtonConfigurations(
@@ -280,6 +279,34 @@ fun ButtonWithInfoBox(
     }
 }
 
+@Composable
+fun ButtonWithWarningInfoBox(
+    defaultButtonConfigurations: SharedComposable.DefaultButtonConfigurations,
+    iconContentDescription: String,
+    infoText: String,
+    warningText: String
+) {
+    var infoPopUp by rememberSaveable { mutableStateOf(false) }
+    Row {
+        if (infoPopUp) InfoWarningPopup(infoText = infoText, warningText = warningText) { infoPopUp = false }
+        SharedComposable.DefaultButton(configurations = defaultButtonConfigurations)
+        SharedComposable.DefaultButton(
+            configurations = SharedComposable.DefaultButtonComposableConfigurations(
+                content = {
+                    Icon(
+                        imageVector = Icons.Default.Info,
+                        contentDescription = iconContentDescription,
+                        tint = VintageGreen
+                    )
+                },
+                click = {
+                    infoPopUp = true
+                }
+            ),
+            modifier = Modifier.padding(start = 10.dp)
+        )
+    }
+}
 @Composable
 private fun BoxScope.MainMenu(
     onClickSinglePlayer: () -> Unit,

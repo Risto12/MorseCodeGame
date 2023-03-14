@@ -208,7 +208,7 @@ fun InfoPopup(
 ) {
     val localContext = LocalContext.current
     Popup(
-        onDismissRequest = { onDismissRequest() },
+        onDismissRequest = onDismissRequest,
         alignment = Alignment.Center
     ) {
         Surface(
@@ -246,7 +246,7 @@ fun InfoPopup(
 }
 
 @Composable
-fun InfoWarningPopup(
+fun InfoWarningDisclaimerPopup(
     infoText: String,
     onClickOk: (Boolean) -> Unit,
     onClickCancel: () -> Unit
@@ -325,6 +325,81 @@ fun InfoWarningPopup(
                         modifier = Modifier
                             .padding(top = 5.dp, bottom = 25.dp)
                             .clickable { onClickCancel() }
+                    )
+                }
+            }
+        }
+    }
+}
+
+
+@Composable
+fun InfoWarningPopup(
+    infoText: String,
+    warningText: String,
+    onDismissRequest: () -> Unit
+) {
+    val localContext = LocalContext.current
+    Popup(
+        onDismissRequest = onDismissRequest,
+        alignment = Alignment.Center
+    ) {
+        val modifier = if (LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            Modifier
+                .defaultMinSize(100.dp, 200.dp)
+                .sizeIn(maxWidth = 300.dp)
+        } else {
+            Modifier
+                .defaultMinSize(100.dp, 200.dp)
+                .sizeIn(maxWidth = 600.dp)
+        }
+        Surface(
+            elevation = 9.dp,
+            color = MaterialTheme.colors.primary,
+            border = BorderStroke(2.dp, color = MaterialTheme.colors.onPrimary),
+            contentColor = MaterialTheme.colors.onPrimary,
+            modifier = modifier
+        ) {
+            LazyColumn(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                item {
+                    SharedComposable.DefaultText(
+                        text = infoText,
+                        fontSize = 13.sp,
+                        modifier = Modifier.padding(
+                            start = 20.dp,
+                            top = 10.dp,
+                            bottom = 20.dp,
+                            end = 20.dp
+                        ),
+                        textStyle = MaterialTheme.typography.body1
+                    )
+                    SharedComposable.DefaultText(
+                        text = localContext.getStringUpper(R.string.common_warning),
+                        color = VintageRedDark,
+                        modifier = Modifier.padding(top = 5.dp),
+                        fontSize = 20.sp
+                    )
+                    SharedComposable.DefaultText(
+                        text = warningText.uppercase(),
+                        fontSize = 13.sp,
+                        modifier = Modifier.padding(
+                            start = 20.dp,
+                            top = 10.dp,
+                            bottom = 20.dp,
+                            end = 20.dp
+                        ),
+                        fontFamily = FontFamily.Default,
+                        textStyle = MaterialTheme.typography.body1
+                    )
+                    SharedComposable.DefaultText(
+                        text = localContext.getStringUpper(R.string.common_ok),
+                        color = VintageGreen,
+                        modifier = Modifier
+                            .padding(bottom = 10.dp)
+                            .clickable { onDismissRequest() }
                     )
                 }
             }
