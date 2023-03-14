@@ -184,6 +184,7 @@ private fun SinglePlayerMenu(
                 click = { onClickSinglePlayerType(GameType.LIGHT) }
             ),
             iconContentDescription = "Blinking light game mode info",
+            infoHeader = "Blinking light",
             infoText = localContext.getString(R.string.start_info_blinking_light),
             warningText = localContext.getString(R.string.start_blinking_info_warning),
         )
@@ -229,6 +230,7 @@ private fun MultiplayerMenu(
                 enabled = true
             ),
             iconContentDescription = "Flash game mode info",
+            infoHeader = "Flashlight",
             infoText = localContext.getString(R.string.start_info_flashlight),
             warningText = localContext.getString(R.string.start_flashlight_info_warning),
         )
@@ -283,12 +285,17 @@ fun ButtonWithInfoBox(
 fun ButtonWithWarningInfoBox(
     defaultButtonConfigurations: SharedComposable.DefaultButtonConfigurations,
     iconContentDescription: String,
+    infoHeader: String,
     infoText: String,
-    warningText: String
+    warningText: String,
 ) {
     var infoPopUp by rememberSaveable { mutableStateOf(false) }
     Row {
-        if (infoPopUp) InfoWarningPopup(infoText = infoText, warningText = warningText) { infoPopUp = false }
+        if (infoPopUp) InfoWarningPopup(
+            infoHeader = infoHeader,
+            infoText = infoText,
+            warningText = warningText
+        ) { infoPopUp = false }
         SharedComposable.DefaultButton(configurations = defaultButtonConfigurations)
         SharedComposable.DefaultButton(
             configurations = SharedComposable.DefaultButtonComposableConfigurations(
@@ -331,7 +338,7 @@ private fun BoxScope.MainMenu(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             item {
-                TelegraphImage(modifier = Modifier.padding(top = 20.dp, bottom = 30.dp))
+                TelegraphImage(modifier = Modifier.padding(top = 10.dp, bottom = 25.dp))
                 SharedComposable.Header6(
                     text = stringResource(R.string.app_name),
                     paddingBottom = 20.dp

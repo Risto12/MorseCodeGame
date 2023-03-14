@@ -2,12 +2,14 @@ package com.galaxy.morsecodegame.ui.composables
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -24,6 +26,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
@@ -33,6 +36,7 @@ import com.galaxy.morsecodegame.R
 import com.galaxy.morsecodegame.ui.theme.VintageGreen
 import com.galaxy.morsecodegame.ui.theme.VintageRedDark
 import com.galaxy.morsecodegame.utility.getStringUpper
+import kotlinx.coroutines.launch
 
 object SharedComposable {
 
@@ -201,6 +205,7 @@ fun TelegraphImage(modifier: Modifier = Modifier) {
     }
 }
 
+// InfoHeader could be added
 @Composable
 fun InfoPopup(
     infoText: String,
@@ -259,31 +264,23 @@ fun InfoWarningDisclaimerPopup(
         onDismissRequest = { },
         alignment = Alignment.Center
     ) {
-        val modifier = if (LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            Modifier
-                .defaultMinSize(100.dp, 200.dp)
-                .sizeIn(maxWidth = 250.dp)
-        } else {
-            Modifier
-                .defaultMinSize(100.dp, 200.dp)
-                .sizeIn(maxWidth = 600.dp)
-        }
         Surface(
             elevation = 9.dp,
             color = MaterialTheme.colors.primary,
             border = BorderStroke(2.dp, color = MaterialTheme.colors.onPrimary),
             contentColor = MaterialTheme.colors.onPrimary,
-            modifier = modifier
+            modifier = Modifier
+                .fillMaxSize(0.8f)
         ) {
             LazyColumn(
-                verticalArrangement = Arrangement.Center,
+                verticalArrangement = Arrangement.SpaceBetween,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 item {
                     SharedComposable.DefaultText(
                         text = localContext.getStringUpper(R.string.common_warning),
                         color = VintageRedDark,
-                        modifier = Modifier.padding(top = 5.dp),
+                        modifier = Modifier.padding(top = 30.dp),
                         fontSize = 20.sp
                     )
                     SharedComposable.DefaultText(
@@ -298,6 +295,8 @@ fun InfoWarningDisclaimerPopup(
                         fontFamily = FontFamily.Default,
                         textStyle = MaterialTheme.typography.body1
                     )
+                }
+                item {
                     SwitchWithText(
                         text = {
                             SharedComposable.DefaultText(
@@ -316,7 +315,7 @@ fun InfoWarningDisclaimerPopup(
                         text = localContext.getStringUpper(R.string.common_ok),
                         color = VintageGreen,
                         modifier = Modifier
-                            .padding(top = 15.dp, bottom = 10.dp)
+                            .padding(top = 30.dp, bottom = 10.dp)
                             .clickable { onClickOk(onStateChange) }
                     )
                     SharedComposable.DefaultText(
@@ -335,6 +334,7 @@ fun InfoWarningDisclaimerPopup(
 
 @Composable
 fun InfoWarningPopup(
+    infoHeader: String,
     infoText: String,
     warningText: String,
     onDismissRequest: () -> Unit
@@ -344,38 +344,51 @@ fun InfoWarningPopup(
         onDismissRequest = onDismissRequest,
         alignment = Alignment.Center
     ) {
-        val modifier = if (LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            Modifier
-                .defaultMinSize(100.dp, 200.dp)
-                .sizeIn(maxWidth = 300.dp)
-        } else {
-            Modifier
-                .defaultMinSize(100.dp, 200.dp)
-                .sizeIn(maxWidth = 600.dp)
+        val listState = rememberLazyListState()
+        val showButton by remember {
+            derivedStateOf {
+                listState.layoutInfo.visibleItemsInfo.size < 3
+            }
         }
         Surface(
             elevation = 9.dp,
             color = MaterialTheme.colors.primary,
             border = BorderStroke(2.dp, color = MaterialTheme.colors.onPrimary),
             contentColor = MaterialTheme.colors.onPrimary,
-            modifier = modifier
+            modifier = Modifier
+                .fillMaxWidth(0.8f)
+                .fillMaxHeight(0.85f)
         ) {
-            LazyColumn(
-                verticalArrangement = Arrangement.Center,
+            Column(
                 horizontalAlignment = Alignment.CenterHorizontally
+            ){
+            LazyColumn(
+                state = listState,
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.weight(6f)
             ) {
                 item {
+                    SharedComposable.DefaultHeaderText(
+                        color = MaterialTheme.colors.onPrimary,
+                        text = infoHeader.uppercase(),
+                        modifier = Modifier.padding(
+                            top = 10.dp,
+                        ),
+                        paddingBottom = 15.dp
+                    )
                     SharedComposable.DefaultText(
                         text = infoText,
                         fontSize = 13.sp,
                         modifier = Modifier.padding(
                             start = 20.dp,
-                            top = 10.dp,
                             bottom = 20.dp,
                             end = 20.dp
                         ),
                         textStyle = MaterialTheme.typography.body1
-                    )
+                    )}
+
+                item {
                     SharedComposable.DefaultText(
                         text = localContext.getStringUpper(R.string.common_warning),
                         color = VintageRedDark,
@@ -394,18 +407,36 @@ fun InfoWarningPopup(
                         fontFamily = FontFamily.Default,
                         textStyle = MaterialTheme.typography.body1
                     )
+                }
+                item {
+
                     SharedComposable.DefaultText(
                         text = localContext.getStringUpper(R.string.common_ok),
                         color = VintageGreen,
                         modifier = Modifier
-                            .padding(bottom = 10.dp)
+                            .padding(bottom = 10.dp, top = 5.dp)
                             .clickable { onDismissRequest() }
+                            .weight(0.3f)
                     )
+                }
+        }
+                AnimatedVisibility(visible = showButton) {
+                    Box (
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(0.05f),
+                    ){
+                    SharedComposable.DefaultText(
+                        text = localContext.getStringUpper(R.string.common_scroll_down),
+                        modifier = Modifier.align(Alignment.Center),
+                        fontSize = 10.sp,
+                    )
+                    }
                 }
             }
         }
-    }
-}
+    }}
+
 
 @Composable
 fun SwitchWithText(
@@ -422,7 +453,7 @@ fun SwitchWithText(
             verticalAlignment = Alignment.CenterVertically
         ) {
             SharedComposable.DefaultText(
-                text = localContext.getString(R.string.common_no),
+                text = localContext.getString(R.string.common_on),
                 modifier = Modifier.padding(
                     end = 5.dp
                 ),
@@ -442,7 +473,7 @@ fun SwitchWithText(
                 )
             )
             SharedComposable.DefaultText(
-                text = localContext.getString(R.string.common_yes),
+                text = localContext.getString(R.string.common_off),
                 modifier = Modifier.padding(
                     start = 5.dp
                 ),
