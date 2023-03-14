@@ -252,7 +252,7 @@ private fun SinglePlayerScreen(
             val modifier = if (LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT) {
                 Modifier.align(Alignment.BottomCenter).padding(bottom = 30.dp)
             } else {
-                Modifier.align(Alignment.CenterEnd).padding(end = 50.dp)
+                Modifier.align(Alignment.CenterEnd).padding(end = 50.dp).clip(CircleShape)
             }
             SharedComposable.DefaultButton(
                 configurations = SharedComposable.DefaultButtonConfigurations(

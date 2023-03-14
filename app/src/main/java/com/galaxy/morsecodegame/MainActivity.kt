@@ -226,10 +226,9 @@ private fun MultiplayerMenu(
         ButtonWithInfoBox(
             defaultButtonConfigurations = SharedComposable.DefaultButtonConfigurations(
                 text = localContext.getStringUpper(R.string.start_screen_flashlight),
-                click = { },
-                available = false,
-                enabled = false
-                // add this to enable flashlight onClickFlashLight(GameType.FLASHLIGHT)
+                click = { onClickFlashLight(GameType.FLASHLIGHT) },
+                available = true,
+                enabled = true
             ),
             iconContentDescription = "Flash game mode info",
             infoText = localContext.getString(R.string.start_info_flashlight_not_available)
@@ -341,8 +340,8 @@ private fun BoxScope.MainMenu(
                         click = onClickExit
                     )
                 )
-            } 
-        } 
+            }
+        }
     }
     if (LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT) {
         SharedComposable.DefaultText(

@@ -7,6 +7,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -274,59 +275,61 @@ fun InfoWarningPopup(
             contentColor = MaterialTheme.colors.onPrimary,
             modifier = modifier
         ) {
-            Column(
+            LazyColumn(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                SharedComposable.DefaultText(
-                    text = localContext.getString(R.string.common_warning),
-                    color = VintageRedDark,
-                    modifier = Modifier.padding(top = 5.dp),
-                    fontSize = 20.sp
-                )
-                SharedComposable.DefaultText(
-                    text = infoText,
-                    fontSize = 13.sp,
-                    modifier = Modifier.padding(
-                        start = 20.dp,
-                        top = 10.dp,
-                        bottom = 20.dp,
-                        end = 20.dp
-                    ),
-                    fontFamily = FontFamily.Default,
-                    textStyle = MaterialTheme.typography.body1
-                )
-                SwitchWithText(
-                    text = {
-                        SharedComposable.DefaultText(
-                            text = localContext.getString(R.string.common_switch_dont_show),
-                            modifier = Modifier.padding(
-                                start = 5.dp,
-                                top = 10.dp,
-                                end = 5.dp
-                            ),
-                            fontSize = 12.sp
-                        )
-                    },
-                    onStateChange = { onStateChange = it }
-                )
-                SharedComposable.DefaultText(
-                    text = localContext.getStringUpper(R.string.common_ok),
-                    color = VintageGreen,
-                    modifier = Modifier
-                        .padding(top = 15.dp, bottom = 10.dp)
-                        .clickable { onClickOk(onStateChange) }
-                )
-                SharedComposable.DefaultText(
-                    text = localContext.getStringUpper(R.string.common_cancel),
-                    color = VintageRedDark,
-                    modifier = Modifier
-                        .padding(top = 5.dp, bottom = 25.dp)
-                        .clickable { onClickCancel() }
-                )
+                item {
+                    SharedComposable.DefaultText(
+                        text = localContext.getString(R.string.common_warning),
+                        color = VintageRedDark,
+                        modifier = Modifier.padding(top = 5.dp),
+                        fontSize = 20.sp
+                    )
+                    SharedComposable.DefaultText(
+                        text = infoText,
+                        fontSize = 13.sp,
+                        modifier = Modifier.padding(
+                            start = 20.dp,
+                            top = 10.dp,
+                            bottom = 20.dp,
+                            end = 20.dp
+                        ),
+                        fontFamily = FontFamily.Default,
+                        textStyle = MaterialTheme.typography.body1
+                    )
+                    SwitchWithText(
+                        text = {
+                            SharedComposable.DefaultText(
+                                text = localContext.getString(R.string.common_switch_dont_show),
+                                modifier = Modifier.padding(
+                                    start = 5.dp,
+                                    top = 10.dp,
+                                    end = 5.dp
+                                ),
+                                fontSize = 12.sp
+                            )
+                        },
+                        onStateChange = { onStateChange = it }
+                    )
+                    SharedComposable.DefaultText(
+                        text = localContext.getStringUpper(R.string.common_ok),
+                        color = VintageGreen,
+                        modifier = Modifier
+                            .padding(top = 15.dp, bottom = 10.dp)
+                            .clickable { onClickOk(onStateChange) }
+                    )
+                    SharedComposable.DefaultText(
+                        text = localContext.getStringUpper(R.string.common_cancel),
+                        color = VintageRedDark,
+                        modifier = Modifier
+                            .padding(top = 5.dp, bottom = 25.dp)
+                            .clickable { onClickCancel() }
+                    )
+                }
             }
         }
-    } 
+    }
 }
 
 @Composable
@@ -336,13 +339,13 @@ fun SwitchWithText(
 ) {
     var checkedState by rememberSaveable { mutableStateOf(false) }
     val localContext = LocalContext.current
-    Column (
+    Column(
         horizontalAlignment = Alignment.CenterHorizontally
-            ){
+    ) {
         text()
-        Row (
-            verticalAlignment = Alignment.CenterVertically,
-        ){
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             SharedComposable.DefaultText(
                 text = localContext.getString(R.string.common_no),
                 modifier = Modifier.padding(
@@ -366,11 +369,10 @@ fun SwitchWithText(
             SharedComposable.DefaultText(
                 text = localContext.getString(R.string.common_yes),
                 modifier = Modifier.padding(
-                    start = 5.dp,
+                    start = 5.dp
                 ),
                 fontSize = 8.sp
             )
         }
-        }
-
+    }
 }
