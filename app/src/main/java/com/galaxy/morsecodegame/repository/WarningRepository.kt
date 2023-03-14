@@ -1,12 +1,25 @@
 package com.galaxy.morsecodegame.repository
 
+import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
+import javax.inject.Inject
+import kotlinx.coroutines.flow.first
 
-/**
- * Popup preferences datastore purpose is to persist has user
- * toggled the "don't show again" switch for a dialog
- */
-interface WarningRepository {
-    suspend fun save(key: Preferences.Key<Boolean>, disable: Boolean)
-    suspend fun load(key: Preferences.Key<Boolean>): Boolean
+class WarningRepositoryImpl @Inject constructor(private val dataStore: DataStore<Preferences>) :
+    WarningRepository {
+
+    override suspend fun save(
+        key: Preferences.Key<Boolean>,
+        disable: Boolean
+    ) {
+        dataStore.edit {
+            it[key] = disable
+        }
+    }
+
+    override suspend fun load(key: Preferences.Key<Boolean>): Boolean {
+        val pref = dataStore.data.first()
+        return pref[key] ?: false
+    }
 }

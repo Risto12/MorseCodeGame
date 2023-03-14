@@ -1,7 +1,7 @@
 package com.galaxy.morsecodegame.di.modules
 
-import com.galaxy.morsecodegame.repository.WarningRepository
 import com.galaxy.morsecodegame.repository.WarningRepositoryImpl
+import com.galaxy.morsecodegame.repository.WarningRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -12,5 +12,5 @@ import dagger.hilt.android.components.ViewModelComponent
 abstract class WarningRepositoryModule {
 
     @Binds
-    abstract fun warningRepositoryModule(warningRepositoryImpl: WarningRepositoryImpl): WarningRepository
+    abstract fun warningRepositoryModule(warningRepository: WarningRepositoryImpl): WarningRepository
 }

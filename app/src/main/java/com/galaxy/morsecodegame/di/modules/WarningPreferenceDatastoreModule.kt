@@ -16,7 +16,7 @@ const val POPUP_DATASTORE = "popup_datastore"
 
 @Module
 @InstallIn(SingletonComponent::class)
-class WarningPreferencesDatastoreModule {
+object WarningPreferencesDatastoreModule {
 
     @Provides
     @Singleton
