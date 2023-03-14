@@ -29,11 +29,11 @@
     "PARIS" (or, more precisely "PARIS " with a space on the end) could be sent 20 times in a \
     minute.\n\nSource: MorseCode.world</string>
     <string name="morse_letters_example">Coming</string>
-    <string name="flash_light_unknown_issue">Unknown issue occurred. Returning to menu</string>
+    <string name="flash_light_unknown_issue">An unknown issue occurred. Returning to menu</string>
     <string name="flash_light_not_supported">Your phone doesn\'t support flashlight</string>
-    <string name="flash_light_not_supported_characters">Input contains not supported characters. Supported characters are </string>
+    <string name="flash_light_not_supported_characters">The input contains not supported characters. Supported characters are </string>
     <string name="flash_light_empty_value">This value can\'t be empty. Please insert text</string>
-    <string name="flash_light_insert_text">Insert text which you want to morse with your phones flashlight</string>
+    <string name="flash_light_insert_text">Insert text which you want to morse with your phone\'s flashlight</string>
 
     <string name="start_screen_sound">SOUND</string>
     <string name="start_screen_single_player">SINGLE PLAYER</string>
@@ -45,13 +45,13 @@
     <string name="start_screen_exit">EXIT</string>
     <string name="start_screen_options">OPTIONS</string>
     <string name="start_info_blinking_light">Morse code is send as a blinking light. Your chosen difficult level will \
-  determine is the morse one letter, one word or multiple words.\nThe blinking speed is determined \
-  by your wpm setting. For beginners wpm: 2 is recommended.\nThe game will end when the limit of \
-  available questions is reached or timer reaches 0. You can still answer the last question after \
-  time is up.\n\nTo alter the settings go to options from the start screen -> options</string>
+  determine is the morse one letter, one word, or multiple words.\n\nThe blinking speed is determined \
+  by your wpm setting. For beginners wpm: 2 is recommended.\n\nThe game will end when the limit of \
+  available questions is reached or the timer reaches 0. You can still answer the last question after \
+  the time is up.\n\nTo alter the settings go to options from the start screen -> options</string>
     <string name="start_info_sound">Not available in this version</string>
-    <string name="start_info_flashlight">This game mode lets you send morse code with your phones flashlight. Check \
-    that no app is using the flashlight before you play e.g. camera.\n\n Speed of the flash is \
+    <string name="start_info_flashlight">This game mode lets you send morse code with your phones\'s flashlight.\n\n
+        Check that no app is using the flashlight before you play e.g. camera.\n\nThe speed of the flash is \
     determined by wpm setting that you can alter from options but the max wpm is limited to 5.\n\n\
     To alter the settings go to options from the start screen -> options</string>
     <string name="start_info_bluetooth">Not available in this version</string>
