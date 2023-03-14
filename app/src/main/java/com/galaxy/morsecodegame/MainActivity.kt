@@ -231,7 +231,7 @@ private fun MultiplayerMenu(
                 enabled = true
             ),
             iconContentDescription = "Flash game mode info",
-            infoText = localContext.getString(R.string.start_info_flashlight_not_available)
+            infoText = localContext.getString(R.string.start_info_flashlight)
         )
         ButtonWithInfoBox(
             defaultButtonConfigurations = SharedComposable.DefaultButtonConfigurations(

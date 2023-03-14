@@ -281,13 +281,13 @@ fun InfoWarningPopup(
             ) {
                 item {
                     SharedComposable.DefaultText(
-                        text = localContext.getString(R.string.common_warning),
+                        text = localContext.getStringUpper(R.string.common_warning),
                         color = VintageRedDark,
                         modifier = Modifier.padding(top = 5.dp),
                         fontSize = 20.sp
                     )
                     SharedComposable.DefaultText(
-                        text = infoText,
+                        text = infoText.uppercase(),
                         fontSize = 13.sp,
                         modifier = Modifier.padding(
                             start = 20.dp,

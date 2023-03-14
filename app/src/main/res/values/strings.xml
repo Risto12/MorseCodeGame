@@ -14,7 +14,7 @@
     <string name="common_yes">YES</string>
     <string name="common_no">NO</string>
     <string name="common_switch_dont_show">Don\'t show again</string>
-    <string name="start_info_warning">Flickering screen/lights may cause epilepsy\n\n By pressing ok you accept that you are using this app on your own responsibility.</string>
+    <string name="start_info_warning">This app contains fast flashing images.\n\nIt may cause discomfort and trigger seizures for people with photosensitive epilepsy\n\nView discretion is advised.</string>
 
     <string name="single_player_answer">Correct answer is</string>
 
@@ -50,7 +50,6 @@
   available questions is reached or timer reaches 0. You can still answer the last question after \
   time is up.\n\nTo alter the settings go to options from the start screen -> options</string>
     <string name="start_info_sound">Not available in this version</string>
-    <string name="start_info_flashlight_not_available">Not available because the developer didn\'t have mobile-phone to test api level 13 functionalities that were needed to adjust the flashlight brightness</string>
     <string name="start_info_flashlight">This game mode lets you send morse code with your phones flashlight. Check \
     that no app is using the flashlight before you play e.g. camera.\n\n Speed of the flash is \
     determined by wpm setting that you can alter from options but the max wpm is limited to 5.\n\n\
