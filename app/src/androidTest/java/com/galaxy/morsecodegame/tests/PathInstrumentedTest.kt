@@ -15,6 +15,8 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
+const val MAX_WPM = 5
+
 // runBlockingTest -> runTest
 // TestCoroutineDispatcher -> StandardTestDispatcher
 // TestCouroutineScope -> TestScope
@@ -32,7 +34,7 @@ class PathInstrumentedTest {
         FakeDb.resetDb()
     }
 
-    private val flashingAndBlinkingMaxWpm = "wpm: 3"
+    private val flashingAndBlinkingMaxWpm = "wpm: $MAX_WPM"
 
     private fun toggleSettingsToMaxAndSave() {
         rule.onNodeWithTextIgnore("Options")

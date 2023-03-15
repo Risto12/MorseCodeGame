@@ -15,10 +15,10 @@ fun Context.getStringUpper(@StringRes id: Int): String = getString(id).uppercase
 fun Intent.getOptions() = getParcelableExtra<Options>(CommonIntentExtraKeys.OPTIONS)!!
 
 /***
- * For light or blinking images the MAX WPS is 3
+ * For light or blinking images the MAX WPS is 5
  */
 fun Int.lightMaxWordsPerMinute(): Int {
-    val maxWordsPerMinute = 3
+    val maxWordsPerMinute = 5 // TODO Move this to configuration file when there is sound game mode
     return if (this <= maxWordsPerMinute) this else maxWordsPerMinute
 }
 
