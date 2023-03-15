@@ -32,14 +32,11 @@ class PathInstrumentedTest {
         FakeDb.resetDb()
     }
 
-    // Testing that options changes are applied
-    @Test
-    @ExperimentalCoroutinesApi
-    @ExperimentalTestApi
-    fun testChangingOptionsAndStartingSinglePlayerActivity() {
+    private val flashingAndBlinkingMaxWpm = "wpm: 3"
+
+    private fun toggleSettingsToMaxAndSave() {
         rule.onNodeWithTextIgnore("Options")
             .performClick()
-        val maxWpm = "wpm: 3"
         for (
         slider in listOf("Game time", "Words per minute", "Number of questions")
         ) {
@@ -50,10 +47,35 @@ class PathInstrumentedTest {
         rule.onNodeWithTextIgnore("MEDIUM").performClick()
         rule.onNodeWithTextIgnore("save").performClick()
 
+        rule.onNodeWithTextIgnore("WARNING")
+            .assertExists()
+        rule.onNodeWithTextIgnore("ok")
+            .performClick()
+    }
+
+    // Testing that options changes are applied
+    @Test
+    @ExperimentalCoroutinesApi
+    @ExperimentalTestApi
+    fun testChangingOptionsAndStartingSinglePlayerActivity() {
+        toggleSettingsToMaxAndSave()
+
         rule.onNodeWithTextIgnore("Single player").performClick()
         rule.onNodeWithTextIgnore("blinking light").performClick()
 
         rule.onNodeWithTextIgnore("1/10").assertExists()
-        rule.onNodeWithTextIgnore(maxWpm).assertExists()
+        rule.onNodeWithTextIgnore(flashingAndBlinkingMaxWpm).assertExists()
+    }
+
+    @Test
+    @ExperimentalCoroutinesApi
+    @ExperimentalTestApi
+    fun testChangingOptionsAndFlashlightActivity() {
+        toggleSettingsToMaxAndSave()
+
+        rule.onNodeWithTextIgnore("multiplayer").performClick()
+        rule.onNodeWithTextIgnore("flashlight").performClick()
+
+        rule.onNodeWithTextIgnore(flashingAndBlinkingMaxWpm).assertExists()
     }
 }
