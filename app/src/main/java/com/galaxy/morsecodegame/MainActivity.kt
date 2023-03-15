@@ -314,6 +314,7 @@ fun ButtonWithWarningInfoBox(
         )
     }
 }
+
 @Composable
 private fun BoxScope.MainMenu(
     onClickSinglePlayer: () -> Unit,

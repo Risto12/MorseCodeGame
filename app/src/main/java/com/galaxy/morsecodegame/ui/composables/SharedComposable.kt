@@ -26,7 +26,6 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
@@ -36,7 +35,6 @@ import com.galaxy.morsecodegame.R
 import com.galaxy.morsecodegame.ui.theme.VintageGreen
 import com.galaxy.morsecodegame.ui.theme.VintageRedDark
 import com.galaxy.morsecodegame.utility.getStringUpper
-import kotlinx.coroutines.launch
 
 object SharedComposable {
 
@@ -269,8 +267,7 @@ fun InfoWarningDisclaimerPopup(
             color = MaterialTheme.colors.primary,
             border = BorderStroke(2.dp, color = MaterialTheme.colors.onPrimary),
             contentColor = MaterialTheme.colors.onPrimary,
-            modifier = Modifier
-                .fillMaxSize(0.8f)
+            modifier = Modifier.addBigPopupSize(LocalConfiguration.current)
         ) {
             LazyColumn(
                 verticalArrangement = Arrangement.SpaceBetween,
@@ -355,9 +352,7 @@ fun InfoWarningPopup(
             color = MaterialTheme.colors.primary,
             border = BorderStroke(2.dp, color = MaterialTheme.colors.onPrimary),
             contentColor = MaterialTheme.colors.onPrimary,
-            modifier = Modifier
-                .fillMaxWidth(0.8f)
-                .fillMaxHeight(0.85f)
+            modifier = Modifier.addBigPopupSize(LocalConfiguration.current)
         ) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -481,4 +476,15 @@ fun SwitchWithText(
             )
         }
     }
+}
+
+
+fun Modifier.addBigPopupSize(configuration: Configuration): Modifier {
+    return if (configuration.orientation == Configuration.ORIENTATION_PORTRAIT) this
+        .fillMaxWidth(0.8f)
+        .fillMaxHeight(0.85f).padding(top = 10.dp)
+    else
+        this
+        .fillMaxWidth(0.8f)
+        .fillMaxHeight(0.85f).padding(top = 10.dp)
 }
