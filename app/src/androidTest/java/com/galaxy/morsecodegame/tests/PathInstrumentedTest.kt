@@ -39,7 +39,7 @@ class PathInstrumentedTest {
     fun testChangingOptionsAndStartingSinglePlayerActivity() {
         rule.onNodeWithTextIgnore("Options")
             .performClick()
-
+        val maxWpm = "wpm: 3"
         for (
         slider in listOf("Game time", "Words per minute", "Number of questions")
         ) {
@@ -54,6 +54,6 @@ class PathInstrumentedTest {
         rule.onNodeWithTextIgnore("blinking light").performClick()
 
         rule.onNodeWithTextIgnore("1/10").assertExists()
-        rule.onNodeWithTextIgnore("wpm: 11").assertExists()
+        rule.onNodeWithTextIgnore(maxWpm).assertExists()
     }
 }

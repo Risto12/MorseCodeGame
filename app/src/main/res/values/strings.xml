@@ -18,9 +18,6 @@
 
     <string name="common_switch_dont_show">Don\'t show again</string>
     <string name="common_scroll_down">Scroll down</string>
-    <string name="start_disclaimer_warning">This app contains fast flashing images and lights.\n\nIt may cause discomfort and trigger seizures for people with photosensitive epilepsy\n\nif you experience any adverse symptoms, such as dizziness, disorientation, or seizures, please immediately discontinue use and consult with a medical professional.</string>
-    <string name="start_blinking_info_warning">This mode contains fast flashing images.\n\nIt may cause discomfort and trigger seizures for people with photosensitive epilepsy\n\nif you experience any adverse symptoms, such as dizziness, disorientation, or seizures, please immediately discontinue use and consult with a medical professional.</string>
-    <string name="start_flashlight_info_warning">This mode contains fast flashing lights.\n\nIt may cause discomfort and trigger seizures for people with photosensitive epilepsy\n\nif you experience any adverse symptoms, such as dizziness, disorientation, or seizures, please immediately discontinue use and consult with a medical professional.</string>
 
     <string name="single_player_answer">Correct answer is</string>
     <string name="morse_letters_top">BACK TO TOP</string>
@@ -59,4 +56,7 @@
     determined by wpm setting that you can alter from options but the max wpm is limited to 3.\n\n\
     To alter the settings go to options menu.</string>
     <string name="start_info_bluetooth">Not available in this version</string>
+    <string name="start_disclaimer_warning">This app contains fast flashing images and lights.\n\nIt may cause discomfort and trigger seizures for people with photosensitive epilepsy\n\nif you experience any adverse symptoms, such as dizziness, disorientation, or seizures, please immediately discontinue use and consult with a medical professional.</string>
+    <string name="start_blinking_info_warning">This mode contains fast flashing images.\n\nIt may cause discomfort and trigger seizures for people with photosensitive epilepsy\n\nif you experience any adverse symptoms, such as dizziness, disorientation, or seizures, please immediately discontinue use and consult with a medical professional.</string>
+    <string name="start_flashlight_info_warning">This mode contains fast flashing lights.\n\nIt may cause discomfort and trigger seizures for people with photosensitive epilepsy\n\nif you experience any adverse symptoms, such as dizziness, disorientation, or seizures, please immediately discontinue use and consult with a medical professional.</string>
 </resources>

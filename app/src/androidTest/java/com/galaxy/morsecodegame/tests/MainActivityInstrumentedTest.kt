@@ -33,7 +33,9 @@ class MainActivityInstrumentedTest {
     fun testWarningDisclaimerIsShown() {
         rule.onNodeWithTextIgnore("WARNING")
             .assertExists()
-        rule.onNodeWithTextAndSubStringIgnore("This app contains fast flashing images and lights.")
+        rule.onNodeWithTextAndSubStringIgnore(
+            "This app contains fast flashing images and lights.\n\nIt may cause discomfort and trigger seizures for people with photosensitive epilepsy\n\nif you experience any adverse symptoms, such as dizziness, disorientation, or seizures, please immediately discontinue use and consult with a medical professional."
+        )
             .assertExists()
         rule.onNodeWithTextIgnore("OK")
             .assertExists()
@@ -77,6 +79,10 @@ class MainActivityInstrumentedTest {
             .performClick()
         rule.onNodeWithTextAndSubStringIgnore("Morse code is send as a blinking light.")
             .assertExists()
+        rule.onNodeWithTextAndSubStringIgnore(
+            "This mode contains fast flashing images.\n\nIt may cause discomfort and trigger seizures for people with photosensitive epilepsy\n\nif you experience any adverse symptoms, such as dizziness, disorientation, or seizures, please immediately discontinue use and consult with a medical professional."
+        )
+            .assertExists()
     }
 
     @Test
@@ -97,7 +103,11 @@ class MainActivityInstrumentedTest {
         rule.onNodeWithContentDescription("Flash game mode info")
             .performClick()
         rule.onNodeWithTextAndSubStringIgnore(
-            "Not available because the developer"
+            "This game mode lets you send morse code with your phones"
+        )
+            .assertExists()
+        rule.onNodeWithTextAndSubStringIgnore(
+          "This mode contains fast flashing lights.\n\nIt may cause discomfort and trigger seizures for people with photosensitive epilepsy\n\nif you experience any adverse symptoms, such as dizziness, disorientation, or seizures, please immediately discontinue use and consult with a medical professional."
         )
             .assertExists()
 
@@ -113,16 +123,6 @@ class MainActivityInstrumentedTest {
         rule.onNodeWithTextIgnore("Multiplayer")
             .performClick()
         rule.onNodeWithTextIgnore("Bluetooth")
-            .assertExists()
-            .assertIsNotEnabled()
-    }
-
-    @Test
-    fun testMultiplayerFlashlightButtonDoesNotTrigger() {
-        clickWarningDisclaimerOk()
-        rule.onNodeWithTextIgnore("Multiplayer")
-            .performClick()
-        rule.onNodeWithTextIgnore("Flashlight")
             .assertExists()
             .assertIsNotEnabled()
     }
