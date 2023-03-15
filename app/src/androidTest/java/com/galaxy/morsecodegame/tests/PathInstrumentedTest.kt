@@ -69,6 +69,7 @@ class PathInstrumentedTest {
         rule.onNodeWithTextIgnore(flashingAndBlinkingMaxWpm).assertExists()
     }
 
+    // TODO fix this may get stuck sometimes ...
     @Test
     @ExperimentalCoroutinesApi
     @ExperimentalTestApi

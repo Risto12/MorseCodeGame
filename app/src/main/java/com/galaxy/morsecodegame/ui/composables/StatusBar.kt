@@ -25,20 +25,21 @@ fun StatusBar(
             .fillMaxWidth()
     ) {
         val textColor = MaterialTheme.colors.primary
-        left?.run { Text(
-            text = this,
-            modifier = Modifier
-                .padding(start = 8.dp)
-                .align(Alignment.CenterStart),
-            color = textColor
-        )
+        left?.run {
+            Text(
+                text = this,
+                modifier = Modifier
+                    .padding(start = 8.dp)
+                    .align(Alignment.CenterStart),
+                color = textColor
+            )
         }
         middle?.run {
             Text(
-            text = this,
-            modifier = Modifier.align(Alignment.BottomCenter),
-            color = textColor
-        )
+                text = this,
+                modifier = Modifier.align(Alignment.BottomCenter),
+                color = textColor
+            )
         }
         right?.run {
             Text(
