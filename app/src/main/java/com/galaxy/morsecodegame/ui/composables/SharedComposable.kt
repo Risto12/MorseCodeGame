@@ -269,13 +269,12 @@ fun InfoWarningDisclaimerPopup(
                 modifier = Modifier.padding(top = 30.dp),
                 fontSize = 20.sp
             )
-
             SharedComposable.DefaultText(
                 text = infoText.uppercase(),
                 fontSize = 13.sp,
                 modifier = Modifier.padding(
                     start = 20.dp,
-                    top = 10.dp,
+                    top = 25.dp,
                     bottom = 20.dp,
                     end = 20.dp
                 ),
