@@ -6,6 +6,7 @@ import androidx.datastore.core.DataStore
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.galaxy.morsecodegame.MainActivity
 import com.galaxy.morsecodegame.di.FakeDb
+import com.galaxy.morsecodegame.di.TEST_DATASTORE
 import com.galaxy.morsecodegame.onNodeWithTextAndSubStringIgnore
 import com.galaxy.morsecodegame.onNodeWithTextIgnore
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -14,6 +15,7 @@ import org.junit.After
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.io.File
 import java.util.prefs.Preferences
 import javax.inject.Inject
 
@@ -30,6 +32,16 @@ class MainActivityInstrumentedTest {
     @After
     fun after() {
         FakeDb.resetDb()
+    }
+
+    @Test
+    fun testWarningDisclaimerIsShown() {
+        rule.onNodeWithTextIgnore("WARNING")
+            .assertExists()
+        rule.onNodeWithTextAndSubStringIgnore("This app contains fast flashing images and lights.")
+            .assertExists()
+        rule.onNodeWithTextIgnore("OK")
+            .assertExists()
     }
 
     private fun clickWarningDisclaimerOk() {

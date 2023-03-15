@@ -6,13 +6,13 @@ import androidx.datastore.preferences.core.edit
 import javax.inject.Inject
 import kotlinx.coroutines.flow.first
 
-class WarningRepositoryImpl @Inject constructor(private val dataStore: DataStore<Preferences>) :
-    WarningRepository {
+interface WarningDataStore {
+    suspend fun save(key: Preferences.Key<Boolean>, disable: Boolean)
+    suspend fun load(key: Preferences.Key<Boolean>): Boolean
+}
 
-    override suspend fun save(
-        key: Preferences.Key<Boolean>,
-        disable: Boolean
-    ) {
+class WarningDataStoreImpl @Inject constructor(private val dataStore: DataStore<Preferences>) : WarningDataStore {
+    override suspend fun save(key: Preferences.Key<Boolean>, disable: Boolean) {
         dataStore.edit {
             it[key] = disable
         }
@@ -22,4 +22,19 @@ class WarningRepositoryImpl @Inject constructor(private val dataStore: DataStore
         val pref = dataStore.data.first()
         return pref[key] ?: false
     }
+
+}
+
+class WarningRepositoryImpl @Inject constructor(private val dataStore: WarningDataStore) :
+    WarningRepository {
+
+    override suspend fun save(
+        key: Preferences.Key<Boolean>,
+        disable: Boolean
+    ) = dataStore.save(key, disable)
+
+
+    override suspend fun load(key: Preferences.Key<Boolean>): Boolean =
+        dataStore.load(key)
+
 }
