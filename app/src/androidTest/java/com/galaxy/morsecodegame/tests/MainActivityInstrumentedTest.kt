@@ -78,7 +78,7 @@ class MainActivityInstrumentedTest {
         rule.onNodeWithContentDescription("Blinking light game mode info")
             .performClick()
         rule.onNodeWithTextAndSubStringIgnore(
-            "Morse code is send as a blinking light. Your chosen difficult level will determine is the morse one letter, one word, or multiple words.\n\nThe blinking speed is determined by your wpm setting. The maximum wpm is limited to $MAX_WPM.\n\nThe game will end when the limit of available questions is reached or the timer reaches 0. You can still answer the last question after the time is up.\n\nTo alter the settings go to options menu."
+            "Morse code is sent as a blinking light. Your chosen difficulty level will determine whether the morse code is a letter, a word or a sentence.\n\nThe blinking speed is determined by your wpm setting. The maximum wpm is limited to $MAX_WPM.\n\nThe game will end when the limit of available questions is reached or the timer reaches 0. You can still answer the last question after the time is up.\n\nTo alter the settings go to options menu."
         )
             .assertExists()
         rule.onNodeWithTextAndSubStringIgnore(
