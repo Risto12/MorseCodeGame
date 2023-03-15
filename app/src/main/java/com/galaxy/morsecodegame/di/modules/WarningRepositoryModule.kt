@@ -16,7 +16,6 @@ abstract class WarningRepositoryModule {
     @Binds
     abstract fun warningRepositoryModule(warningRepository: WarningRepositoryImpl): WarningRepository
 
-
     @Binds
     abstract fun warningDataStore(warningDataStoreImpl: WarningDataStoreImpl): WarningDataStore
 }

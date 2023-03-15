@@ -5,29 +5,21 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStoreFile
-import com.galaxy.morsecodegame.di.modules.OptionsRepositoryModule
 import com.galaxy.morsecodegame.di.modules.WarningPreferencesDatastoreModule
 import com.galaxy.morsecodegame.di.modules.WarningRepositoryModule
-
 import com.galaxy.morsecodegame.repository.WarningDataStore
-import com.galaxy.morsecodegame.repository.WarningDataStoreImpl
 import com.galaxy.morsecodegame.repository.WarningRepository
 import com.galaxy.morsecodegame.repository.WarningRepositoryImpl
 import dagger.Binds
-import dagger.Component
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.testing.TestInstallIn
-import kotlinx.coroutines.test.TestScope
-import org.junit.Test
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.random.Random
-
 
 const val TEST_DATASTORE = "test_datastore"
 
@@ -47,7 +39,7 @@ object FakeDataStore {
     }
 }
 
-class FakeWarningDataStore @Inject constructor(): WarningDataStore {
+class FakeWarningDataStore @Inject constructor() : WarningDataStore {
     override suspend fun save(key: Preferences.Key<Boolean>, disable: Boolean) {
         FakeDataStore.save(key, disable)
     }
@@ -68,8 +60,8 @@ object TestWarningPreferencesDatastoreModule {
         // solution I could find
         val randomNumber = Random.nextInt()
         return PreferenceDataStoreFactory.create(
-            produceFile = { appContext.preferencesDataStoreFile(TEST_DATASTORE) },
-            )
+            produceFile = { appContext.preferencesDataStoreFile(TEST_DATASTORE) }
+        )
     }
 }
 

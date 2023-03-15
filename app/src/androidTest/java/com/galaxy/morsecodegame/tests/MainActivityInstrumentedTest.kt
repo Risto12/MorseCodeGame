@@ -2,11 +2,9 @@ package com.galaxy.morsecodegame.tests
 
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.datastore.core.DataStore
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.galaxy.morsecodegame.MainActivity
 import com.galaxy.morsecodegame.di.FakeDb
-import com.galaxy.morsecodegame.di.TEST_DATASTORE
 import com.galaxy.morsecodegame.onNodeWithTextAndSubStringIgnore
 import com.galaxy.morsecodegame.onNodeWithTextIgnore
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -15,9 +13,6 @@ import org.junit.After
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.io.File
-import java.util.prefs.Preferences
-import javax.inject.Inject
 
 @RunWith(AndroidJUnit4::class)
 @HiltAndroidTest
@@ -50,6 +45,7 @@ class MainActivityInstrumentedTest {
         rule.onNodeWithTextIgnore("ok")
             .performClick()
     }
+
     /**
      * Testing that route from Start of the app to morse code letters screen and back to start
      * works

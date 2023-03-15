@@ -260,7 +260,7 @@ fun InfoWarningDisclaimerPopup(
     }
     val localContext = LocalContext.current
     ScrollDownPopupLayout(
-        onDismissRequest = {}, // Close this window only by clicking ok or cancel
+        onDismissRequest = {} // Close this window only by clicking ok or cancel
     ) {
         item {
             SharedComposable.DefaultText(
@@ -298,7 +298,6 @@ fun InfoWarningDisclaimerPopup(
                     bottom = 10.dp,
                     end = 5.dp
                 )
-
             }
             SwitchWithText(
                 text = {
@@ -377,7 +376,7 @@ fun ScrollDownPopupLayout(
                 }
             }
         }
-    } 
+    }
 }
 
 @Composable
