@@ -9,6 +9,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
@@ -258,83 +259,80 @@ fun InfoWarningDisclaimerPopup(
         mutableStateOf(false)
     }
     val localContext = LocalContext.current
-    Popup(
-        onDismissRequest = { },
-        alignment = Alignment.Center
+    ScrollDownPopupLayout(
+        onDismissRequest = {}, // Close this window only by clicking ok or cancel
     ) {
-        Surface(
-            elevation = 9.dp,
-            color = MaterialTheme.colors.primary,
-            border = BorderStroke(2.dp, color = MaterialTheme.colors.onPrimary),
-            contentColor = MaterialTheme.colors.onPrimary,
-            modifier = Modifier.addBigPopupSize(LocalConfiguration.current)
-        ) {
-            LazyColumn(
-                verticalArrangement = Arrangement.SpaceBetween,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                item {
-                    SharedComposable.DefaultText(
-                        text = localContext.getStringUpper(R.string.common_warning),
-                        color = VintageRedDark,
-                        modifier = Modifier.padding(top = 30.dp),
-                        fontSize = 20.sp
-                    )
-                    SharedComposable.DefaultText(
-                        text = infoText.uppercase(),
-                        fontSize = 13.sp,
-                        modifier = Modifier.padding(
-                            start = 20.dp,
-                            top = 10.dp,
-                            bottom = 20.dp,
-                            end = 20.dp
-                        ),
-                        fontFamily = FontFamily.Default,
-                        textStyle = MaterialTheme.typography.body1
-                    )
-                }
-                item {
-                    SwitchWithText(
-                        text = {
-                            SharedComposable.DefaultText(
-                                text = localContext.getString(R.string.common_switch_dont_show),
-                                modifier = Modifier.padding(
-                                    start = 5.dp,
-                                    top = 10.dp,
-                                    end = 5.dp
-                                ),
-                                fontSize = 12.sp
-                            )
-                        },
-                        onStateChange = { onStateChange = it }
-                    )
-                    SharedComposable.DefaultText(
-                        text = localContext.getStringUpper(R.string.common_ok),
-                        color = VintageGreen,
-                        modifier = Modifier
-                            .padding(top = 30.dp, bottom = 10.dp)
-                            .clickable { onClickOk(onStateChange) }
-                    )
-                    SharedComposable.DefaultText(
-                        text = localContext.getStringUpper(R.string.common_cancel),
-                        color = VintageRedDark,
-                        modifier = Modifier
-                            .padding(top = 5.dp, bottom = 25.dp)
-                            .clickable { onClickCancel() }
-                    )
-                }
-            }
+        item {
+            SharedComposable.DefaultText(
+                text = localContext.getStringUpper(R.string.common_warning),
+                color = VintageRedDark,
+                modifier = Modifier.padding(top = 30.dp),
+                fontSize = 20.sp
+            )
+
+            SharedComposable.DefaultText(
+                text = infoText.uppercase(),
+                fontSize = 13.sp,
+                modifier = Modifier.padding(
+                    start = 20.dp,
+                    top = 10.dp,
+                    bottom = 20.dp,
+                    end = 20.dp
+                ),
+                fontFamily = FontFamily.Default,
+                textStyle = MaterialTheme.typography.body1
+            )
         }
+        item {
+            val switchModifier = if (LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                Modifier.padding(
+                    start = 5.dp,
+                    top = 100.dp,
+                    bottom = 10.dp,
+                    end = 5.dp
+                )
+            } else {
+                Modifier.padding(
+                    start = 5.dp,
+                    top = 25.dp,
+                    bottom = 10.dp,
+                    end = 5.dp
+                )
+
+            }
+            SwitchWithText(
+                text = {
+                    SharedComposable.DefaultText(
+                        text = localContext.getString(R.string.common_switch_dont_show),
+                        modifier = switchModifier,
+                        fontSize = 12.sp
+                    )
+                },
+                onStateChange = { onStateChange = it }
+            )
+            SharedComposable.DefaultText(
+                text = localContext.getStringUpper(R.string.common_ok),
+                color = VintageGreen,
+                modifier = Modifier
+                    .padding(top = 25.dp, bottom = 10.dp)
+                    .clickable { onClickOk(onStateChange) }
+            )
+            SharedComposable.DefaultText(
+                text = localContext.getStringUpper(R.string.common_cancel),
+                color = VintageRedDark,
+                modifier = Modifier
+                    .padding(top = 5.dp, bottom = 25.dp)
+                    .clickable { onClickCancel() }
+            )
+        }
+        item {} // When this is shown the scroll down will disappear
     }
 }
 
-
 @Composable
-fun InfoWarningPopup(
-    infoHeader: String,
-    infoText: String,
-    warningText: String,
-    onDismissRequest: () -> Unit
+fun ScrollDownPopupLayout(
+    onDismissRequest: () -> Unit,
+    items: LazyListScope.() -> Unit
 ) {
     val localContext = LocalContext.current
     Popup(
@@ -344,7 +342,7 @@ fun InfoWarningPopup(
         val listState = rememberLazyListState()
         val showButton by remember {
             derivedStateOf {
-                listState.layoutInfo.visibleItemsInfo.size < 3
+                listState.layoutInfo.visibleItemsInfo.size < listState.layoutInfo.totalItemsCount
             }
         }
         Surface(
@@ -356,82 +354,94 @@ fun InfoWarningPopup(
         ) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
-            ){
-            LazyColumn(
-                state = listState,
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.weight(6f)
             ) {
-                item {
-                    SharedComposable.DefaultHeaderText(
-                        color = MaterialTheme.colors.onPrimary,
-                        text = infoHeader.uppercase(),
-                        modifier = Modifier.padding(
-                            top = 10.dp,
-                        ),
-                        paddingBottom = 15.dp
-                    )
-                    SharedComposable.DefaultText(
-                        text = infoText,
-                        fontSize = 13.sp,
-                        modifier = Modifier.padding(
-                            start = 20.dp,
-                            bottom = 20.dp,
-                            end = 20.dp
-                        ),
-                        textStyle = MaterialTheme.typography.body1
-                    )}
-
-                item {
-                    SharedComposable.DefaultText(
-                        text = localContext.getStringUpper(R.string.common_warning),
-                        color = VintageRedDark,
-                        modifier = Modifier.padding(top = 5.dp),
-                        fontSize = 20.sp
-                    )
-                    SharedComposable.DefaultText(
-                        text = warningText.uppercase(),
-                        fontSize = 13.sp,
-                        modifier = Modifier.padding(
-                            start = 20.dp,
-                            top = 10.dp,
-                            bottom = 20.dp,
-                            end = 20.dp
-                        ),
-                        fontFamily = FontFamily.Default,
-                        textStyle = MaterialTheme.typography.body1
-                    )
-                }
-                item {
-
-                    SharedComposable.DefaultText(
-                        text = localContext.getStringUpper(R.string.common_ok),
-                        color = VintageGreen,
-                        modifier = Modifier
-                            .padding(bottom = 10.dp, top = 5.dp)
-                            .clickable { onDismissRequest() }
-                            .weight(0.3f)
-                    )
-                }
-        }
+                LazyColumn(
+                    state = listState,
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.weight(6f),
+                    content = items
+                )
                 AnimatedVisibility(visible = showButton) {
-                    Box (
+                    Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .weight(0.05f),
-                    ){
-                    SharedComposable.DefaultText(
-                        text = localContext.getStringUpper(R.string.common_scroll_down),
-                        modifier = Modifier.align(Alignment.Center),
-                        fontSize = 10.sp,
-                    )
+                            .weight(0.05f)
+                    ) {
+                        SharedComposable.DefaultText(
+                            text = localContext.getStringUpper(R.string.common_scroll_down),
+                            modifier = Modifier.align(Alignment.Center),
+                            fontSize = 10.sp
+                        )
                     }
                 }
             }
         }
-    }}
+    } 
+}
 
+@Composable
+fun InfoWarningPopup(
+    infoHeader: String,
+    infoText: String,
+    warningText: String,
+    onDismissRequest: () -> Unit
+) {
+    val localContext = LocalContext.current
+    ScrollDownPopupLayout(
+        onDismissRequest = onDismissRequest
+    ) {
+        item {
+            SharedComposable.DefaultHeaderText(
+                color = MaterialTheme.colors.onPrimary,
+                text = infoHeader.uppercase(),
+                modifier = Modifier.padding(
+                    top = 10.dp
+                ),
+                paddingBottom = 15.dp
+            )
+            SharedComposable.DefaultText(
+                text = infoText,
+                fontSize = 13.sp,
+                modifier = Modifier.padding(
+                    start = 20.dp,
+                    bottom = 20.dp,
+                    end = 20.dp
+                ),
+                textStyle = MaterialTheme.typography.body1
+            )
+        }
+        item {
+            SharedComposable.DefaultText(
+                text = localContext.getStringUpper(R.string.common_warning),
+                color = VintageRedDark,
+                modifier = Modifier.padding(top = 5.dp),
+                fontSize = 20.sp
+            )
+            SharedComposable.DefaultText(
+                text = warningText.uppercase(),
+                fontSize = 13.sp,
+                modifier = Modifier.padding(
+                    start = 20.dp,
+                    top = 10.dp,
+                    bottom = 20.dp,
+                    end = 20.dp
+                ),
+                fontFamily = FontFamily.Default,
+                textStyle = MaterialTheme.typography.body1
+            )
+        }
+        item {
+            SharedComposable.DefaultText(
+                text = localContext.getStringUpper(R.string.common_ok),
+                color = VintageGreen,
+                modifier = Modifier
+                    .padding(bottom = 10.dp, top = 5.dp)
+                    .clickable { onDismissRequest() }
+            )
+        }
+    }
+}
 
 @Composable
 fun SwitchWithText(
@@ -478,13 +488,16 @@ fun SwitchWithText(
     }
 }
 
-
 fun Modifier.addBigPopupSize(configuration: Configuration): Modifier {
-    return if (configuration.orientation == Configuration.ORIENTATION_PORTRAIT) this
-        .fillMaxWidth(0.8f)
-        .fillMaxHeight(0.85f).padding(top = 10.dp)
-    else
+    return if (configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
         this
-        .fillMaxWidth(0.8f)
-        .fillMaxHeight(0.85f).padding(top = 10.dp)
+            .fillMaxWidth(0.8f)
+            .fillMaxHeight(0.85f)
+            .padding(top = 10.dp)
+    } else {
+        this
+            .fillMaxWidth(0.8f)
+            .fillMaxHeight(0.85f)
+            .padding(top = 10.dp)
+    }
 }

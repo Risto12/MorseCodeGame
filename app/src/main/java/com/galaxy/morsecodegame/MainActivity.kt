@@ -186,7 +186,7 @@ private fun SinglePlayerMenu(
             iconContentDescription = "Blinking light game mode info",
             infoHeader = "Blinking light",
             infoText = localContext.getString(R.string.start_info_blinking_light),
-            warningText = localContext.getString(R.string.start_blinking_info_warning),
+            warningText = localContext.getString(R.string.start_blinking_info_warning)
         )
         ButtonWithInfoBox(
             defaultButtonConfigurations = SharedComposable.DefaultButtonConfigurations(
@@ -232,7 +232,7 @@ private fun MultiplayerMenu(
             iconContentDescription = "Flash game mode info",
             infoHeader = "Flashlight",
             infoText = localContext.getString(R.string.start_info_flashlight),
-            warningText = localContext.getString(R.string.start_flashlight_info_warning),
+            warningText = localContext.getString(R.string.start_flashlight_info_warning)
         )
         ButtonWithInfoBox(
             defaultButtonConfigurations = SharedComposable.DefaultButtonConfigurations(
@@ -287,15 +287,17 @@ fun ButtonWithWarningInfoBox(
     iconContentDescription: String,
     infoHeader: String,
     infoText: String,
-    warningText: String,
+    warningText: String
 ) {
     var infoPopUp by rememberSaveable { mutableStateOf(false) }
     Row {
-        if (infoPopUp) InfoWarningPopup(
-            infoHeader = infoHeader,
-            infoText = infoText,
-            warningText = warningText
-        ) { infoPopUp = false }
+        if (infoPopUp) {
+            InfoWarningPopup(
+                infoHeader = infoHeader,
+                infoText = infoText,
+                warningText = warningText
+            ) { infoPopUp = false }
+        }
         SharedComposable.DefaultButton(configurations = defaultButtonConfigurations)
         SharedComposable.DefaultButton(
             configurations = SharedComposable.DefaultButtonComposableConfigurations(
