@@ -30,6 +30,7 @@ import com.galaxy.morsecodegame.components.ExceptionActivityResult.Companion.EXT
 import com.galaxy.morsecodegame.components.ExceptionActivityResult.Companion.REQUEST_CODE_EXCEPTION
 import com.galaxy.morsecodegame.morsecode.MorseCodeLetter
 import com.galaxy.morsecodegame.ui.composables.SharedComposable
+import com.galaxy.morsecodegame.ui.composables.StatusBar
 import com.galaxy.morsecodegame.ui.theme.MorseCodeGameTheme
 import com.galaxy.morsecodegame.utility.ToastGenerator
 import com.galaxy.morsecodegame.utility.getOptions
@@ -145,7 +146,8 @@ class FlashlightActivity : ComponentActivity() {
                     sendMorse(it)
                 },
                 onClickCancel = cancel,
-                sendingMorse = isFlashing
+                sendingMorse = isFlashing,
+                wordsPerMinute = wordsPerMinute
             )
         }
     }
@@ -155,12 +157,14 @@ class FlashlightActivity : ComponentActivity() {
 fun SendMorseBox(
     onClickSend: (text: String) -> Unit,
     onClickCancel: () -> Unit,
-    sendingMorse: Boolean = false
+    sendingMorse: Boolean = false,
+    wordsPerMinute: Int
 ) {
     MorseCodeGameTheme {
         Column(
             modifier = Modifier
-                .fillMaxSize().background(MaterialTheme.colors.background),
+                .fillMaxSize()
+                .background(MaterialTheme.colors.background),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             val insertText = LocalContext.current.getString(R.string.flash_light_insert_text)
@@ -170,7 +174,7 @@ fun SendMorseBox(
 
             var inputText by rememberSaveable { mutableStateOf("") }
             var placeHolderText by remember { mutableStateOf(insertText) }
-
+            StatusBar(middle = "wpm: $wordsPerMinute")
             Box(modifier = Modifier.weight(2.0f)) {
                 Image(
                     painterResource(R.drawable.vintage_light_bulb),
@@ -193,8 +197,10 @@ fun SendMorseBox(
                         color = MaterialTheme.colors.onPrimary
                     )
                 },
-                modifier = Modifier.background(MaterialTheme.colors.primary)
-                    .weight(weight = 1f).widthIn(max = 300.dp),
+                modifier = Modifier
+                    .background(MaterialTheme.colors.primary)
+                    .weight(weight = 1f)
+                    .widthIn(max = 300.dp),
                 colors = TextFieldDefaults.textFieldColors(
                     backgroundColor = MaterialTheme.colors.primary,
                     textColor = MaterialTheme.colors.onPrimary
@@ -202,9 +208,12 @@ fun SendMorseBox(
                 textStyle = MaterialTheme.typography.body1
             )
             Row(
-                modifier = Modifier.weight(weight = 1f).padding(bottom = 5.dp, top = 10.dp).wrapContentSize(
-                    unbounded = true
-                )
+                modifier = Modifier
+                    .weight(weight = 1f)
+                    .padding(bottom = 5.dp, top = 10.dp)
+                    .wrapContentSize(
+                        unbounded = true
+                    )
             ) {
                 SharedComposable.DefaultButton(
                     configurations = SharedComposable.DefaultButtonConfigurations(
@@ -237,6 +246,7 @@ fun SendMorseBox(
 fun DefaultPreview() {
     SendMorseBox(
         onClickSend = { },
-        onClickCancel = { }
+        onClickCancel = { },
+        wordsPerMinute = 3
     )
 }

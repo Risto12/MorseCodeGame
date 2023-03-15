@@ -32,6 +32,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.galaxy.morsecodegame.ui.composables.SharedComposable
 import com.galaxy.morsecodegame.ui.composables.SharedComposable.DefaultHeaderText
+import com.galaxy.morsecodegame.ui.composables.StatusBar
 import com.galaxy.morsecodegame.ui.composables.TelegraphImage
 import com.galaxy.morsecodegame.ui.theme.*
 import com.galaxy.morsecodegame.utility.*
@@ -183,41 +184,6 @@ class SinglePlayerActivity : ComponentActivity() {
                 }
             }
         }
-    }
-}
-
-@Composable
-fun StatusBar(
-    left: String,
-    middle: String,
-    right: String
-) {
-    Box(
-        Modifier
-            .heightIn(max = 30.dp)
-            .background(color = MaterialTheme.colors.secondaryVariant)
-            .fillMaxWidth()
-    ) {
-        val textColor = MaterialTheme.colors.primary
-        Text(
-            text = left,
-            modifier = Modifier
-                .padding(start = 8.dp)
-                .align(Alignment.CenterStart),
-            color = textColor
-        )
-        Text(
-            text = middle,
-            modifier = Modifier.align(Alignment.BottomCenter),
-            color = textColor
-        )
-        Text(
-            text = right,
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(end = 5.dp),
-            color = textColor
-        )
     }
 }
 
