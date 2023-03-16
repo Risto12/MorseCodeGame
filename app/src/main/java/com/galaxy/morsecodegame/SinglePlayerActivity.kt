@@ -1,7 +1,6 @@
 package com.galaxy.morsecodegame
 
 import android.content.pm.ActivityInfo
-import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -215,7 +214,7 @@ private fun SinglePlayerScreen(
             )
         }
         if (!answerBoxOn) {
-            val modifier = if (LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            val modifier = if (LocalConfiguration.current.orientation.isPortrait()) {
                 Modifier.align(Alignment.BottomCenter).padding(bottom = 30.dp)
             } else {
                 Modifier.align(Alignment.CenterEnd).padding(end = 50.dp).clip(CircleShape)

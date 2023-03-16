@@ -1,7 +1,6 @@
 package com.galaxy.morsecodegame
 
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -380,7 +379,7 @@ private fun BoxScope.MainMenu(
             }
         }
     }
-    if (LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT) {
+    if (LocalConfiguration.current.orientation.isPortrait()) {
         SharedComposable.DefaultText(
             text = "v$version",
             fontSize = 15.sp,

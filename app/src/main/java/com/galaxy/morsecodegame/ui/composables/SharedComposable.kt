@@ -36,6 +36,7 @@ import com.galaxy.morsecodegame.R
 import com.galaxy.morsecodegame.ui.theme.VintageGreen
 import com.galaxy.morsecodegame.ui.theme.VintageRedDark
 import com.galaxy.morsecodegame.utility.getStringUpper
+import com.galaxy.morsecodegame.utility.isPortrait
 
 object SharedComposable {
 
@@ -283,11 +284,6 @@ fun InfoWarningDisclaimerPopup(
             )
         }
         item {
-            val checkBoxModifier = if(LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                Modifier.padding(top = 70.dp, bottom = 10.dp)
-            } else {
-                Modifier.padding(top = 20.dp, bottom = 10.dp)
-            }
             CheckBoxWithText(
                 text = {
                     SharedComposable.DefaultText(
@@ -295,11 +291,15 @@ fun InfoWarningDisclaimerPopup(
                         modifier = Modifier.padding(
                             start = 10.dp
                         ),
-                        fontSize = 12.sp,
+                        fontSize = 12.sp
                     )
                 },
                 onStateChange = { onStateChange = it },
-                rowModifier = checkBoxModifier
+                rowModifier = if (LocalConfiguration.current.orientation.isPortrait()) {
+                    Modifier.padding(top = 90.dp, bottom = 10.dp)
+                } else {
+                    Modifier.padding(top = 20.dp, bottom = 10.dp)
+                }
             )
             SharedComposable.DefaultText(
                 text = localContext.getStringUpper(R.string.common_ok),
@@ -453,15 +453,16 @@ fun SwitchWithText(
         text()
         Row(
             verticalAlignment = Alignment.CenterVertically
-        ) {switchTexts.left?.let {
-            SharedComposable.DefaultText(
-                text = it,
-                modifier = Modifier.padding(
-                    end = 5.dp
-                ),
-                fontSize = 8.sp
-            )
-        }
+        ) {
+            switchTexts.left?.let {
+                SharedComposable.DefaultText(
+                    text = it,
+                    modifier = Modifier.padding(
+                        end = 5.dp
+                    ),
+                    fontSize = 8.sp
+                )
+            }
             Switch(
                 checked = checkedState,
                 onCheckedChange = {
@@ -476,13 +477,13 @@ fun SwitchWithText(
                 )
             )
             switchTexts.right?.let {
-            SharedComposable.DefaultText(
-                text = it,
-                modifier = Modifier.padding(
-                    start = 5.dp
-                ),
-                fontSize = 8.sp
-            )
+                SharedComposable.DefaultText(
+                    text = it,
+                    modifier = Modifier.padding(
+                        start = 5.dp
+                    ),
+                    fontSize = 8.sp
+                )
             }
         }
     }
