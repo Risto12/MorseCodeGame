@@ -21,8 +21,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.galaxy.morsecodegame.configurations.OptionsConfigurations
 import com.galaxy.morsecodegame.model.Options
-import com.galaxy.morsecodegame.ui.composables.SharedComposable
-import com.galaxy.morsecodegame.ui.composables.SharedComposable.DefaultButton
+import com.galaxy.morsecodegame.ui.composables.DefaultButton
+import com.galaxy.morsecodegame.ui.composables.DefaultButtonConfigurations
+import com.galaxy.morsecodegame.ui.composables.DefaultHeaderText
+import com.galaxy.morsecodegame.ui.composables.DefaultText
 import com.galaxy.morsecodegame.ui.theme.MorseCodeGameTheme
 import com.galaxy.morsecodegame.utility.DifficultLevels
 import com.galaxy.morsecodegame.utility.getStringUpper
@@ -153,7 +155,7 @@ private fun OptionsScreen(
         }
         item {
             DefaultButton(
-                SharedComposable.DefaultButtonConfigurations(
+                DefaultButtonConfigurations(
                     text = LocalContext.current.getStringUpper(R.string.common_save),
                     click = onSaveButtonClicked
                 ),
@@ -172,11 +174,11 @@ private fun TextWithSlider(
     sliderValueRange: ClosedFloatingPointRange<Float>,
     sliderTestTag: String
 ) {
-    SharedComposable.DefaultHeaderText(
+    DefaultHeaderText(
         text = headerText,
         fontSize = 20.sp
     )
-    SharedComposable.DefaultText(
+    DefaultText(
         text = sliderText,
         color = MaterialTheme.colors.primary
     )
@@ -208,7 +210,7 @@ fun DifficultLevelRadioButtonsWithText(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxWidth()
     ) {
-        SharedComposable.DefaultHeaderText(
+        DefaultHeaderText(
             text = headerText,
             fontSize = 20.sp,
             paddingBottom = 5.dp

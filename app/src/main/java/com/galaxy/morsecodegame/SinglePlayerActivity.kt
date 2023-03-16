@@ -29,10 +29,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.galaxy.morsecodegame.ui.composables.SharedComposable
-import com.galaxy.morsecodegame.ui.composables.SharedComposable.DefaultHeaderText
-import com.galaxy.morsecodegame.ui.composables.StatusBar
-import com.galaxy.morsecodegame.ui.composables.TelegraphImage
+import com.galaxy.morsecodegame.ui.composables.*
 import com.galaxy.morsecodegame.ui.theme.*
 import com.galaxy.morsecodegame.utility.*
 import com.galaxy.morsecodegame.viewModel.GameTimeViewModel
@@ -219,8 +216,8 @@ private fun SinglePlayerScreen(
             } else {
                 Modifier.align(Alignment.CenterEnd).padding(end = 50.dp).clip(CircleShape)
             }
-            SharedComposable.DefaultButton(
-                configurations = SharedComposable.DefaultButtonConfigurations(
+            DefaultButton(
+                configurations = DefaultButtonConfigurations(
                     text = LocalContext.current.getStringUpper(R.string.common_cancel),
                     click = onClickCancel
                 ),
@@ -267,7 +264,7 @@ private fun SinglePlayerScreen(
                             .padding(top = 2.dp, start = 5.dp, end = 5.dp, bottom = 2.dp),
                         enabled = !showCorrectAnswer
                     ) {
-                        SharedComposable.DefaultText(
+                        DefaultText(
                             possibleAnswer.uppercase(),
                             color = textColor,
                             fontFamily = FontFamily.Default

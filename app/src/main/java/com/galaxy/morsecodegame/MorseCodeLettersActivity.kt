@@ -20,7 +20,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.galaxy.morsecodegame.morsecode.MorseCodeLetter
-import com.galaxy.morsecodegame.ui.composables.SharedComposable
+import com.galaxy.morsecodegame.ui.composables.DefaultButton
+import com.galaxy.morsecodegame.ui.composables.DefaultButtonConfigurations
+import com.galaxy.morsecodegame.ui.composables.DefaultHeaderText
+import com.galaxy.morsecodegame.ui.composables.DefaultText
 import com.galaxy.morsecodegame.ui.theme.MorseCodeGameTheme
 import com.galaxy.morsecodegame.utility.getStringUpper
 import dagger.hilt.android.AndroidEntryPoint
@@ -70,8 +73,8 @@ fun MorseCodeLetters(
             .background(color = MaterialTheme.colors.background)
     ) {
         AnimatedVisibility(visible = showButton) {
-            SharedComposable.DefaultButton(
-                configurations = SharedComposable.DefaultButtonConfigurations(
+            DefaultButton(
+                configurations = DefaultButtonConfigurations(
                     text = localContext.getStringUpper(R.string.morse_letters_top),
                     click = {
                         morseCodeLetterScope.launch { listState.animateScrollToItem(0) }
@@ -114,7 +117,7 @@ fun MorseCodeLetters(
                 )
             }
             item {
-                SharedComposable.DefaultHeaderText(
+                DefaultHeaderText(
                     text = "Morse letters",
                     fontSize = 25.sp,
                     color = MaterialTheme.colors.onPrimary
@@ -128,7 +131,7 @@ fun MorseCodeLetters(
                         .replace("[", " = ")
                         .replace("]", " ")
                         .trimEnd()
-                    SharedComposable.DefaultText(
+                    DefaultText(
                         text = it.name + " " + units,
                         color = MaterialTheme.colors.onPrimary,
                         modifier = Modifier
@@ -146,8 +149,8 @@ fun MorseCodeLetters(
                 )
             }
         }
-        SharedComposable.DefaultButton(
-            configurations = SharedComposable.DefaultButtonConfigurations(
+        DefaultButton(
+            configurations = DefaultButtonConfigurations(
                 text = localContext.getStringUpper(R.string.common_back),
                 click = onClickBack
             ),
@@ -162,7 +165,7 @@ fun TextWithDividerOnBottom(
     text: String
 ) {
     Column(modifier = Modifier.padding(start = 5.dp, end = 5.dp)) {
-        SharedComposable.DefaultText(
+        DefaultText(
             text = topic,
             fontSize = 25.sp,
             modifier = Modifier
@@ -170,7 +173,7 @@ fun TextWithDividerOnBottom(
                 .align(Alignment.CenterHorizontally),
             color = MaterialTheme.colors.onPrimary
         )
-        SharedComposable.DefaultText(
+        DefaultText(
             text = text,
             fontSize = 15.sp,
             modifier = Modifier.padding(start = 10.dp, end = 10.dp),

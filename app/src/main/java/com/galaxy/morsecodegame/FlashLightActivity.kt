@@ -29,7 +29,8 @@ import androidx.lifecycle.lifecycleScope
 import com.galaxy.morsecodegame.components.ExceptionActivityResult.Companion.EXTRA_KEY_EXCEPTION_MESSAGE
 import com.galaxy.morsecodegame.components.ExceptionActivityResult.Companion.REQUEST_CODE_EXCEPTION
 import com.galaxy.morsecodegame.morsecode.MorseCodeLetter
-import com.galaxy.morsecodegame.ui.composables.SharedComposable
+import com.galaxy.morsecodegame.ui.composables.DefaultButton
+import com.galaxy.morsecodegame.ui.composables.DefaultButtonConfigurations
 import com.galaxy.morsecodegame.ui.composables.StatusBar
 import com.galaxy.morsecodegame.ui.theme.MorseCodeGameTheme
 import com.galaxy.morsecodegame.utility.ToastGenerator
@@ -215,8 +216,8 @@ fun SendMorseBox(
                         unbounded = true
                     )
             ) {
-                SharedComposable.DefaultButton(
-                    configurations = SharedComposable.DefaultButtonConfigurations(
+                DefaultButton(
+                    configurations = DefaultButtonConfigurations(
                         text = send,
                         click = {
                             if (inputText.isBlank()) {
@@ -230,8 +231,8 @@ fun SendMorseBox(
                     ),
                     modifier = Modifier.padding(end = 10.dp)
                 )
-                SharedComposable.DefaultButton(
-                    configurations = SharedComposable.DefaultButtonConfigurations(
+                DefaultButton(
+                    configurations = DefaultButtonConfigurations(
                         text = cancel,
                         click = onClickCancel
                     )

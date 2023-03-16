@@ -155,7 +155,7 @@ class MainActivity :
                             )
                         }
                     } else {
-                        SharedComposable.DefaultText(text = "Loading ...")
+                        DefaultText(text = "Loading ...")
                     }
                 }
             }
@@ -174,11 +174,11 @@ private fun SinglePlayerMenu(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        SharedComposable.Header6(
+        Header6(
             text = "Choose Morse type"
         )
         ButtonWithWarningInfoBox(
-            defaultButtonConfigurations = SharedComposable.DefaultButtonConfigurations(
+            defaultButtonConfigurations = DefaultButtonConfigurations(
                 text = localContext.getStringUpper(R.string.start_screen_blinking_light),
                 click = { onClickSinglePlayerType(GameType.LIGHT) }
             ),
@@ -188,7 +188,7 @@ private fun SinglePlayerMenu(
             warningText = localContext.getString(R.string.start_blinking_info_warning)
         )
         ButtonWithInfoBox(
-            defaultButtonConfigurations = SharedComposable.DefaultButtonConfigurations(
+            defaultButtonConfigurations = DefaultButtonConfigurations(
                 text = localContext.getStringUpper(R.string.start_screen_sound),
                 click = { },
                 available = false,
@@ -197,8 +197,8 @@ private fun SinglePlayerMenu(
             iconContentDescription = "Sound game mode info",
             infoText = localContext.getString(R.string.start_info_sound)
         )
-        SharedComposable.DefaultButton(
-            configurations = SharedComposable.DefaultButtonConfigurations(
+        DefaultButton(
+            configurations = DefaultButtonConfigurations(
                 text = localContext.getStringUpper(R.string.common_cancel),
                 click = onClickCancel
             )
@@ -218,11 +218,11 @@ private fun MultiplayerMenu(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        SharedComposable.Header6(
+        Header6(
             text = "Choose Morse type"
         )
         ButtonWithWarningInfoBox(
-            defaultButtonConfigurations = SharedComposable.DefaultButtonConfigurations(
+            defaultButtonConfigurations = DefaultButtonConfigurations(
                 text = localContext.getStringUpper(R.string.start_screen_flashlight),
                 click = { onClickFlashLight(GameType.FLASHLIGHT) },
                 available = true,
@@ -234,7 +234,7 @@ private fun MultiplayerMenu(
             warningText = localContext.getString(R.string.start_flashlight_info_warning)
         )
         ButtonWithInfoBox(
-            defaultButtonConfigurations = SharedComposable.DefaultButtonConfigurations(
+            defaultButtonConfigurations = DefaultButtonConfigurations(
                 text = localContext.getStringUpper(R.string.start_screen_bluetooth),
                 click = { },
                 available = false,
@@ -243,8 +243,8 @@ private fun MultiplayerMenu(
             iconContentDescription = "Bluetooth game mode info",
             infoText = localContext.getString(R.string.start_info_bluetooth)
         )
-        SharedComposable.DefaultButton(
-            configurations = SharedComposable.DefaultButtonConfigurations(
+        DefaultButton(
+            configurations = DefaultButtonConfigurations(
                 text = localContext.getStringUpper(R.string.common_cancel),
                 click = onClickCancel
             )
@@ -254,16 +254,16 @@ private fun MultiplayerMenu(
 
 @Composable
 fun ButtonWithInfoBox(
-    defaultButtonConfigurations: SharedComposable.DefaultButtonConfigurations,
+    defaultButtonConfigurations: DefaultButtonConfigurations,
     iconContentDescription: String,
     infoText: String
 ) {
     var infoPopUp by rememberSaveable { mutableStateOf(false) }
     Row {
         if (infoPopUp) InfoPopup(infoText = infoText) { infoPopUp = false }
-        SharedComposable.DefaultButton(configurations = defaultButtonConfigurations)
-        SharedComposable.DefaultButton(
-            configurations = SharedComposable.DefaultButtonComposableConfigurations(
+        DefaultButton(configurations = defaultButtonConfigurations)
+        DefaultButton(
+            configurations = DefaultButtonComposableConfigurations(
                 content = {
                     Icon(
                         imageVector = Icons.Default.Info,
@@ -282,7 +282,7 @@ fun ButtonWithInfoBox(
 
 @Composable
 fun ButtonWithWarningInfoBox(
-    defaultButtonConfigurations: SharedComposable.DefaultButtonConfigurations,
+    defaultButtonConfigurations: DefaultButtonConfigurations,
     iconContentDescription: String,
     infoHeader: String,
     infoText: String,
@@ -297,9 +297,9 @@ fun ButtonWithWarningInfoBox(
                 warningText = warningText
             ) { infoPopUp = false }
         }
-        SharedComposable.DefaultButton(configurations = defaultButtonConfigurations)
-        SharedComposable.DefaultButton(
-            configurations = SharedComposable.DefaultButtonComposableConfigurations(
+        DefaultButton(configurations = defaultButtonConfigurations)
+        DefaultButton(
+            configurations = DefaultButtonComposableConfigurations(
                 content = {
                     Icon(
                         imageVector = Icons.Default.Info,
@@ -341,37 +341,37 @@ private fun BoxScope.MainMenu(
         ) {
             item {
                 TelegraphImage(modifier = Modifier.padding(top = 10.dp, bottom = 25.dp))
-                SharedComposable.Header6(
+                Header6(
                     text = stringResource(R.string.app_name),
                     paddingBottom = 20.dp
                 )
-                SharedComposable.DefaultButton(
-                    configurations = SharedComposable.DefaultButtonConfigurations(
+                DefaultButton(
+                    configurations = DefaultButtonConfigurations(
                         text = localContext.getStringUpper(R.string.start_screen_single_player),
                         click = onClickSinglePlayer
                     )
                 )
-                SharedComposable.DefaultButton(
-                    configurations = SharedComposable.DefaultButtonConfigurations(
+                DefaultButton(
+                    configurations = DefaultButtonConfigurations(
                         text = localContext.getStringUpper(R.string.start_screen_multiplayer),
                         click = onClickMultiplayer,
                         available = true
                     )
                 )
-                SharedComposable.DefaultButton(
-                    configurations = SharedComposable.DefaultButtonConfigurations(
+                DefaultButton(
+                    configurations = DefaultButtonConfigurations(
                         text = localContext.getStringUpper(R.string.start_screen_morse_code),
                         click = onClickMorseCode
                     )
                 )
-                SharedComposable.DefaultButton(
-                    configurations = SharedComposable.DefaultButtonConfigurations(
+                DefaultButton(
+                    configurations = DefaultButtonConfigurations(
                         text = localContext.getStringUpper(R.string.start_screen_options),
                         click = onClickOptions
                     )
                 )
-                SharedComposable.DefaultButton(
-                    configurations = SharedComposable.DefaultButtonConfigurations(
+                DefaultButton(
+                    configurations = DefaultButtonConfigurations(
                         text = localContext.getStringUpper(R.string.start_screen_exit),
                         click = onClickExit
                     )
@@ -380,7 +380,7 @@ private fun BoxScope.MainMenu(
         }
     }
     if (LocalConfiguration.current.orientation.isPortrait()) {
-        SharedComposable.DefaultText(
+        DefaultText(
             text = "v$version",
             fontSize = 15.sp,
             modifier = Modifier
