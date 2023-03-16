@@ -21,6 +21,8 @@ data class WarningPopup(
     fun showPopup(): Boolean = !isClicked && !isDisabled
 }
 
+const val WARNING_DATA_STORE_KEY = "main_popup_warning"
+
 @HiltViewModel
 class WarningViewModel @Inject constructor(private val popupWarningRepository: WarningRepository) : ViewModel() {
 
@@ -46,13 +48,6 @@ class WarningViewModel @Inject constructor(private val popupWarningRepository: W
         }
     }
 
-    // TODO remove when testing done
-    fun activateWarning() {
-        viewModelScope.launch {
-            popupWarningRepository.save(mainWarning, false)
-        }
-    }
-
     fun disableWarning() {
         viewModelScope.launch {
             popupWarningRepository.save(mainWarning, true)
@@ -69,6 +64,6 @@ class WarningViewModel @Inject constructor(private val popupWarningRepository: W
     }
 
     companion object {
-        val mainWarning = booleanPreferencesKey("main_popup_warning")
+        val mainWarning = booleanPreferencesKey(WARNING_DATA_STORE_KEY)
     }
 }

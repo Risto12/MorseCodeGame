@@ -1,7 +1,7 @@
 package com.galaxy.morsecodegame.di.modules
 
-import com.galaxy.morsecodegame.repository.WarningDataStore
-import com.galaxy.morsecodegame.repository.WarningDataStoreImpl
+import com.galaxy.morsecodegame.db.WarningDataStore
+import com.galaxy.morsecodegame.db.WarningDataStoreImpl
 import com.galaxy.morsecodegame.repository.WarningRepository
 import com.galaxy.morsecodegame.repository.WarningRepositoryImpl
 import dagger.Binds

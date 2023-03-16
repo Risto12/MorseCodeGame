@@ -31,7 +31,7 @@ class PathInstrumentedTest {
 
     @After
     fun cleaning() {
-        FakeDb.resetDb()
+        FakeDb.reset()
     }
 
     private val flashingAndBlinkingMaxWpm = "wpm: $MAX_WPM"

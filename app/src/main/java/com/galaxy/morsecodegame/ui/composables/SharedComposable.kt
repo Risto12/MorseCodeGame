@@ -21,6 +21,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
@@ -294,6 +295,7 @@ fun InfoWarningDisclaimerPopup(
                         fontSize = 12.sp
                     )
                 },
+                checkBoxTestTag = "disclaimerCheckBox",
                 onStateChange = { onStateChange = it },
                 rowModifier = if (LocalConfiguration.current.orientation.isPortrait()) {
                     Modifier.padding(top = 90.dp, bottom = 10.dp)
@@ -493,6 +495,7 @@ fun SwitchWithText(
 fun CheckBoxWithText(
     text: @Composable() () -> Unit,
     onStateChange: (Boolean) -> Unit,
+    checkBoxTestTag: String = "checkBoxTestTag",
     rowModifier: Modifier = Modifier
 ) {
     var onCheckChange by rememberSaveable { mutableStateOf(false) }
@@ -501,10 +504,14 @@ fun CheckBoxWithText(
         modifier = rowModifier
     ) {
         text()
-        Checkbox(checked = onCheckChange, onCheckedChange = {
-            onCheckChange = it
-            onStateChange(it)
-        })
+        Checkbox(
+            checked = onCheckChange,
+            onCheckedChange = {
+                onCheckChange = it
+                onStateChange(it)
+            },
+            modifier = Modifier.testTag(checkBoxTestTag)
+        )
     }
 }
 

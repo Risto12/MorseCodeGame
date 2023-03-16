@@ -39,7 +39,7 @@ object FakeDb {
         }
     }
 
-    fun resetDb() {
+    fun reset() {
         db.optionsDao().updateOptions(defaultOptions)
     }
 }

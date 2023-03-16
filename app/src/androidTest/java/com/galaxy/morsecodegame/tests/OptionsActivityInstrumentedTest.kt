@@ -27,7 +27,7 @@ class OptionsActivityInstrumentedTest {
 
     @After
     fun cleaning() {
-        FakeDb.resetDb()
+        FakeDb.reset()
     }
 
     @Test

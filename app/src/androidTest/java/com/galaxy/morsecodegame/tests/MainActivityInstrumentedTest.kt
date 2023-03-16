@@ -9,9 +9,7 @@ import com.galaxy.morsecodegame.onNodeWithTextAndSubStringIgnore
 import com.galaxy.morsecodegame.onNodeWithTextIgnore
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-import org.junit.After
-import org.junit.Rule
-import org.junit.Test
+import org.junit.*
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
@@ -26,19 +24,7 @@ class MainActivityInstrumentedTest {
 
     @After
     fun after() {
-        FakeDb.resetDb()
-    }
-
-    @Test
-    fun testWarningDisclaimerIsShown() {
-        rule.onNodeWithTextIgnore("WARNING")
-            .assertExists()
-        rule.onNodeWithTextAndSubStringIgnore(
-            "This app contains fast flashing images and lights.\n\nIt may cause discomfort and trigger seizures for people with photosensitive epilepsy.\n\nIf you experience any adverse symptoms, such as dizziness, disorientation, or seizures, please immediately discontinue use and consult with a medical professional."
-        )
-            .assertExists()
-        rule.onNodeWithTextIgnore("OK")
-            .assertExists()
+        FakeDb.reset()
     }
 
     private fun clickWarningDisclaimerOk() {

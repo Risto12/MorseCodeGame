@@ -5,9 +5,9 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStoreFile
+import com.galaxy.morsecodegame.db.WarningDataStore
 import com.galaxy.morsecodegame.di.modules.WarningPreferencesDatastoreModule
 import com.galaxy.morsecodegame.di.modules.WarningRepositoryModule
-import com.galaxy.morsecodegame.repository.WarningDataStore
 import com.galaxy.morsecodegame.repository.WarningRepository
 import com.galaxy.morsecodegame.repository.WarningRepositoryImpl
 import dagger.Binds

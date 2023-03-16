@@ -1,4 +1,4 @@
-package com.galaxy.morsecodegame.repository
+package com.galaxy.morsecodegame.db
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -6,7 +6,8 @@ import androidx.datastore.preferences.core.edit
 import javax.inject.Inject
 import kotlinx.coroutines.flow.first
 
-class WarningDataStoreImpl @Inject constructor(private val dataStore: DataStore<Preferences>) : WarningDataStore {
+class WarningDataStoreImpl @Inject constructor(private val dataStore: DataStore<Preferences>) :
+    WarningDataStore {
     override suspend fun save(key: Preferences.Key<Boolean>, disable: Boolean) {
         dataStore.edit {
             it[key] = disable
