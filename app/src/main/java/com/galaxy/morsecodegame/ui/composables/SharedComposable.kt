@@ -283,30 +283,23 @@ fun InfoWarningDisclaimerPopup(
             )
         }
         item {
-            val switchModifier = if (LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                Modifier.padding(
-                    start = 5.dp,
-                    top = 100.dp,
-                    bottom = 10.dp,
-                    end = 5.dp
-                )
+            val checkBoxModifier = if(LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                Modifier.padding(top = 70.dp, bottom = 10.dp)
             } else {
-                Modifier.padding(
-                    start = 5.dp,
-                    top = 25.dp,
-                    bottom = 10.dp,
-                    end = 5.dp
-                )
+                Modifier.padding(top = 20.dp, bottom = 10.dp)
             }
-            SwitchWithText(
+            CheckBoxWithText(
                 text = {
                     SharedComposable.DefaultText(
                         text = localContext.getString(R.string.common_switch_dont_show),
-                        modifier = switchModifier,
-                        fontSize = 12.sp
+                        modifier = Modifier.padding(
+                            start = 10.dp
+                        ),
+                        fontSize = 12.sp,
                     )
                 },
-                onStateChange = { onStateChange = it }
+                onStateChange = { onStateChange = it },
+                rowModifier = checkBoxModifier
             )
             SharedComposable.DefaultText(
                 text = localContext.getStringUpper(R.string.common_ok),
@@ -441,10 +434,16 @@ fun InfoWarningPopup(
     }
 }
 
+data class SwitchTexts(
+    val left: String? = null,
+    val right: String? = null
+)
+
 @Composable
 fun SwitchWithText(
     text: @Composable() () -> Unit,
-    onStateChange: (Boolean) -> Unit
+    onStateChange: (Boolean) -> Unit,
+    switchTexts: SwitchTexts = SwitchTexts()
 ) {
     var checkedState by rememberSaveable { mutableStateOf(false) }
     val localContext = LocalContext.current
@@ -454,14 +453,15 @@ fun SwitchWithText(
         text()
         Row(
             verticalAlignment = Alignment.CenterVertically
-        ) {
+        ) {switchTexts.left?.let {
             SharedComposable.DefaultText(
-                text = localContext.getString(R.string.common_on),
+                text = it,
                 modifier = Modifier.padding(
                     end = 5.dp
                 ),
                 fontSize = 8.sp
             )
+        }
             Switch(
                 checked = checkedState,
                 onCheckedChange = {
@@ -475,14 +475,35 @@ fun SwitchWithText(
                     checkedThumbColor = MaterialTheme.colors.background
                 )
             )
+            switchTexts.right?.let {
             SharedComposable.DefaultText(
-                text = localContext.getString(R.string.common_off),
+                text = it,
                 modifier = Modifier.padding(
                     start = 5.dp
                 ),
                 fontSize = 8.sp
             )
+            }
         }
+    }
+}
+
+@Composable
+fun CheckBoxWithText(
+    text: @Composable() () -> Unit,
+    onStateChange: (Boolean) -> Unit,
+    rowModifier: Modifier = Modifier
+) {
+    var onCheckChange by rememberSaveable { mutableStateOf(false) }
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = rowModifier
+    ) {
+        text()
+        Checkbox(checked = onCheckChange, onCheckedChange = {
+            onCheckChange = it
+            onStateChange(it)
+        })
     }
 }
 
