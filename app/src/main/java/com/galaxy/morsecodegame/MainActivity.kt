@@ -430,7 +430,7 @@ fun MainActivityPreview() {
                     onClickOptions = { },
                     onClickExit = { },
                     onClickMorseCode = { },
-                    "1.0a"
+                    "1.2a"
                 )
             }
         }
