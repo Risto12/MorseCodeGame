@@ -16,7 +16,6 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.drawscope.ContentDrawScope
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -30,7 +29,6 @@ import com.galaxy.morsecodegame.ui.theme.MorseCodeGameTheme
 import com.galaxy.morsecodegame.ui.theme.VintageGreen
 import com.galaxy.morsecodegame.utility.*
 import com.galaxy.morsecodegame.viewModel.OptionsViewModel
-import com.galaxy.morsecodegame.viewModel.WarningPopup
 import com.galaxy.morsecodegame.viewModel.WarningViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -119,62 +117,63 @@ class MainActivity :
             var singlePlayerClicked by rememberSaveable { mutableStateOf(false) }
             var multiplayerClicked by rememberSaveable { mutableStateOf(false) }
             val mainAlignment = with(
-                LocalConfiguration.current) {
-                if(orientation.isPortrait() && screenHeightDp.isSmallOrientationScreen(false))
-                   Alignment.TopCenter
-                else
+                LocalConfiguration.current
+            ) {
+                if (orientation.isPortrait() && screenHeightDp.isSmallOrientationScreen(false)) {
+                    Alignment.TopCenter
+                } else {
                     Alignment.Center
+                }
             }
             MorseCodeGameTheme {
-                            Box(
-                                contentAlignment = mainAlignment,
-                                modifier = Modifier
-                                    .background(color = MaterialTheme.colors.background)
-                                    .fillMaxSize()
-                            ) {
-                                if (!loadingOptions) {
-                                    if (warningInfoBox.showPopup()) {
-                                        InfoWarningDisclaimerPopup(
-                                            infoText = LocalContext.current.getString(
-                                                R.string.start_disclaimer_warning
-                                            ),
-                                            onClickOk = { disableWarning ->
-                                                if (disableWarning) warningViewModel.disableWarning()
-                                                warningViewModel.closeWindowPopup()
-                                            },
-                                            onClickCancel = exit
-                                        )
-                                    }
-                                    when {
-                                        singlePlayerClicked -> SinglePlayerMenu(
-                                            onClickSinglePlayerType = setLoadingOptions(singlePlayer),
-                                            onClickCancel = { singlePlayerClicked = false }
-                                        )
-                                        multiplayerClicked -> MultiplayerMenu(
-                                            onClickCancel = { multiplayerClicked = false },
-                                            onClickBluetooth = {},
-                                            onClickFlashLight = setLoadingOptions(multiplayer)
-                                        )
-                                        else -> MainMenu(
-                                            onClickSinglePlayer = { singlePlayerClicked = true },
-                                            onClickMultiplayer = { multiplayerClicked = true },
-                                            onClickOptions = options,
-                                            onClickMorseCode = morseCode,
-                                            onClickExit = exit,
-                                            version = infoTextConfigurations.appVersion
-                                        )
-                                    }
-                                } else {
-                                    DefaultText(text = "Loading ...")
-                                }
-                            }
+                Box(
+                    contentAlignment = mainAlignment,
+                    modifier = Modifier
+                        .background(color = MaterialTheme.colors.background)
+                        .fillMaxSize()
+                ) {
+                    if (!loadingOptions) {
+                        if (warningInfoBox.showPopup()) {
+                            InfoWarningDisclaimerPopup(
+                                infoText = LocalContext.current.getString(
+                                    R.string.start_disclaimer_warning
+                                ),
+                                onClickOk = { disableWarning ->
+                                    if (disableWarning) warningViewModel.disableWarning()
+                                    warningViewModel.closeWindowPopup()
+                                },
+                                onClickCancel = exit
+                            )
                         }
+                        when {
+                            singlePlayerClicked -> SinglePlayerMenu(
+                                onClickSinglePlayerType = setLoadingOptions(
+                                    singlePlayer
+                                ),
+                                onClickCancel = { singlePlayerClicked = false }
+                            )
+                            multiplayerClicked -> MultiplayerMenu(
+                                onClickCancel = { multiplayerClicked = false },
+                                onClickBluetooth = {},
+                                onClickFlashLight = setLoadingOptions(multiplayer)
+                            )
+                            else -> MainMenu(
+                                onClickSinglePlayer = { singlePlayerClicked = true },
+                                onClickMultiplayer = { multiplayerClicked = true },
+                                onClickOptions = options,
+                                onClickMorseCode = morseCode,
+                                onClickExit = exit,
+                                version = infoTextConfigurations.appVersion
+                            )
+                        }
+                    } else {
+                        DefaultText(text = "Loading ...")
+                    }
+                }
             }
         }
     }
-
-
-
+}
 
 @Composable
 private fun SinglePlayerMenu(
@@ -340,7 +339,7 @@ private fun BoxScope.MainMenu(
 ) {
     val localContext = LocalContext.current
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         LazyColumn(
             modifier = Modifier

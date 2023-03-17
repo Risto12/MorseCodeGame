@@ -2,7 +2,6 @@ package com.galaxy.morsecodegame.utility
 
 import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.util.Log
 import androidx.annotation.StringRes
 import com.galaxy.morsecodegame.CommonIntentExtraKeys
@@ -72,4 +71,3 @@ fun Properties.getConfigurationGeneratorPropertiesAsMap(
     }
     return map.toMap()
 }
-

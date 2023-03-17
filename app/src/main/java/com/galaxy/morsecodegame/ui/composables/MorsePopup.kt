@@ -25,7 +25,6 @@ import com.galaxy.morsecodegame.ui.theme.VintageGreen
 import com.galaxy.morsecodegame.ui.theme.VintageRedDark
 import com.galaxy.morsecodegame.utility.getStringUpper
 
-
 fun Modifier.addBigPopupSize(configuration: Configuration): Modifier {
     return if (configuration.orientation.isPortrait()) {
         if (configuration.screenWidthDp.isSmallOrientationScreen()) {

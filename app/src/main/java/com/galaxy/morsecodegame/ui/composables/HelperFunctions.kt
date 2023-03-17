@@ -2,9 +2,8 @@ package com.galaxy.morsecodegame.ui.composables
 
 import android.content.res.Configuration
 
-
 fun Int.isSmallOrientationScreen(fromWidth: Boolean = true): Boolean {
-    val bigOrientationScreen = if(fromWidth) 500 else 800
+    val bigOrientationScreen = if (fromWidth) 500 else 800
     return this < bigOrientationScreen
 }
 
