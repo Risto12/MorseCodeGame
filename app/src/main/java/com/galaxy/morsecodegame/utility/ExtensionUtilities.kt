@@ -73,4 +73,3 @@ fun Properties.getConfigurationGeneratorPropertiesAsMap(
     return map.toMap()
 }
 
-fun Int.isPortrait(): Boolean = this == Configuration.ORIENTATION_PORTRAIT

@@ -24,13 +24,11 @@ import com.galaxy.morsecodegame.R
 import com.galaxy.morsecodegame.ui.theme.VintageGreen
 import com.galaxy.morsecodegame.ui.theme.VintageRedDark
 import com.galaxy.morsecodegame.utility.getStringUpper
-import com.galaxy.morsecodegame.utility.isPortrait
+
 
 fun Modifier.addBigPopupSize(configuration: Configuration): Modifier {
-    val bigOrientationScreen = 500
-    val bigLandScapeScreen = 900
-    return if (configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-        if (configuration.screenWidthDp < bigOrientationScreen) {
+    return if (configuration.orientation.isPortrait()) {
+        if (configuration.screenWidthDp.isSmallOrientationScreen()) {
             this
                 .fillMaxWidth(0.8f)
                 .fillMaxHeight(0.85f)
@@ -42,7 +40,7 @@ fun Modifier.addBigPopupSize(configuration: Configuration): Modifier {
                 .padding(top = 10.dp)
         }
     } else {
-        if (configuration.screenWidthDp < bigLandScapeScreen) {
+        if (configuration.screenWidthDp.isSmallLandScapeScreen()) {
             this
                 .fillMaxWidth(0.8f)
                 .fillMaxHeight(0.85f)
