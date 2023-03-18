@@ -68,10 +68,12 @@ class FlashlightActivity : ComponentActivity() {
 
     override fun onPause() {
         super.onPause()
-        if (flashingJob != null && flashingJob!!.isActive) {
-            flashingJob?.cancel(
-                TorchCancelledException("Torch cancelled due to onPause called")
-            )
+        flashingJob?.run {
+            if (isActive) {
+                cancel(
+                    TorchCancelledException("Torch cancelled due to onPause called")
+                )
+            }
         }
     }
 
