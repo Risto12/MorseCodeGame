@@ -6,4 +6,7 @@ import android.widget.Toast
 object ToastGenerator {
     fun showLongText(context: Context, text: String) =
         Toast.makeText(context, text, Toast.LENGTH_LONG).show()
+
+    fun showShortText(context: Context, text: String) =
+        Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
 }

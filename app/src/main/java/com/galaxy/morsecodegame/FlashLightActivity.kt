@@ -170,10 +170,11 @@ fun SendMorseBox(
                 .background(MaterialTheme.colors.background),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            val localContext = LocalContext.current
             val insertText = LocalContext.current.getString(R.string.flash_light_insert_text)
             val cantBeEmpty = LocalContext.current.getString(R.string.flash_light_empty_value)
-            val cancel = LocalContext.current.getStringUpper(R.string.common_cancel)
-            val send = LocalContext.current.getStringUpper(R.string.common_send)
+            val cancel = localContext.getStringUpper(R.string.common_cancel)
+            val send = localContext.getStringUpper(R.string.common_send)
 
             var inputText by rememberSaveable { mutableStateOf("") }
             var placeHolderText by remember { mutableStateOf(insertText) }
@@ -193,7 +194,14 @@ fun SendMorseBox(
             }
             TextField(
                 value = inputText,
-                onValueChange = { text -> inputText = text },
+                onValueChange = { text ->
+                    if (text.length > 70) {
+                        ToastGenerator.showShortText(
+                            localContext,
+                            localContext.getString(R.string.flash_light_max_characters)
+                        )
+                    } else { inputText = text }
+                },
                 placeholder = @Composable {
                     Text(
                         text = placeHolderText,

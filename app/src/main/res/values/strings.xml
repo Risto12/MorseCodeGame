@@ -36,6 +36,7 @@
     <string name="flash_light_not_supported_characters">The input contains not supported characters. Supported characters are </string>
     <string name="flash_light_empty_value">This value can\'t be empty. Please insert text</string>
     <string name="flash_light_insert_text">Insert text which you want to morse with your phone\'s flashlight</string>
+    <string name="flash_light_max_characters">Maximum number of characters reached</string>
 
     <string name="start_screen_sound">SOUND</string>
     <string name="start_screen_single_player">SINGLE PLAYER</string>

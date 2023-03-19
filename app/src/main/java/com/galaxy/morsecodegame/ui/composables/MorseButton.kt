@@ -39,7 +39,7 @@ fun DefaultButton(
     modifier: Modifier = Modifier.padding(bottom = 15.dp)
 ) {
     val (color, textDecoration) = if (configurations.available) {
-        Pair(MaterialTheme.colors.onPrimary, null)
+        Pair(MaterialTheme.colors.onPrimary, TextDecoration.None)
     } else {
         Pair(MaterialTheme.colors.onPrimary, TextDecoration.LineThrough)
     }
