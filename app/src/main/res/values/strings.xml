@@ -32,7 +32,7 @@
     minute.\n\nSource: MorseCode.world</string>
     <string name="morse_letters_example">Coming</string>
     <string name="flash_light_unknown_issue">An unknown issue occurred. Returning to menu</string>
-    <string name="flash_light_not_supported">Your phone doesn\'t support flashlight</string>
+    <string name="flash_light_not_supported">Your phone doesn\'t support torch(flashlight)</string>
     <string name="flash_light_not_supported_characters">The input contains not supported characters. Supported characters are </string>
     <string name="flash_light_empty_value">This value can\'t be empty. Please insert text</string>
     <string name="flash_light_insert_text">Insert text which you want to morse with your phone\'s flashlight</string>

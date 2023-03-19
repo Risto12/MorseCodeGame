@@ -122,7 +122,7 @@ class FlashlightActivity : ComponentActivity() {
                     } catch (e: Exception) {
                         Log.e(
                             FLASH_ACTIVITY_LOG_TAG,
-                            "Exception when accessing camera",
+                            "Exception when accessing torch",
                             e
                         )
                         ToastGenerator.showLongText(this@FlashlightActivity, unknownIssueText)
