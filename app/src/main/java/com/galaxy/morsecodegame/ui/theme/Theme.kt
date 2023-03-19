@@ -48,7 +48,9 @@ fun MorseCodeGameTheme(
     content: @Composable () -> Unit
 ) {
     val colors = if (darkTheme) {
-        VintageRustyBlueColorPalette
+        // Needs some fine tuning
+        // VintageRustyBlueColorPalette
+        VintageStrawberryCupcakeColorPalette
     } else {
         VintageStrawberryCupcakeColorPalette
     }
