@@ -31,3 +31,9 @@ val VintageGreenBright = Color(0xFF90C5C3)
 val VintageGreenDark = Color(0xFF76B3AF)
 
 val VintageYellow = Color(0xFFF8F6A3)
+
+// Retro vintage colors
+val RetroVintageRed = Color(0xFFF02676)
+val RetroVintagePurple = Color(0xFFC66DF1)
+val RetroVintageBlue = Color(0xFF7FA0F7)
+val RetroVintageGreen = Color(0xFF7EFFF3)
