@@ -16,10 +16,7 @@ Flashing light mode were one person can use phones flashlight to send morse code
 
 ### Themes
 There are two color themes:
-    Dark theme(Vintage blue rusty) and bright theme (Vintage strawberry cupcake). See pictures below.
-
-### Note
-Check the MEMO file for the current situation and future development ideas
+    Dark theme(Vintage blue rusty) and bright theme (Vintage strawberry cupcake). See pictures below. !Note: Only bright theme is enabled because dark theme needs design adjustments.
 
 ___
 Bright theme - Vintage strawberry cupcake
