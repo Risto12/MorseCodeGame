@@ -62,7 +62,7 @@ object MorseCodeConverter {
         return if (separatedWords.size > 1) {
             wordsToMorseCode(separatedWords)
         } else {
-            wordToMorseCode(separatedWords.first()) // TODO there is still illegal character in here when using hard difficult level
+            wordToMorseCode(separatedWords.first())
         }
     }
 
