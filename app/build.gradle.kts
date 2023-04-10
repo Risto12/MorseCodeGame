@@ -21,7 +21,7 @@ android {
         applicationId = "com.galaxy.morsecodegame"
         minSdk = 31
         //noinspection OldTargetApi
-        targetSdk = 33
+        targetSdk = 31 // Tested with real device that had version 31
         versionCode = 1
         versionName = "1.2"
 
@@ -40,13 +40,13 @@ android {
     buildTypes {
         debug {
             isDebuggable = true
-            isMinifyEnabled = false
             buildConfigField("Boolean", "DEBUG_MODE", "true")
         }
         release {
             buildConfigField("Boolean", "DEBUG_MODE", "false")
             isMinifyEnabled = true
             isDebuggable = false
+            isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
