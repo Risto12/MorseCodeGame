@@ -7,6 +7,6 @@ By using the app Morse code game you are consenting to our policies regarding th
 We do not collect, store, use or share any personal information.
 
 <br>
-<h3>Contacting Me</h3>
+<h3>Contacting Us</h3>
 
-If you have any questions please contact me by email vesanto.dev@gmail.com
+If you have any questions please contact us by email vesanto.dev@gmail.com
