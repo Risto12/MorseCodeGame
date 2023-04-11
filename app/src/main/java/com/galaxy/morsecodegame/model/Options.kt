@@ -2,10 +2,10 @@ package com.galaxy.morsecodegame.model
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.annotation.Keep
 import com.galaxy.morsecodegame.db.entity.OptionsEntity
 import com.galaxy.morsecodegame.utility.DifficultLevels
 import kotlinx.serialization.*
-import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 
 const val OPTIONS_ID = 1
@@ -16,6 +16,7 @@ private fun String.toDifficultLevel() = DifficultLevels.values().first { it.name
  * Adapter class to convert OptionsViewModel to OptionsEntity with
  * JSON serialization and Parcelable serialization to pass Options in Intent
  ***/
+@Keep
 @Serializable
 data class Options(
     var gameTimeInMinutes: Int,

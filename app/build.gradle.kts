@@ -1,5 +1,5 @@
-import java.util.Properties
 import java.io.FileInputStream
+import java.util.Properties
 
 plugins {
     id("com.android.application")
@@ -21,7 +21,6 @@ val keystorePropertiesFile = rootProject.file("keystore.properties")
 val keystoreProperties = Properties()
 keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 
-
 android {
     signingConfigs {
         create("release") {
@@ -39,7 +38,7 @@ android {
         //noinspection OldTargetApi
         targetSdk = 31 // Tested with real device that had version 31
         versionCode = 1
-        versionName = "1.2"
+        versionName = "1.2.1"
 
         testInstrumentationRunner = "com.galaxy.morsecodegame.MorseCodeGameTestRunner"
 
@@ -64,7 +63,10 @@ android {
             isMinifyEnabled = true
             isDebuggable = false
             isShrinkResources = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -136,4 +138,3 @@ dependencies {
     androidTestImplementation("com.google.dagger:hilt-android-testing:$hiltVersion")
     kaptAndroidTest("com.google.dagger:hilt-android-compiler:$hiltVersion")
 }
-
