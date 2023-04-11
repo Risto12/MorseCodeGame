@@ -37,7 +37,7 @@ android {
         minSdk = 31
         //noinspection OldTargetApi
         targetSdk = 31 // Tested with real device that had version 31
-        versionCode = 1
+        versionCode = 2
         versionName = "1.2.1"
 
         testInstrumentationRunner = "com.galaxy.morsecodegame.MorseCodeGameTestRunner"
